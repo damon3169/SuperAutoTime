@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: -8036215692215467713}
   - component: {fileID: -7763180255456165501}
   m_Layer: 0
-  m_Name: Monstre
+  m_Name: Monstre 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,11 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593022617365727449515c39c19029e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  damages: 100
+  health: 150
+  damages: 20
   positionOnBoard: 0
   player: {fileID: 0}
   spriteSelected: {fileID: 3040825515064315282}
+  boardFather: {fileID: 0}
 --- !u!212 &-8036215692215467713
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -178,7 +179,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.18867922, g: 0.0970096, b: 0.0970096, a: 1}
+  m_Color: {r: 0.9433962, g: 0.022249907, b: 0.022249907, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

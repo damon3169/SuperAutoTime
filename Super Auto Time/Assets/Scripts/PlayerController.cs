@@ -29,11 +29,12 @@ public class PlayerController : NetworkBehaviour
     public bool isBattlePhase = false;
     [SyncVar]
     public bool isShopPhase = true;
-    public float shopPhaseDuration = 3;
+    public float shopPhaseDuration = 30;
 
     private TextMeshProUGUI timerDisplay;
     [SyncVar]
     public bool readyToBegin = false;
+    public GameObject selectedObject;
 
     // Start is called before the first frame update
     public override void OnStartClient()
@@ -61,14 +62,14 @@ public class PlayerController : NetworkBehaviour
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    foreach (TimeUnite unite in boardList)
-                    {
-                        addNewUnite(unite.name, unite.health, unite.damages);
-                    }
+                    /* foreach (TimeUnite unite in boardList)
+                     {
+                         addNewUnite(unite.name, unite.health, unite.damages);
+                     }*/
                 }
                 if (Input.GetMouseButtonDown(1))
                 {
-                    RemoveUnite(0);
+                    removeSelectedObject();
                 }
                 if (board.Count > 0)
                 {
@@ -77,7 +78,7 @@ public class PlayerController : NetworkBehaviour
                         Debug.Log("name=" + unite.name + " health =" + unite.health.ToString() + "damages= " + unite.damages.ToString());
                     }
                 }
-                if(isBattlePhase)
+                if (isBattlePhase)
                 {
                     //Switch scene et lancer le fight
                 }
@@ -106,6 +107,7 @@ public class PlayerController : NetworkBehaviour
                 if (isReadyToBattle)
                 {
                     Debug.Log("GOD C'ETAIT TROP CHIANT MAIS CA MARCHE ENFIN PUTAIN");
+                    removeSelectedObject();
                     setBattlePhase(true);
                 }
             }
@@ -177,4 +179,12 @@ public class PlayerController : NetworkBehaviour
     }
 
 
+    public void removeSelectedObject()
+    {
+        if (selectedObject != null)
+        {
+            selectedObject.GetComponent<TimeUnite>().spriteSelected.enabled = false;
+        }
+        selectedObject=null;
+    }
 }

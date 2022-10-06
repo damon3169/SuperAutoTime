@@ -71,8 +71,9 @@ MonoBehaviour:
   boardList: []
   isBattlePhase: 0
   isShopPhase: 1
-  shopPhaseDuration: 3
+  shopPhaseDuration: 1000
   readyToBegin: 0
+  selectedObject: {fileID: 0}
 --- !u!136 &2605215421764271326
 CapsuleCollider:
   m_ObjectHideFlags: 0
