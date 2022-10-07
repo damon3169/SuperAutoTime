@@ -68,10 +68,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  shop: {fileID: 0}
   boardList: []
+  round: 1
   isBattlePhase: 0
   isShopPhase: 1
-  shopPhaseDuration: 1000
+  shopPhaseDuration: 10
   readyToBegin: 0
   selectedObject: {fileID: 0}
 --- !u!136 &2605215421764271326

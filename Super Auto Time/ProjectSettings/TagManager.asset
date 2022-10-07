@@ -6,6 +6,9 @@ TagManager:
   tags:
   - timerUI
   - NetworkManager
+  - ItemShopSlot
+  - UniteShopSlot
+  - Shop
   layers:
   - Default
   - TransparentFX

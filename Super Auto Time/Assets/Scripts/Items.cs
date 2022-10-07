@@ -2,19 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeUnite : MonoBehaviour
+public class Items : MonoBehaviour
 {
-    public int health;
-    public int damages;
-    public PlayerController player;
+     public PlayerController player;
     public SpriteRenderer spriteSelected;
-    public boardController boardFather;
-    public string nameUnite = "Empty";
-    public int level = 1;
-    public int cost = 3;
-
-    public GameObject itemEquipped;
-
+    public TimeUnite equippedUnite;
+    public string nameItem = "Empty_item";
     // Start is called before the first frame update
     void Start()
     {
@@ -49,19 +42,6 @@ public class TimeUnite : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void onEndPurchasePhase()
-    {
-
-    }
-    public void onBeginPurchasePhase()
-    {
-
-    }
-    public void onBeginBattlePhase()
-    {
-
     }
 
     public void selectObject()
