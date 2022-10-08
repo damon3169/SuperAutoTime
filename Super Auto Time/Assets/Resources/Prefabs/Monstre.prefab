@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7433907624268612068}
   - component: {fileID: 7433907624268612069}
   - component: {fileID: -8036215692215467713}
-  - component: {fileID: -7763180255456165501}
+  - component: {fileID: 3883479168496623976}
   m_Layer: 0
   m_Name: Monstre
   m_TagString: Untagged
@@ -132,13 +132,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593022617365727449515c39c19029e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameUnite: Monstre
   health: 100
   damages: 100
   player: {fileID: 0}
   spriteSelected: {fileID: 3040825515064315282}
   boardFather: {fileID: 0}
   level: 1
-  itemEquipped: {fileID: 7512644297973316265}
+  cost: 3
+  triggerList: 1
 --- !u!212 &-8036215692215467713
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -191,22 +193,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &-7763180255456165501
-CircleCollider2D:
+--- !u!135 &3883479168496623976
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7433907624268612066}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1110363491678124875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -280,11 +279,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b66750657be4e954da82852973e05d6e, type: 3}
---- !u!1 &7512644297973316265 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7433907624268612066, guid: b66750657be4e954da82852973e05d6e, type: 3}
-  m_PrefabInstance: {fileID: 1110363491678124875}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7512644297973316271 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7433907624268612068, guid: b66750657be4e954da82852973e05d6e, type: 3}

@@ -9,6 +9,9 @@ TagManager:
   - ItemShopSlot
   - UniteShopSlot
   - Shop
+  - boardSlot
+  - Board
+  - BoardSlotE
   layers:
   - Default
   - TransparentFX

@@ -68,6 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  moneyLeft: 0
   shop: {fileID: 0}
   boardList: []
   round: 1
@@ -76,6 +77,8 @@ MonoBehaviour:
   shopPhaseDuration: 10
   readyToBegin: 0
   selectedObject: {fileID: 0}
+  arenaPostion: {x: 4.01, y: -3.5, z: 0}
+  startTimeMovement: 0
 --- !u!136 &2605215421764271326
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -10,13 +10,13 @@ public class ShopController : MonoBehaviour
     public List<float> ListUnitePourcentageLevel1;
     public List<float> ListUnitePourcentageLevel2;
     public List<float> ListUnitePourcentageLevel3;
-
-    public List<GameObject> ListItemShopLevel1;
-    public List<GameObject> ListItemShopLevel2;
-    public List<GameObject> ListItemShopLevel3;
-    public List<float> ListItemPourcentageLevel1;
-    public List<float> ListItemPourcentageLevel2;
-    public List<float> ListItemPourcentageLevel3;
+    /*
+        public List<GameObject> ListItemShopLevel1;
+        public List<GameObject> ListItemShopLevel2;
+        public List<GameObject> ListItemShopLevel3;
+        public List<float> ListItemPourcentageLevel1;
+        public List<float> ListItemPourcentageLevel2;
+        public List<float> ListItemPourcentageLevel3;*/
     PlayerController player;
     // Start is called before the first frame update
     void Start()
@@ -71,7 +71,7 @@ public class ShopController : MonoBehaviour
                     Instantiate(ListUniteShopLevel3[Random.Range(0, ListUniteShopLevel3.Count)], UniteSlot.transform.position, Quaternion.identity);
             }
         }
-        foreach (GameObject UniteSlot in GameObject.FindGameObjectsWithTag("ItemShopSlot"))
+        /*foreach (GameObject UniteSlot in GameObject.FindGameObjectsWithTag("ItemShopSlot"))
         {
             if (player.round < 3)
             {
@@ -96,6 +96,6 @@ public class ShopController : MonoBehaviour
                 else
                     Instantiate(ListItemShopLevel3[Random.Range(0, ListItemShopLevel3.Count)], UniteSlot.transform.position, Quaternion.identity);
             }
-        }
+        }*/
     }
 }
