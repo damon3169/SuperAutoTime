@@ -362,7 +362,7 @@ public class PlayerController : NetworkBehaviour
         // The fraction of the animation that has happened so far is
         // equal to the elapsed time divided by the desired time for
         // the total journey.
-        float fracComplete = (Time.time - timeBeginMoving) / 3f;
+        float fracComplete = (Time.time - timeBeginMoving) / 45f;
 
         uniteToMove.transform.position = Vector3.Slerp(riseRelCenter, setRelCenter, fracComplete);
         uniteToMove.transform.position += center;

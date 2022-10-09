@@ -61,8 +61,10 @@ public class BattleController : MonoBehaviour
     {
         while (isHiting)
         {
-            playerDist.fightingUnite.takeDamages(playerLocal.fightingUnite.damages);
-            playerLocal.fightingUnite.takeDamages(playerDist.fightingUnite.damages);
+            int damage1 = playerLocal.fightingUnite.damages;
+            int damage2 = playerDist.fightingUnite.damages;
+            playerDist.fightingUnite.takeDamages(damage1);
+            playerLocal.fightingUnite.takeDamages(damage2);
             yield return new WaitForSeconds(1f);
         }
     }
