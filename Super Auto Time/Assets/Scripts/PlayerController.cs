@@ -46,18 +46,44 @@ public class PlayerController : NetworkBehaviour
     private bool isSetupDone = false;
 
     private GameObject boardAnimator;
-    private GameObject[] boardSlotList;
-    public Vector3 arenaPostion;
+    public GameObject[] boardSlotList;
+    public GameObject[] boardSlotListTemp;
+
+    private Transform arenaPostion;
     public float startTimeMovement;
     private bool setupEnemyBoard = false;
+    float arcHeight = 0.5f;
+    bool unitMoving = false;
+    Vector3 nextPos;
+    public bool canLaunchTimerFight = false;
+    public bool isTimerLaunch = false;
+    public float timeFight = 0;
+    public float beginTimeFight;
+    public TimeUnite fightingUnite;
+    public float timeBeginMoving;
+    public bool beginMoving = true;
+    public bool launchMoveunite = false;
+    public List<TimeUnite> uniteList;
 
     // Start is called before the first frame update
     public override void OnStartClient()
     {
         if (isLocalPlayer)
         {
+            // arenaPostion = GameObject.FindGameObjectWithTag("ArenaLocalPos").transform;
             boardAnimator = GameObject.FindGameObjectWithTag("Board");
-            boardSlotList = GameObject.FindGameObjectsWithTag("boardSlot");
+            boardSlotList = new GameObject[6];
+            boardSlotListTemp = GameObject.FindGameObjectsWithTag("boardSlot");
+            for (int i = 0; i < boardSlotListTemp.Length; i++)
+            {
+                foreach (GameObject slot in boardSlotListTemp)
+                {
+                    if (slot.GetComponent<boardController>().Order == i)
+                    {
+                        boardSlotList[i] = slot;
+                    }
+                }
+            }
             timerDisplay = GameObject.FindGameObjectWithTag("timerUI").GetComponent<TextMeshProUGUI>();
             for (int index = 0; index < 5; index++)
             {
@@ -67,7 +93,20 @@ public class PlayerController : NetworkBehaviour
         }
         if (!isLocalPlayer)
         {
-            boardSlotList = GameObject.FindGameObjectsWithTag("BoardSlotE");
+            boardAnimator = GameObject.FindGameObjectWithTag("Board");
+            //arenaPostion = GameObject.FindGameObjectWithTag("ArenaLocalPosE").transform;
+            boardSlotListTemp = GameObject.FindGameObjectsWithTag("BoardSlotE");
+            boardSlotList = new GameObject[6];
+            for (int i = 0; i < boardSlotListTemp.Length; i++)
+            {
+                foreach (GameObject slot in boardSlotListTemp)
+                {
+                    if (slot.GetComponent<boardController>().Order == i)
+                    {
+                        boardSlotList[i] = slot;
+                    }
+                }
+            }
         }
 
 
@@ -76,6 +115,28 @@ public class PlayerController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isBattlePhase)
+        {
+            if (launchMoveunite)
+            {
+                if (beginMoving)
+                {
+                    timeBeginMoving = Time.time;
+                    beginMoving = false;
+                    uniteList.Clear();
+                    foreach (GameObject slot in boardSlotList)
+                    {
+                        if (slot.GetComponent<boardController>().monsterInSlot)
+                        {
+                            slot.GetComponent<boardController>().monsterInSlot.InPlaceForFight = false;
+                            uniteList.Add(slot.GetComponent<boardController>().monsterInSlot);
+                            Debug.Log(slot);
+                        }
+                    }
+                }
+                moveUniteToEmptySlot();
+            }
+        }
         if (isLocalPlayer)
         {
             if (GameObject.FindGameObjectsWithTag("Player").Length > 1)
@@ -107,10 +168,39 @@ public class PlayerController : NetworkBehaviour
 
                 if (isBattlePhase)
                 {
-                    if (boardAnimator.GetComponent<boardAnimationController>().isInPlaceForFight)
+                    if (!canLaunchTimerFight && !launchMoveunite)
                     {
-                        boardAnimator.GetComponent<Animator>().SetBool("CombatStart", false);
-                        moveUniteTo(boardSlotList[boardSlotList.Length - 1], arenaPostion);
+                        if (boardAnimator.GetComponent<boardAnimationController>().isInPlaceForFight)
+                        {
+                            boardAnimator.GetComponent<Animator>().SetBool("CombatStart", false);
+
+                            if (beginMoving)
+                            {
+                                uniteList.Clear();
+                                foreach (GameObject slot in boardSlotList)
+                                {
+                                    if (slot.GetComponent<boardController>().monsterInSlot)
+                                    {
+                                        slot.GetComponent<boardController>().monsterInSlot.InPlaceForFight = false;
+                                        uniteList.Add(slot.GetComponent<boardController>().monsterInSlot);
+
+
+                                    }
+                                }
+                                timeBeginMoving = Time.time;
+                                beginMoving = false;
+                            }
+                            moveUniteToEmptySlot();
+                        }
+                    }
+                    else
+                    {
+                        if (!isTimerLaunch)
+                        {
+                            beginTimeFight = Time.time;
+                            isTimerLaunch = true;
+                        }
+                        timeFight = Time.time - beginTimeFight;
                     }
                 }
                 else
@@ -137,25 +227,49 @@ public class PlayerController : NetworkBehaviour
 
             }
         }
-        else if (isBattlePhase && !setupEnemyBoard)
+        else
         {
-            int i = 0;
-            int boardNumber = 4;
-            for (boardNumber = 4; boardNumber >= 0; boardNumber--)
+            if (isBattlePhase && !setupEnemyBoard)
             {
-                if (board[boardNumber].name != "Empty")
+                int i = 0;
+                int boardNumber = 4;
+                for (boardNumber = 4; boardNumber >= 0; boardNumber--)
                 {
-                    GameObject unit = Instantiate(Resources.Load<GameObject>("Prefabs/" + board[boardNumber].name), boardSlotList[4 - boardNumber].transform.position, Quaternion.identity);
-                    unit.GetComponent<TimeUnite>().health = board[boardNumber].health;
-                    unit.GetComponent<TimeUnite>().damages = board[boardNumber].damages;
+                    if (board[boardNumber].name != "Empty")
+                    {
+                        GameObject unit = Instantiate(Resources.Load<GameObject>("Prefabs/" + board[boardNumber].name), boardSlotList[4 - boardNumber].transform.position, Quaternion.identity);
+                        unit.GetComponent<TimeUnite>().health = board[boardNumber].health;
+                        unit.GetComponent<TimeUnite>().damages = board[boardNumber].damages;
+                        unit.GetComponent<TimeUnite>().boardFather = boardSlotList[4 - boardNumber].GetComponent<boardController>();
+                        unit.GetComponent<TimeUnite>().boardFather.monsterInSlot = unit.GetComponent<TimeUnite>();
+                        unit.GetComponent<TimeUnite>().player = this;
+                        unit.GetComponent<TimeUnite>().boardFather.monsterInSlot.isInShop = false;
+                    }
+                    i++;
+
                 }
-                i++;
+
+                setupEnemyBoard = true;
             }
-            setupEnemyBoard = true;
+            if (isBattlePhase && !canLaunchTimerFight && setupEnemyBoard && !launchMoveunite)
+            {
+                if (beginMoving)
+                {
+                    timeBeginMoving = Time.time;
+                    beginMoving = false;
+                    uniteList.Clear();
+                    foreach (GameObject slot in boardSlotList)
+                    {
+                        if (slot.GetComponent<boardController>().monsterInSlot)
+                        {
+                            slot.GetComponent<boardController>().monsterInSlot.InPlaceForFight = false;
+                            uniteList.Add(slot.GetComponent<boardController>().monsterInSlot);
+                        }
+                    }
+                }
+                moveUniteToEmptySlot();
+            }
         }
-
-
-
     }
 
     [Command]
@@ -234,22 +348,82 @@ public class PlayerController : NetworkBehaviour
         selectedObject = null;
     }
 
-    public void moveUniteTo(GameObject uniteToMove, Vector3 destination)
+    public bool moveUniteTo(GameObject uniteToMove, Vector3 destination)
     {
-        if (firstTimeMoveUniteTo)
+        // The center of the arc
+        Vector3 center = (uniteToMove.transform.position + destination) * 0.5F;
+
+        // move the center a bit downwards to make the arc vertical
+        center -= new Vector3(0, 1, 0);
+
+        // Interpolate over the arc relative to center
+        Vector3 riseRelCenter = uniteToMove.transform.position - center;
+        Vector3 setRelCenter = destination - center;
+
+        // The fraction of the animation that has happened so far is
+        // equal to the elapsed time divided by the desired time for
+        // the total journey.
+        float fracComplete = (Time.time - timeBeginMoving) / 1f;
+
+        uniteToMove.transform.position = Vector3.Slerp(riseRelCenter, setRelCenter, fracComplete);
+        uniteToMove.transform.position += center;
+        // Do something when we reach the target
+        if (uniteToMove.transform.position == destination)
         {
-            journeyLength = Vector3.Distance(uniteToMove.transform.position, destination);
-            startPosition = uniteToMove.transform.position;
-            startTimeMovement = Time.time;
-            firstTimeMoveUniteTo = false;
+            uniteToMove.GetComponent<TimeUnite>().InPlaceForFight = true;
+            return true;
         }
-        // Distance moved equals elapsed time times speed..
-        float distCovered = (Time.time - startTimeMovement) * 5f;
+        else return false;
 
-        // Fraction of journey completed equals current distance divided by total distance.
-        float fractionOfJourney = distCovered / journeyLength;
+    }
 
-        // Set our position as a fraction of the distance between the markers.
-        uniteToMove.transform.position = Vector3.Lerp(startPosition, destination, fractionOfJourney);
+    public void moveUniteToEmptySlot()
+    {
+        bool asChange = false;
+        Debug.Log(uniteList.Count);
+        for (int i = 0; i < uniteList.Count; i++)
+        {
+            if (!uniteList[i].InPlaceForFight)
+            {
+                asChange = false;
+                uniteList[i].positionInBoard = i;
+                unitMoving = true;
+                asChange = moveUniteTo(uniteList[i].gameObject, boardSlotList[i].transform.position);
+                if (asChange)
+                {
+
+                    if (i == 0)
+                    {
+                        fightingUnite = uniteList[i];
+                        uniteList[i].isFighting = true;
+                    }
+                    boardSlotList[i].GetComponent<boardController>().monsterInSlot = uniteList[i];
+                    uniteList[i].boardFather = boardSlotList[i].GetComponent<boardController>();
+                    uniteList[i].positionInBoard = i;
+                    uniteList[i].InPlaceForFight = true;
+                }
+            }
+        }
+        int popo = 0;
+
+        if (asChange)
+        {
+            unitMoving = false;
+            foreach (GameObject slot in boardSlotList)
+            {
+                if (popo > uniteList.Count)
+                {
+                    slot.GetComponent<boardController>().monsterInSlot = null;
+                }
+                popo++;
+            }
+        }
+
+        if (!unitMoving)
+        {
+            if (launchMoveunite == true) launchMoveunite = false;
+            if (canLaunchTimerFight == false) canLaunchTimerFight = true;
+            beginMoving = true;
+        }
     }
 }

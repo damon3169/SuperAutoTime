@@ -16,19 +16,29 @@ public class TimeUnite : MonoBehaviour
     public enum Triggers // your custom enumeration
     {
         startOfShop,
-        EnOfShop
+        EnOfShop,
+        Every1s
     };
     public Triggers triggerList;
     private bool isShopphaseBegin = false;
     private bool isShopphaseEnd = false;
+    public bool InPlaceForFight = false;
+    public bool isFighting = false;
+    public bool isInShop = true;
+
+    public PlayerController otherPlayer;
+    bool isEnemyDead;
+    public int positionInBoard;
+    public IEnumerator fightCorout;
 
     private void Start()
     {
-        
+
     }
     // Update is called once per frame
     void Update()
     {
+
         if (player != null)
         {
             if (player.isShopPhase)
@@ -60,25 +70,71 @@ public class TimeUnite : MonoBehaviour
             }
             else
             {
-                if (triggerList == Triggers.EnOfShop && !isShopphaseEnd && boardFather != null)
+                if (!isInShop)
                 {
-                    //LAUNCH EFFECT
-                    isShopphaseEnd = true;
-                    isShopphaseBegin = false;
+                    if (boardFather.tag == "BoardSloatE")
+                    {
+                        player = otherPlayer;
+                    }
+                    if (triggerList == Triggers.EnOfShop && !isShopphaseEnd && boardFather != null)
+                    {
+                        //LAUNCH EFFECT
+                        isShopphaseEnd = true;
+                        isShopphaseBegin = false;
+                    }
+                    if (player.isTimerLaunch)
+                    {
+
+                    }
+
                 }
             }
         }
-        else if (GameObject.FindGameObjectWithTag("Player"))
+        if (isInShop)
         {
-            foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
-            {
-                if (player.GetComponent<PlayerController>().isLocalPlayer)
+            if (player == null)
+                if (GameObject.FindGameObjectWithTag("Player") && player == null)
                 {
-                    this.player = player.GetComponent<PlayerController>();
+                    foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+                    {
+                        if (player.GetComponent<PlayerController>().isLocalPlayer)
+                        {
+                            this.player = player.GetComponent<PlayerController>();
+                        }
+                        else
+                        {
+                            otherPlayer = player.GetComponent<PlayerController>();
+                        }
+                    }
+                }
+        }
+        else
+        {
+            if (GameObject.FindGameObjectWithTag("Player") && player != null)
+            {
+                foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    if (this.player.gameObject != player)
+                    {
+                        this.otherPlayer = player.GetComponent<PlayerController>();
+                    }
+
                 }
             }
+        }
+
+        if (this.health < 0)
+        {
+            player.boardSlotList[this.positionInBoard].GetComponent<boardController>().monsterInSlot = null;
+            if(this == player.fightingUnite)
+            {
+                player.fightingUnite = null;
+            }
+            player.launchMoveunite = true;
+            GameObject.DestroyImmediate(this.gameObject, true);
         }
     }
+
 
     public void onEndPurchasePhase()
     {
@@ -99,4 +155,12 @@ public class TimeUnite : MonoBehaviour
         player.selectedObject = this.gameObject;
         spriteSelected.enabled = true;
     }
+
+    public void takeDamages(int damages)
+    {
+        health -= damages;
+    }
+
+
+
 }

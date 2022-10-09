@@ -6,6 +6,7 @@ public class boardController : MonoBehaviour
 {
     public PlayerController player;
     public TimeUnite monsterInSlot;
+    public int Order;
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +72,8 @@ public class boardController : MonoBehaviour
                                             }
                                             monsterInSlot.boardFather = this;
                                             monsterInSlot.transform.parent = this.transform;
+                                            monsterInSlot.isInShop = false;
+                                            monsterInSlot.player = player;
                                             player.removeSelectedObject();
                                             player.addNewUniteInBoard(this.transform.GetSiblingIndex(), monsterInSlot);
                                         }
