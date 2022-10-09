@@ -12,6 +12,8 @@ TagManager:
   - boardSlot
   - Board
   - BoardSlotE
+  - ArenaLocalPos
+  - ArenaLocalPosE
   layers:
   - Default
   - TransparentFX

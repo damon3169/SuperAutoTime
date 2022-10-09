@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Items : MonoBehaviour
 {
-     public PlayerController player;
+    public PlayerController player;
     public SpriteRenderer spriteSelected;
     public TimeUnite equippedUnite;
     public string nameItem = "Empty_item";
@@ -36,10 +36,18 @@ public class Items : MonoBehaviour
         {
             foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
             {
-                if (player.GetComponent<PlayerController>().isLocalPlayer)
+                if (this.transform.tag == "BoardSlotE")
+                {
+                    if (!player.GetComponent<PlayerController>().isLocalPlayer)
+                    {
+                        this.player = player.GetComponent<PlayerController>();
+                    }
+                }
+                else if (player.GetComponent<PlayerController>().isLocalPlayer)
                 {
                     this.player = player.GetComponent<PlayerController>();
                 }
+                
             }
         }
     }
