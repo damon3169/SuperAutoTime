@@ -53,6 +53,7 @@ MonoBehaviour:
   ListUniteShopLevel1:
   - {fileID: 7433907624268612066, guid: f90c7d5fba6e8ea47b5e5acb05e93646, type: 3}
   - {fileID: 7433907624268612066, guid: f94b24c800e022d4da7010fa75ce7173, type: 3}
+  - {fileID: 7433907624268612066, guid: 68b776e3b2dc5ec459f282b0f50728d1, type: 3}
   ListUniteShopLevel2: []
   ListUniteShopLevel3: []
   ListUnitePourcentageLevel1:

@@ -130,7 +130,6 @@ public class PlayerController : NetworkBehaviour
                         {
                             slot.GetComponent<boardController>().monsterInSlot.InPlaceForFight = false;
                             uniteList.Add(slot.GetComponent<boardController>().monsterInSlot);
-                            Debug.Log(slot);
                         }
                     }
                 }
@@ -363,7 +362,7 @@ public class PlayerController : NetworkBehaviour
         // The fraction of the animation that has happened so far is
         // equal to the elapsed time divided by the desired time for
         // the total journey.
-        float fracComplete = (Time.time - timeBeginMoving) / 1f;
+        float fracComplete = (Time.time - timeBeginMoving) / 45f;
 
         uniteToMove.transform.position = Vector3.Slerp(riseRelCenter, setRelCenter, fracComplete);
         uniteToMove.transform.position += center;
@@ -380,9 +379,11 @@ public class PlayerController : NetworkBehaviour
     public void moveUniteToEmptySlot()
     {
         bool asChange = false;
-        Debug.Log(uniteList.Count);
+        bool ready = true;
+
         for (int i = 0; i < uniteList.Count; i++)
         {
+            if (launchMoveunite) Debug.Log(this.name + "test" + uniteList.Count + uniteList[i] + i);
             if (!uniteList[i].InPlaceForFight)
             {
                 asChange = false;
@@ -391,7 +392,7 @@ public class PlayerController : NetworkBehaviour
                 asChange = moveUniteTo(uniteList[i].gameObject, boardSlotList[i].transform.position);
                 if (asChange)
                 {
-
+                    ready = false;
                     if (i == 0)
                     {
                         fightingUnite = uniteList[i];
@@ -402,21 +403,28 @@ public class PlayerController : NetworkBehaviour
                     uniteList[i].positionInBoard = i;
                     uniteList[i].InPlaceForFight = true;
                 }
+                else
+                {
+                    ready = false;
+                }
             }
         }
         int popo = 0;
 
-        if (asChange)
+        if (ready)
         {
             unitMoving = false;
             foreach (GameObject slot in boardSlotList)
             {
-                if (popo > uniteList.Count)
+                if (popo > uniteList.Count-1)
                 {
                     slot.GetComponent<boardController>().monsterInSlot = null;
+                    Debug.Log(slot);
                 }
+
                 popo++;
             }
+            Debug.Log(popo);
         }
 
         if (!unitMoving)
