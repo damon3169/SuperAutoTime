@@ -11,11 +11,23 @@ public class boardAnimationController : MonoBehaviour
     {
         isInPlaceForFight=true;
         isInPlaceForShop=false;
+        
     }
 
     public void boardInPlaceToShop()
     {
         isInPlaceForFight=false;
         isInPlaceForShop=true;
+    }
+
+    public void boardSendRandomList()
+    {
+        foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if(player.GetComponent<PlayerController>().isLocalPlayer)
+            {
+                player.GetComponent<PlayerController>().sendRandomList();
+            }
+        }
     }
 }

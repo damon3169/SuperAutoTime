@@ -23,13 +23,13 @@ public struct Unite
 
 public class PlayerController : NetworkBehaviour
 {
-    bool firstTimeMoveUniteTo = true;
     public float moneyLeft = 0;
     public ShopController shop;
     private float journeyLength;
     private Vector3 startPosition;
 
     public readonly SyncList<Unite> board = new SyncList<Unite>();
+    public readonly SyncList<int> listRandom = new SyncList<int>();
     public List<TimeUnite> boardList;
     public int round;
     //States of the game
@@ -52,7 +52,6 @@ public class PlayerController : NetworkBehaviour
     private Transform arenaPostion;
     public float startTimeMovement;
     private bool setupEnemyBoard = false;
-    float arcHeight = 0.5f;
     bool unitMoving = false;
     Vector3 nextPos;
     public bool canLaunchTimerFight = false;
@@ -64,6 +63,9 @@ public class PlayerController : NetworkBehaviour
     public bool beginMoving = true;
     public bool launchMoveunite = false;
     public List<TimeUnite> uniteList;
+    public float totalTime = 0;
+    public int randomSelected = 0;
+
 
     // Start is called before the first frame update
     public override void OnStartClient()
@@ -161,6 +163,7 @@ public class PlayerController : NetworkBehaviour
                     boardAnimator.GetComponent<Animator>().SetBool("CombatStart", true);
                     //isSetupDone = false; do this after fight
                 }
+
             }
             if (readyToBegin)
             {
@@ -241,6 +244,13 @@ public class PlayerController : NetworkBehaviour
                         unit.GetComponent<TimeUnite>().damages = board[boardNumber].damages;
                         unit.GetComponent<TimeUnite>().boardFather = boardSlotList[4 - boardNumber].GetComponent<boardController>();
                         unit.GetComponent<TimeUnite>().boardFather.monsterInSlot = unit.GetComponent<TimeUnite>();
+                        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+                        {
+                            if (this != player.GetComponent<PlayerController>())
+                            {
+                                unit.GetComponent<TimeUnite>().otherPlayer = player.GetComponent<PlayerController>();
+                            }
+                        }
                         unit.GetComponent<TimeUnite>().player = this;
                         unit.GetComponent<TimeUnite>().boardFather.monsterInSlot.isInShop = false;
                     }
@@ -285,7 +295,6 @@ public class PlayerController : NetworkBehaviour
 
     private IEnumerator shopPhase()
     {
-        float totalTime = 0;
         while (totalTime <= shopPhaseDuration)
         {
             totalTime += Time.deltaTime;
@@ -383,7 +392,6 @@ public class PlayerController : NetworkBehaviour
 
         for (int i = 0; i < uniteList.Count; i++)
         {
-            if (launchMoveunite) Debug.Log(this.name + "test" + uniteList.Count + uniteList[i] + i);
             if (!uniteList[i].InPlaceForFight)
             {
                 asChange = false;
@@ -416,15 +424,13 @@ public class PlayerController : NetworkBehaviour
             unitMoving = false;
             foreach (GameObject slot in boardSlotList)
             {
-                if (popo > uniteList.Count-1)
+                if (popo > uniteList.Count - 1)
                 {
                     slot.GetComponent<boardController>().monsterInSlot = null;
-                    Debug.Log(slot);
                 }
 
                 popo++;
             }
-            Debug.Log(popo);
         }
 
         if (!unitMoving)
@@ -433,5 +439,34 @@ public class PlayerController : NetworkBehaviour
             if (canLaunchTimerFight == false) canLaunchTimerFight = true;
             beginMoving = true;
         }
+    }
+    public List<TimeUnite> lookForSpellEffect(string effectName)
+    {
+        List<TimeUnite> unitesWithEffect = new List<TimeUnite>();
+        foreach (GameObject slot in boardSlotList)
+        {
+            if (slot.GetComponent<boardController>().monsterInSlot)
+            {
+                if (slot.GetComponent<boardController>().monsterInSlot.triggerList.ToString() == effectName)
+                {
+                    unitesWithEffect.Add(slot.GetComponent<boardController>().monsterInSlot);
+                }
+            }
+        }
+        return unitesWithEffect;
+    }
+
+    [Command]
+    public void sendRandomList()
+    {
+        for (int i = 0; i < 120; i++)
+        {
+            listRandom.Add(Random.Range(0, 5));
+        }
+    }
+    [Command]
+    public void RemoveAtRandomList(int number)
+    {
+        this.listRandom.RemoveAt(number);
     }
 }

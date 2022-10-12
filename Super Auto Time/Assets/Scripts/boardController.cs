@@ -27,83 +27,56 @@ public class boardController : MonoBehaviour
                     {
                         if (hitInfo.transform.gameObject == this.gameObject)
                         {
-                            if (player.selectedObject)
+                            if (player.selectedObject != null)
                             {
-                                //LA J'AJOUTE LES ITEMS
-                                if (player.selectedObject.GetComponent<ItemsStat>() != null)
+                                // LA J'AJOUTE LES UNITE
+                                //Y A PAS DE MOSNTRE DANS CE SLOT
+                                if (monsterInSlot == null)
                                 {
-                                    /*player.selectedObject.GetComponent<ItemsStat>().equippedUnite = monsterInSlot;
-                                    player.selectedObject.GetComponent<ItemsStat>().addStat();
-                                    player.addNewUniteInBoard(this.transform.GetSiblingIndex(), monsterInSlot);
-                                    GameObject.DestroyImmediate(player.selectedObject, true);
-                                    player.removeSelectedObject();*/
-                                }
-                                else if (player.selectedObject.GetComponent<Items>() != null)
-                                {
-                                    /* if (monsterInSlot != null)
-                                     {
-                                         GameObject.DestroyImmediate(monsterInSlot.itemEquipped, true);
-                                         monsterInSlot.itemEquipped = player.selectedObject;
-                                         player.selectedObject.GetComponent<Items>().equippedUnite = monsterInSlot;
-                                         player.selectedObject.transform.position = this.transform.position;
-                                         player.selectedObject.transform.parent = monsterInSlot.transform;
-                                         player.selectedObject.transform.GetComponent<SpriteRenderer>().enabled = false;
-                                         player.selectedObject.GetComponent<Collider2D>().enabled = false;
-                                         player.addNewUniteInBoard(this.transform.GetSiblingIndex(), monsterInSlot);
-                                         player.removeSelectedObject();
-                                     }*/
-
+                                    if (player.moneyLeft > player.selectedObject.GetComponent<TimeUnite>().cost)
+                                    {
+                                        player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
+                                        player.selectedObject.transform.position = this.transform.position;
+                                        monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
+                                        monsterInSlot.GetComponent<Collider>().enabled = false;
+                                        if (monsterInSlot.boardFather != null)
+                                        {
+                                            monsterInSlot.boardFather.monsterInSlot = null;
+                                            player.addNewUniteInEmpty(monsterInSlot.boardFather.transform.GetSiblingIndex());
+                                        }
+                                        monsterInSlot.boardFather = this;
+                                        monsterInSlot.transform.parent = this.transform;
+                                        monsterInSlot.isInShop = false;
+                                        monsterInSlot.player = player;
+                                        player.removeSelectedObject();
+                                        player.addNewUniteInBoard(this.transform.GetSiblingIndex(), monsterInSlot);
+                                    }
                                 }
                                 else
-                                {// LA J'AJOUTE LES UNITE
-                                 //Y A PAS DE MOSNTRE DANS CE SLOT
-                                    if (monsterInSlot == null)
+                                {
+                                    //Si la cible a deja un monstre
+                                    if (player.selectedObject.GetComponent<TimeUnite>().boardFather != null)
                                     {
-                                        if (player.moneyLeft > player.selectedObject.GetComponent<TimeUnite>().cost)
-                                        {
-                                            player.moneyLeft -= player.selectedObject.GetComponent<TimeUnite>().cost;
-                                            player.selectedObject.transform.position = this.transform.position;
-                                            monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
-                                            monsterInSlot.GetComponent<Collider>().enabled = false;
-                                            if (monsterInSlot.boardFather != null)
-                                            {
-                                                monsterInSlot.boardFather.monsterInSlot = null;
-                                                player.addNewUniteInEmpty(monsterInSlot.boardFather.transform.GetSiblingIndex());
-                                            }
-                                            monsterInSlot.boardFather = this;
-                                            monsterInSlot.transform.parent = this.transform;
-                                            monsterInSlot.isInShop = false;
-                                            monsterInSlot.player = player;
-                                            player.removeSelectedObject();
-                                            player.addNewUniteInBoard(this.transform.GetSiblingIndex(), monsterInSlot);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        //Si la cible a deja un monstre
-                                        if (player.selectedObject.GetComponent<TimeUnite>().boardFather != null)
-                                        {
-                                            Vector3 pos = monsterInSlot.transform.position;
-                                            TimeUnite thisMonster = monsterInSlot;
-                                            boardController previousBoard = player.selectedObject.GetComponent<TimeUnite>().boardFather;
-                                            //Swap position
-                                            monsterInSlot.transform.position = player.selectedObject.transform.position;
-                                            player.selectedObject.transform.position = pos;
-                                            //Add unite in boardsyncList
-                                            player.addNewUniteInBoard(this.transform.GetSiblingIndex(), monsterInSlot);
-                                            player.addNewUniteInBoard(player.selectedObject.GetComponent<TimeUnite>().boardFather.transform.GetSiblingIndex(), player.selectedObject.GetComponent<TimeUnite>());
-                                            //Swap Unite
-                                            monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
-                                            player.selectedObject.GetComponent<TimeUnite>().boardFather.monsterInSlot = thisMonster;
-                                            //Swap boardSlot
-                                            player.selectedObject.GetComponent<TimeUnite>().boardFather = previousBoard;
-                                            monsterInSlot.boardFather = this;
-                                            //Swap PARENT
-                                            player.selectedObject.transform.parent = player.selectedObject.GetComponent<TimeUnite>().boardFather.transform;
-                                            monsterInSlot.transform.parent = this.transform;
-                                            //Unselect Unite
-                                            player.removeSelectedObject();
-                                        }
+                                        Vector3 pos = monsterInSlot.transform.position;
+                                        TimeUnite thisMonster = monsterInSlot;
+                                        boardController previousBoard = player.selectedObject.GetComponent<TimeUnite>().boardFather;
+                                        //Swap position
+                                        monsterInSlot.transform.position = player.selectedObject.transform.position;
+                                        player.selectedObject.transform.position = pos;
+                                        //Add unite in boardsyncList
+                                        player.addNewUniteInBoard(this.transform.GetSiblingIndex(), monsterInSlot);
+                                        player.addNewUniteInBoard(player.selectedObject.GetComponent<TimeUnite>().boardFather.transform.GetSiblingIndex(), player.selectedObject.GetComponent<TimeUnite>());
+                                        //Swap Unite
+                                        monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
+                                        player.selectedObject.GetComponent<TimeUnite>().boardFather.monsterInSlot = thisMonster;
+                                        //Swap boardSlot
+                                        player.selectedObject.GetComponent<TimeUnite>().boardFather = previousBoard;
+                                        monsterInSlot.boardFather = this;
+                                        //Swap PARENT
+                                        player.selectedObject.transform.parent = player.selectedObject.GetComponent<TimeUnite>().boardFather.transform;
+                                        monsterInSlot.transform.parent = this.transform;
+                                        //Unselect Unite
+                                        player.removeSelectedObject();
                                     }
                                 }
 
@@ -114,10 +87,10 @@ public class boardController : MonoBehaviour
                             }
                         }
                     }
-
-
                 }
             }
+
+
         }
         else if (GameObject.FindGameObjectWithTag("Player") && player == null)
         {
