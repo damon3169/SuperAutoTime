@@ -27,7 +27,7 @@ public class PlayerController : NetworkBehaviour
     public ShopController shop;
     private float journeyLength;
     private Vector3 startPosition;
-
+    public int life = 10;
     public readonly SyncList<Unite> board = new SyncList<Unite>();
     public readonly SyncList<int> listRandom = new SyncList<int>();
     public List<TimeUnite> boardList;
@@ -87,7 +87,7 @@ public class PlayerController : NetworkBehaviour
                 }
             }
             timerDisplay = GameObject.FindGameObjectWithTag("timerUI").GetComponent<TextMeshProUGUI>();
-            for (int index = 0; index < 5; index++)
+            for (int index = 0; index < 6; index++)
             {
                 addNewUnite("Empty", 0, 0);
             }
@@ -233,16 +233,15 @@ public class PlayerController : NetworkBehaviour
         {
             if (isBattlePhase && !setupEnemyBoard)
             {
-                int i = 0;
-                int boardNumber = 4;
-                for (boardNumber = 4; boardNumber >= 0; boardNumber--)
+                int boardNumber = 0;
+                foreach (Unite unite in board)
                 {
-                    if (board[boardNumber].name != "Empty")
+                    if (unite.name != "Empty")
                     {
-                        GameObject unit = Instantiate(Resources.Load<GameObject>("Prefabs/" + board[boardNumber].name), boardSlotList[4 - boardNumber].transform.position, Quaternion.identity);
-                        unit.GetComponent<TimeUnite>().health = board[boardNumber].health;
-                        unit.GetComponent<TimeUnite>().damages = board[boardNumber].damages;
-                        unit.GetComponent<TimeUnite>().boardFather = boardSlotList[4 - boardNumber].GetComponent<boardController>();
+                        GameObject unit = Instantiate(Resources.Load<GameObject>("Prefabs/" + unite.name), boardSlotList[boardNumber].transform.position, Quaternion.identity);
+                        unit.GetComponent<TimeUnite>().health = unite.health;
+                        unit.GetComponent<TimeUnite>().damages = unite.damages;
+                        unit.GetComponent<TimeUnite>().boardFather = boardSlotList[boardNumber].GetComponent<boardController>();
                         unit.GetComponent<TimeUnite>().boardFather.monsterInSlot = unit.GetComponent<TimeUnite>();
                         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
                         {
@@ -254,8 +253,7 @@ public class PlayerController : NetworkBehaviour
                         unit.GetComponent<TimeUnite>().player = this;
                         unit.GetComponent<TimeUnite>().boardFather.monsterInSlot.isInShop = false;
                     }
-                    i++;
-
+                    boardNumber++;
                 }
 
                 setupEnemyBoard = true;
@@ -293,6 +291,11 @@ public class PlayerController : NetworkBehaviour
         isBattlePhase = newStatus;
     }
 
+    public void setBattlePhaseFromOutside(bool newStatus)
+    {
+        setBattlePhase( newStatus);
+    }
+
     private IEnumerator shopPhase()
     {
         while (totalTime <= shopPhaseDuration)
@@ -326,8 +329,8 @@ public class PlayerController : NetworkBehaviour
     {
         board[slotNumber] = (new Unite(newName, newHealth, newDamages));
     }
-    //Add stuff in board unite list from outside
 
+    //Add stuff in board unite list from outside
     public void addNewUniteInBoard(int slot, TimeUnite unite)
     {
         addNewUniteAtBoardSlot(slot, unite.nameUnite, unite.health, unite.damages);
@@ -371,7 +374,7 @@ public class PlayerController : NetworkBehaviour
         // The fraction of the animation that has happened so far is
         // equal to the elapsed time divided by the desired time for
         // the total journey.
-        float fracComplete = (Time.time - timeBeginMoving) / 45f;
+        float fracComplete = (Time.time - timeBeginMoving) / 1f;
 
         uniteToMove.transform.position = Vector3.Slerp(riseRelCenter, setRelCenter, fracComplete);
         uniteToMove.transform.position += center;
@@ -468,5 +471,18 @@ public class PlayerController : NetworkBehaviour
     public void RemoveAtRandomList(int number)
     {
         this.listRandom.RemoveAt(number);
+    }
+
+    public int getNumberUnits()
+    {
+        int i = 0;
+        foreach(GameObject slot in boardSlotList)
+        {
+            if (slot.GetComponent<boardController>().monsterInSlot)
+            {
+                i++;
+            }
+        }
+        return i;
     }
 }

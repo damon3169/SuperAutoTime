@@ -20,7 +20,9 @@ public class TimeUnite : MonoBehaviour
         Every1s,
         beginOfFight,
         EveryXs,
-        OnDeath
+        OnDeath,
+        onDamage,
+        onAttack
     };
 
 
@@ -46,9 +48,9 @@ public class TimeUnite : MonoBehaviour
 
     [Header("Select the trigger")]
     public Triggers triggerList;
-        [Header("if EveryXs, add the seconds (between 0 and 9)")]
+    [Header("if EveryXs, add the seconds (between 0 and 9)")]
     public List<int> timeEffect;
-        [Header("Select the target")]
+    [Header("Select the target")]
 
     public Targets targetList;
     [Space(5)]
@@ -63,6 +65,7 @@ public class TimeUnite : MonoBehaviour
     public int damageSpell;
     public int damagesBonus = 0;
     public int healthBonus = 0;
+    public int forwardDuration =0;
 
     [Space(20)]
 
@@ -83,10 +86,11 @@ public class TimeUnite : MonoBehaviour
     public ParticleSystem damageParticle;
     public TMP_Text damagesText;
     public TMP_Text healthText;
-
+    public BattleController battleController;
+     
     private void Start()
     {
-
+        battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>();
     }
     // Update is called once per frame
     void Update()
@@ -204,6 +208,10 @@ public class TimeUnite : MonoBehaviour
     {
         damageParticle.Play();
         health -= damages;
+        if (triggerList == Triggers.onDamage && health > 0)
+        {
+            launchEffect();
+        }
     }
 
     public bool launchBeginOfFightEffect()
@@ -275,23 +283,23 @@ public class TimeUnite : MonoBehaviour
                 }
                 break;
             case Targets.randomAlly:
-                 for (int y= player.randomSelected;y< player.listRandom.Count;y++)
+                for (int y = player.randomSelected; y < player.listRandom.Count; y++)
                 {
                     if (player.boardSlotList[player.listRandom[y]].GetComponent<boardController>().monsterInSlot)
                     {
                         cible.Add(player.boardSlotList[player.listRandom[y]].GetComponent<boardController>().monsterInSlot);
-                        player.randomSelected = y+1;
+                        player.randomSelected = y + 1;
                         break;
                     }
                 }
                 break;
             case Targets.randomEnnemi:
-                for (int y= otherPlayer.randomSelected;y< otherPlayer.listRandom.Count;y++)
+                for (int y = otherPlayer.randomSelected; y < otherPlayer.listRandom.Count; y++)
                 {
                     if (otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot)
                     {
                         cible.Add(otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot);
-                        otherPlayer.randomSelected = y+1;
+                        otherPlayer.randomSelected = y + 1;
                         break;
                     }
                 }
@@ -308,12 +316,11 @@ public class TimeUnite : MonoBehaviour
             case Effects.DealDamage:
                 foreach (TimeUnite unite in cible)
                 {
-                    Debug.Log(unite.boardFather);
                     unite.takeDamages(damageSpell);
                 }
                 break;
             case Effects.Forward:
-                //CALL FORWARD ICI, PROBABLEMENT A FAIRE DANS LE BATTLECONTROLLER
+                StartCoroutine(battleController.onForward(forwardDuration,Time.time));
                 break;
             case Effects.GainTimerShop:
                 //ADD TIMER SHOP, A CALL DANS LE PLAYERCONTROLLER

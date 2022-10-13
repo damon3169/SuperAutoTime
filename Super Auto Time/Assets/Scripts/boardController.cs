@@ -42,14 +42,14 @@ public class boardController : MonoBehaviour
                                         if (monsterInSlot.boardFather != null)
                                         {
                                             monsterInSlot.boardFather.monsterInSlot = null;
-                                            player.addNewUniteInEmpty(monsterInSlot.boardFather.transform.GetSiblingIndex());
+                                            player.addNewUniteInEmpty(monsterInSlot.boardFather.Order);
                                         }
                                         monsterInSlot.boardFather = this;
                                         monsterInSlot.transform.parent = this.transform;
                                         monsterInSlot.isInShop = false;
                                         monsterInSlot.player = player;
                                         player.removeSelectedObject();
-                                        player.addNewUniteInBoard(this.transform.GetSiblingIndex(), monsterInSlot);
+                                        player.addNewUniteInBoard(Order, monsterInSlot);
                                     }
                                 }
                                 else
@@ -64,8 +64,8 @@ public class boardController : MonoBehaviour
                                         monsterInSlot.transform.position = player.selectedObject.transform.position;
                                         player.selectedObject.transform.position = pos;
                                         //Add unite in boardsyncList
-                                        player.addNewUniteInBoard(this.transform.GetSiblingIndex(), monsterInSlot);
-                                        player.addNewUniteInBoard(player.selectedObject.GetComponent<TimeUnite>().boardFather.transform.GetSiblingIndex(), player.selectedObject.GetComponent<TimeUnite>());
+                                        player.addNewUniteInBoard(previousBoard.Order, monsterInSlot);
+                                        player.addNewUniteInBoard(Order, player.selectedObject.GetComponent<TimeUnite>());
                                         //Swap Unite
                                         monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
                                         player.selectedObject.GetComponent<TimeUnite>().boardFather.monsterInSlot = thisMonster;

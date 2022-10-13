@@ -766,19 +766,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 28_JOTUN
-  health: 500
+  health: 10000
   damages: 100
   level: 1
   cost: 3
-  timeEffect: 
-  triggerList: 2
+  triggerList: 7
+  timeEffect: 05000000
   targetList: 0
   AllyNumber: 
   EnnemiNumber: 
-  effectList: 0
+  effectList: 1
   damageSpell: 0
   damagesBonus: 1
   healthBonus: 1
+  forwardDuration: 5
   InPlaceForFight: 0
   isFighting: 0
   isInShop: 1
@@ -790,6 +791,7 @@ MonoBehaviour:
   damageParticle: {fileID: 5381919832148445003}
   damagesText: {fileID: 6341642347133411867}
   healthText: {fileID: 7195569025043916937}
+  battleController: {fileID: 0}
 --- !u!135 &3883479168496623976
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -19,7 +19,8 @@ public class BattleController : MonoBehaviour
     private float start10STimer = 0;
     public TMP_Text timerDisplay;
     int totalTime = 0;
-
+    IEnumerator forwardCorout;
+    bool forwardTime = false;
 
     void Start()
     {
@@ -27,7 +28,7 @@ public class BattleController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (playerLocal != null && playerDist != null)
         {
@@ -64,6 +65,7 @@ public class BattleController : MonoBehaviour
                 {
                     //END OF BEGIN EFFECT
                     //GET UNITE 
+
                     uniteWith1sEffect.Clear();
                     foreach (TimeUnite unite in playerDist.lookForSpellEffect("Every1s"))
                     {
@@ -89,12 +91,14 @@ public class BattleController : MonoBehaviour
                         spell1SCorout = on1sSpellTimer();
                         StartCoroutine(spell1SCorout);
                     }
-                    //BEGIN TIMER FIGHT
-                    if (isHiting == false)
+                    if (!forwardTime)
                     {
-                        isHiting = true;
-                        fightCorout = onCoroutine();
-                        StartCoroutine(fightCorout);
+                        if (isHiting == false)
+                        {
+                            isHiting = true;
+                            fightCorout = onCoroutine();
+                            StartCoroutine(fightCorout);
+                        }
                     }
                 }
             }
@@ -111,6 +115,24 @@ public class BattleController : MonoBehaviour
                     StopCoroutine(spell1SCorout);
                 }
                 is1sTimer = false;
+                if (playerDist.getNumberUnits()==0 && playerLocal.getNumberUnits()==0)
+                {
+                    //SETUP SHOP
+                    playerLocal.setBattlePhaseFromOutside(false);
+                    //DELETE UNITS ALIVE
+                    //RECREATE UNIT AT END ANIMATION
+                    //REFRESH SHOP
+                }
+                else if (playerDist.getNumberUnits()==0)
+                {
+                    //SETUP SHOP + PLAYERLOCAL -1 PV
+                    playerLocal.setBattlePhaseFromOutside(false);
+                }
+                else if (playerLocal.getNumberUnits()==0)
+                {
+                    //SETUP SHOP + PLAYERDIST -1 PV
+                    playerLocal.setBattlePhaseFromOutside(false);
+                }
             }
         }
         else
@@ -136,8 +158,17 @@ public class BattleController : MonoBehaviour
         {
             int damage1 = playerLocal.fightingUnite.damages;
             int damage2 = playerDist.fightingUnite.damages;
+            if (playerDist.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
+            {
+                playerDist.fightingUnite.launchEffect();
+            }
+            if (playerLocal.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
+            {
+                playerLocal.fightingUnite.launchEffect();
+            }
             playerDist.fightingUnite.takeDamages(damage1);
             playerLocal.fightingUnite.takeDamages(damage2);
+            Debug.Log("on se tape");
             yield return new WaitForSeconds(1f);
         }
     }
@@ -157,18 +188,33 @@ public class BattleController : MonoBehaviour
             totalTime += 1;
             if (totalTime > 9)
             {
-                start10STimer -= 10;
+                start10STimer += 10;
                 totalTime = 0;
             }
             foreach (TimeUnite unite in unitWithEveryXsEffect)
             {
-                foreach(int timeForEffect in unite.timeEffect)
-                if (((int)(Time.time - start10STimer)) == timeForEffect)
-                {
-                    unite.launchEffect();
-                }
+                foreach (int timeForEffect in unite.timeEffect)
+                    if (((int)(Time.time - start10STimer)) == timeForEffect)
+                    {
+                        unite.launchEffect();
+                    }
             }
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    public IEnumerator onForward(float Timeforward, float startTime)
+    {
+        while (Time.time - startTime < Timeforward)
+        {
+            forwardTime = true;
+            StopCoroutine(fightCorout);
+            Time.timeScale = 10f;
+            yield return new WaitForSeconds(Timeforward);
+        }
+        Time.timeScale = 1f;
+        forwardTime = false;
+        isHiting = false;
+        yield break;
     }
 }
