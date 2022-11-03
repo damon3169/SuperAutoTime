@@ -15,6 +15,7 @@ TagManager:
   - ArenaLocalPos
   - ArenaLocalPosE
   - BattleController
+  - Unit
   layers:
   - Default
   - TransparentFX

@@ -19,7 +19,7 @@ public class Items : MonoBehaviour
     {
         if (player != null)
         {
-            if (player.isShopPhase)
+            if (player.isShopPhaseLocal)
             {
                 if (Input.GetMouseButtonDown(0))
                 {

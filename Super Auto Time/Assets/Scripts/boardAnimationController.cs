@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class boardAnimationController : MonoBehaviour
 {
-          public bool isInPlaceForShop= false;
+          public bool isInPlaceForShop= true;
 
     public bool isInPlaceForFight= false;
     public void boardInPlaceToFight()
     {
         isInPlaceForFight=true;
         isInPlaceForShop=false;
-        
     }
 
     public void boardInPlaceToShop()
@@ -26,8 +25,22 @@ public class boardAnimationController : MonoBehaviour
         {
             if(player.GetComponent<PlayerController>().isLocalPlayer)
             {
+                player.GetComponent<PlayerController>().isFirstShop = false;
                 player.GetComponent<PlayerController>().sendRandomList();
             }
         }
+    }
+
+    public void boardResetShop()
+    {
+        foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if(player.GetComponent<PlayerController>().isLocalPlayer)
+            {
+                player.GetComponent<PlayerController>().resetShop();
+            }
+        }
+         isInPlaceForFight=false;
+         isInPlaceForShop=true;
     }
 }

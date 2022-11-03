@@ -23,6 +23,11 @@ public struct Unite
 
 public class PlayerController : NetworkBehaviour
 {
+    public List<int> playerLevelXP;
+    public int playerXP;
+    public int playerMaxLevel = 3;
+    public int XPPerRound = 3;
+    public int playerCurrentLevel = 1;
     public float moneyLeft = 0;
     public ShopController shop;
     private float journeyLength;
@@ -31,12 +36,14 @@ public class PlayerController : NetworkBehaviour
     public readonly SyncList<Unite> board = new SyncList<Unite>();
     public readonly SyncList<int> listRandom = new SyncList<int>();
     public List<TimeUnite> boardList;
-    public int round;
+    public int round = 0;
     //States of the game
     [SyncVar]
-    public bool isBattlePhase = false;
+    public bool isBattlePhaseOnline = false;
+    public bool isBattlePhaseLocal = false;
     [SyncVar]
-    public bool isShopPhase = true;
+    public bool isShopPhaseOnline = true;
+    public bool isShopPhaseLocal = true;
     public float shopPhaseDuration = 30;
 
     private TextMeshProUGUI timerDisplay;
@@ -45,7 +52,7 @@ public class PlayerController : NetworkBehaviour
     public GameObject selectedObject;
     private bool isSetupDone = false;
 
-    private GameObject boardAnimator;
+    public GameObject boardAnimator;
     public GameObject[] boardSlotList;
     public GameObject[] boardSlotListTemp;
 
@@ -65,11 +72,13 @@ public class PlayerController : NetworkBehaviour
     public List<TimeUnite> uniteList;
     public float totalTime = 0;
     public int randomSelected = 0;
-
+    public bool isFirstShop = true;
+    public PlayerController otherPlayer;
 
     // Start is called before the first frame update
     public override void OnStartClient()
     {
+
         if (isLocalPlayer)
         {
             // arenaPostion = GameObject.FindGameObjectWithTag("ArenaLocalPos").transform;
@@ -117,8 +126,20 @@ public class PlayerController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isBattlePhase)
+        //CHECK IF NEED TO LEVEL UP
+        if (playerCurrentLevel < playerMaxLevel)
         {
+            if (playerXP >= playerLevelXP[playerCurrentLevel - 1])
+            {
+                playerCurrentLevel += 1;
+                playerXP = 0;
+                Debug.Log("test");
+
+            }
+        }
+        if (isBattlePhaseOnline)
+        {
+            //place unit for fight if someone dies
             if (launchMoveunite)
             {
                 if (beginMoving)
@@ -144,12 +165,12 @@ public class PlayerController : NetworkBehaviour
             {
                 setReadyToBegin();
             }
-            if (!isBattlePhase && readyToBegin)
+            if (!isBattlePhaseLocal && readyToBegin)
             {
                 bool isReadyToBattle = true;
                 foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
                 {
-                    if (player.GetComponent<PlayerController>().isShopPhase)
+                    if (player.GetComponent<PlayerController>().isShopPhaseOnline)
                     {
                         isReadyToBattle = false;
                     }
@@ -158,9 +179,10 @@ public class PlayerController : NetworkBehaviour
                 {
                     Debug.Log("GOD C'ETAIT TROP CHIANT MAIS CA MARCHE ENFIN PUTAIN");
                     removeSelectedObject();
-                    setBattlePhase(true);
+                    setBattlePhaseFromOutside(true);
                     //SWITCH SCENE HERE
                     boardAnimator.GetComponent<Animator>().SetBool("CombatStart", true);
+                    boardAnimator.GetComponent<Animator>().SetBool("ShopStart", false);
                     //isSetupDone = false; do this after fight
                 }
 
@@ -168,14 +190,13 @@ public class PlayerController : NetworkBehaviour
             if (readyToBegin)
             {
 
-                if (isBattlePhase)
+                if (isBattlePhaseLocal)
                 {
                     if (!canLaunchTimerFight && !launchMoveunite)
                     {
                         if (boardAnimator.GetComponent<boardAnimationController>().isInPlaceForFight)
                         {
                             boardAnimator.GetComponent<Animator>().SetBool("CombatStart", false);
-
                             if (beginMoving)
                             {
                                 uniteList.Clear();
@@ -185,14 +206,13 @@ public class PlayerController : NetworkBehaviour
                                     {
                                         slot.GetComponent<boardController>().monsterInSlot.InPlaceForFight = false;
                                         uniteList.Add(slot.GetComponent<boardController>().monsterInSlot);
-
-
                                     }
                                 }
                                 timeBeginMoving = Time.time;
                                 beginMoving = false;
                             }
                             moveUniteToEmptySlot();
+                            boardAnimator.GetComponent<boardAnimationController>().isInPlaceForShop = false;
                         }
                     }
                     else
@@ -207,7 +227,7 @@ public class PlayerController : NetworkBehaviour
                 }
                 else
                 {
-                    if (!this.isBattlePhase && !isSetupDone)
+                    if (!this.isBattlePhaseLocal && !isSetupDone)
                     {
                         StartCoroutine(shopPhase());
                         shop.refreshShop();
@@ -231,14 +251,22 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
-            if (isBattlePhase && !setupEnemyBoard)
+            if (!otherPlayer)
+                foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    if (this != player.GetComponent<PlayerController>())
+                    {
+                        otherPlayer = player.GetComponent<PlayerController>();
+                    }
+                }
+            if (readyToBegin && otherPlayer.boardAnimator.GetComponent<Animator>().GetBool("CombatStart") && !setupEnemyBoard)
             {
                 int boardNumber = 0;
                 foreach (Unite unite in board)
                 {
                     if (unite.name != "Empty")
                     {
-                        GameObject unit = Instantiate(Resources.Load<GameObject>("Prefabs/" + unite.name), boardSlotList[boardNumber].transform.position, Quaternion.identity);
+                        GameObject unit = Instantiate(Resources.Load<GameObject>("Prefabs/Unit/" + unite.name), boardSlotList[boardNumber].transform.position, Quaternion.identity);
                         unit.GetComponent<TimeUnite>().health = unite.health;
                         unit.GetComponent<TimeUnite>().damages = unite.damages;
                         unit.GetComponent<TimeUnite>().boardFather = boardSlotList[boardNumber].GetComponent<boardController>();
@@ -258,7 +286,7 @@ public class PlayerController : NetworkBehaviour
 
                 setupEnemyBoard = true;
             }
-            if (isBattlePhase && !canLaunchTimerFight && setupEnemyBoard && !launchMoveunite)
+            if (isBattlePhaseOnline && !canLaunchTimerFight && setupEnemyBoard && !launchMoveunite)
             {
                 if (beginMoving)
                 {
@@ -286,14 +314,15 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    private void setBattlePhase(bool newStatus)
+    private void setBattlePhaseOnline(bool newStatus)
     {
-        isBattlePhase = newStatus;
+        isBattlePhaseOnline = newStatus;
     }
 
     public void setBattlePhaseFromOutside(bool newStatus)
     {
-        setBattlePhase( newStatus);
+        setBattlePhaseOnline(newStatus);
+        isBattlePhaseLocal = newStatus;
     }
 
     private IEnumerator shopPhase()
@@ -306,15 +335,21 @@ public class PlayerController : NetworkBehaviour
             var integer = (int)totalTime;
             yield return null;
         }
-        //changeShopPhaseStatus(myPLayerID, false);
-        setShopPhase(false);
+
+        setShopPhaseLocal(false);
         StopCoroutine(shopPhase());
     }
 
     [Command]
-    private void setShopPhase(bool newStatus)
+    private void setShopPhaseOnline(bool newStatus)
     {
-        isShopPhase = newStatus;
+        isShopPhaseOnline = newStatus;
+    }
+
+    private void setShopPhaseLocal(bool newStatus)
+    {
+        isShopPhaseLocal = newStatus;
+        setShopPhaseOnline(newStatus);
     }
 
     //Add stuff in board unite list
@@ -476,7 +511,7 @@ public class PlayerController : NetworkBehaviour
     public int getNumberUnits()
     {
         int i = 0;
-        foreach(GameObject slot in boardSlotList)
+        foreach (GameObject slot in boardSlotList)
         {
             if (slot.GetComponent<boardController>().monsterInSlot)
             {
@@ -484,5 +519,70 @@ public class PlayerController : NetworkBehaviour
             }
         }
         return i;
+    }
+
+    public void resetShop()
+    {
+        setBattlePhaseFromOutside(false);
+        // efface les unite
+        foreach (GameObject slot in GameObject.FindGameObjectsWithTag("Unit"))
+        {
+            GameObject.Destroy(slot);
+        }
+        //Recree les unite au bonne endroit
+        int boardNumber = 0;
+        foreach (Unite unite in board)
+        {
+            if (unite.name != "Empty")
+            {
+                GameObject unit = Instantiate(Resources.Load<GameObject>("Prefabs/Unit/" + unite.name), boardSlotList[boardNumber].transform.position, Quaternion.identity);
+                unit.GetComponent<TimeUnite>().health = unite.health;
+                unit.GetComponent<TimeUnite>().damages = unite.damages;
+                unit.GetComponent<TimeUnite>().boardFather = boardSlotList[boardNumber].GetComponent<boardController>();
+                unit.GetComponent<TimeUnite>().boardFather.monsterInSlot = unit.GetComponent<TimeUnite>();
+                foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    if (this != player.GetComponent<PlayerController>())
+                    {
+                        unit.GetComponent<TimeUnite>().otherPlayer = player.GetComponent<PlayerController>();
+                    }
+                }
+                unit.GetComponent<TimeUnite>().player = this;
+                unit.GetComponent<TimeUnite>().boardFather.monsterInSlot.isInShop = false;
+                unit.transform.parent = unit.GetComponent<TimeUnite>().boardFather.transform;
+                if (unit.GetComponent<TimeUnite>().triggerList == TimeUnite.Triggers.startOfShop)
+                    unit.GetComponent<TimeUnite>().launchEffect();
+            }
+            boardNumber++;
+        }
+        beginMoving = true;
+        setupEnemyBoard = false;
+        canLaunchTimerFight = false;
+        isSetupDone = false;
+        totalTime = 0;
+        isTimerLaunch = false;
+        readyToBegin = false;
+        round += 1;
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (this != player.GetComponent<PlayerController>())
+            {
+                player.GetComponent<PlayerController>().beginMoving = true;
+                player.GetComponent<PlayerController>().setupEnemyBoard = false;
+                player.GetComponent<PlayerController>().canLaunchTimerFight = false;
+                player.GetComponent<PlayerController>().isSetupDone = false;
+                player.GetComponent<PlayerController>().totalTime = 0;
+                player.GetComponent<PlayerController>().isTimerLaunch = false;
+                player.GetComponent<PlayerController>().readyToBegin = false;
+            }
+        }
+        setShopPhaseLocal(true);
+        playerXP += XPPerRound;
+        this.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", false);
+    }
+
+    public void addXPToPlayer(int XP)
+    {
+        playerXP += XP;
     }
 }

@@ -18,7 +18,7 @@ public class boardController : MonoBehaviour
     {
         if (player != null)
         {
-            if (player.isShopPhase)
+            if (player.isShopPhaseLocal)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -57,26 +57,49 @@ public class boardController : MonoBehaviour
                                     //Si la cible a deja un monstre
                                     if (player.selectedObject.GetComponent<TimeUnite>().boardFather != null)
                                     {
-                                        Vector3 pos = monsterInSlot.transform.position;
-                                        TimeUnite thisMonster = monsterInSlot;
-                                        boardController previousBoard = player.selectedObject.GetComponent<TimeUnite>().boardFather;
-                                        //Swap position
-                                        monsterInSlot.transform.position = player.selectedObject.transform.position;
-                                        player.selectedObject.transform.position = pos;
-                                        //Add unite in boardsyncList
-                                        player.addNewUniteInBoard(previousBoard.Order, monsterInSlot);
-                                        player.addNewUniteInBoard(Order, player.selectedObject.GetComponent<TimeUnite>());
-                                        //Swap Unite
-                                        monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
-                                        player.selectedObject.GetComponent<TimeUnite>().boardFather.monsterInSlot = thisMonster;
-                                        //Swap boardSlot
-                                        player.selectedObject.GetComponent<TimeUnite>().boardFather = previousBoard;
-                                        monsterInSlot.boardFather = this;
-                                        //Swap PARENT
-                                        player.selectedObject.transform.parent = player.selectedObject.GetComponent<TimeUnite>().boardFather.transform;
-                                        monsterInSlot.transform.parent = this.transform;
-                                        //Unselect Unite
-                                        player.removeSelectedObject();
+                                        if (player.selectedObject.GetComponent<TimeUnite>().nameUnite == monsterInSlot.nameUnite)
+                                        {
+                                            monsterInSlot.health += player.selectedObject.GetComponent<TimeUnite>().health;
+                                            monsterInSlot.damages += player.selectedObject.GetComponent<TimeUnite>().damages;
+                                            GameObject.Destroy(player.selectedObject);
+                                        }
+                                        else
+                                        {
+                                            Vector3 pos = monsterInSlot.transform.position;
+                                            TimeUnite thisMonster = monsterInSlot;
+                                            boardController previousBoard = player.selectedObject.GetComponent<TimeUnite>().boardFather;
+                                            //Swap position
+                                            monsterInSlot.transform.position = player.selectedObject.transform.position;
+                                            player.selectedObject.transform.position = pos;
+                                            //Add unite in boardsyncList
+                                            player.addNewUniteInBoard(previousBoard.Order, monsterInSlot);
+                                            player.addNewUniteInBoard(Order, player.selectedObject.GetComponent<TimeUnite>());
+                                            //Swap Unite
+                                            monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
+                                            player.selectedObject.GetComponent<TimeUnite>().boardFather.monsterInSlot = thisMonster;
+                                            //Swap boardSlot
+                                            player.selectedObject.GetComponent<TimeUnite>().boardFather = previousBoard;
+                                            monsterInSlot.boardFather = this;
+                                            //Swap PARENT
+                                            player.selectedObject.transform.parent = player.selectedObject.GetComponent<TimeUnite>().boardFather.transform;
+                                            monsterInSlot.transform.parent = this.transform;
+                                            //Unselect Unite
+                                            player.removeSelectedObject();
+                                        }
+                                    }
+                                    else if (player.selectedObject.GetComponent<TimeUnite>().nameUnite == monsterInSlot.nameUnite)
+                                    {
+                                        if (player.selectedObject.GetComponent<TimeUnite>().isInShop)
+                                        {
+                                            if (player.moneyLeft > player.selectedObject.GetComponent<TimeUnite>().cost)
+                                            {
+                                                monsterInSlot.health += player.selectedObject.GetComponent<TimeUnite>().health;
+                                                monsterInSlot.damages += player.selectedObject.GetComponent<TimeUnite>().damages;
+                                                player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
+
+                                                GameObject.Destroy(player.selectedObject);
+                                            }
+                                        }
                                     }
                                 }
 

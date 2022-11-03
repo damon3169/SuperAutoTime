@@ -45,31 +45,46 @@ public class ShopController : MonoBehaviour
 
     public void refreshShop()
     {
+        GameObject unit = null;
         foreach (GameObject UniteSlot in GameObject.FindGameObjectsWithTag("UniteShopSlot"))
         {
-            if (player.round < 3)
+            if (UniteSlot.transform.childCount > 0)
+                GameObject.Destroy(UniteSlot.transform.GetChild(0).gameObject);
+            if (player.playerCurrentLevel == 1)
             {
-                Instantiate(ListUniteShopLevel1[Random.Range(0, ListUniteShopLevel1.Count)], UniteSlot.transform.position, Quaternion.identity);
+                unit = Instantiate(ListUniteShopLevel1[Random.Range(0, ListUniteShopLevel1.Count)], UniteSlot.transform.position, Quaternion.identity);
             }
 
-            else if (player.round > 3 && player.round < 6)
+            else if (player.playerCurrentLevel == 2)
             {
                 int random = Random.Range(0, 100);
                 if (random < ListUnitePourcentageLevel2[0])
-                    Instantiate(ListUniteShopLevel1[Random.Range(0, ListUniteShopLevel1.Count)], UniteSlot.transform.position, Quaternion.identity);
+                {
+                    unit = Instantiate(ListUniteShopLevel1[Random.Range(0, ListUniteShopLevel1.Count)], UniteSlot.transform.position, Quaternion.identity);
+                }
                 else
-                    Instantiate(ListUniteShopLevel2[Random.Range(0, ListUniteShopLevel2.Count)], UniteSlot.transform.position, Quaternion.identity);
+                {
+                    unit = Instantiate(ListUniteShopLevel2[Random.Range(0, ListUniteShopLevel2.Count)], UniteSlot.transform.position, Quaternion.identity);
+                }
             }
-            else
+            else if (player.playerCurrentLevel == 3)
             {
                 int random = Random.Range(0, 100);
                 if (random < ListUnitePourcentageLevel3[0])
-                    Instantiate(ListUniteShopLevel1[Random.Range(0, ListUniteShopLevel1.Count)], UniteSlot.transform.position, Quaternion.identity);
+                {
+                    unit = Instantiate(ListUniteShopLevel1[Random.Range(0, ListUniteShopLevel1.Count)], UniteSlot.transform.position, Quaternion.identity);
+                }
                 else if (random < ListUnitePourcentageLevel3[1])
-                    Instantiate(ListUniteShopLevel2[Random.Range(0, ListUniteShopLevel2.Count)], UniteSlot.transform.position, Quaternion.identity);
+                {
+                    unit = Instantiate(ListUniteShopLevel2[Random.Range(0, ListUniteShopLevel2.Count)], UniteSlot.transform.position, Quaternion.identity);
+                }
                 else
-                    Instantiate(ListUniteShopLevel3[Random.Range(0, ListUniteShopLevel3.Count)], UniteSlot.transform.position, Quaternion.identity);
+                {
+                    unit = Instantiate(ListUniteShopLevel3[Random.Range(0, ListUniteShopLevel3.Count)], UniteSlot.transform.position, Quaternion.identity);
+                }
             }
+            unit.transform.parent = UniteSlot.transform;
+
         }
         /*foreach (GameObject UniteSlot in GameObject.FindGameObjectsWithTag("ItemShopSlot"))
         {

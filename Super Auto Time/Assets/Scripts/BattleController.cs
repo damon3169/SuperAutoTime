@@ -32,7 +32,30 @@ public class BattleController : MonoBehaviour
     {
         if (playerLocal != null && playerDist != null)
         {
-            if (playerLocal.isBattlePhase && playerDist.isBattlePhase &&
+            if (!playerLocal.boardAnimator.GetComponent<boardAnimationController>().isInPlaceForShop)
+            {
+                if (playerDist.getNumberUnits() == 0 && playerLocal.getNumberUnits() == 0)
+                {
+                    playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
+                    Debug.Log("test");
+                }
+                else if (playerDist.getNumberUnits() == 0)
+                {
+                    playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
+                    //SETUP SHOP + PLAYERLOCAL -1 PV
+                    playerLocal.life -=1;
+                    Debug.Log("test1");
+                }
+                else if (playerLocal.getNumberUnits() == 0)
+                {
+                    playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
+
+                    //SETUP SHOP + PLAYERDIST -1 PV
+                    playerDist.life -=1;
+                    
+                }
+            }
+            if (playerLocal.isBattlePhaseLocal && playerDist.isBattlePhaseOnline &&
             playerDist.canLaunchTimerFight && playerLocal.canLaunchTimerFight &&
             playerLocal.fightingUnite && playerDist.fightingUnite &&
                     !playerDist.launchMoveunite && !playerLocal.launchMoveunite)
@@ -115,24 +138,7 @@ public class BattleController : MonoBehaviour
                     StopCoroutine(spell1SCorout);
                 }
                 is1sTimer = false;
-                if (playerDist.getNumberUnits()==0 && playerLocal.getNumberUnits()==0)
-                {
-                    //SETUP SHOP
-                    playerLocal.setBattlePhaseFromOutside(false);
-                    //DELETE UNITS ALIVE
-                    //RECREATE UNIT AT END ANIMATION
-                    //REFRESH SHOP
-                }
-                else if (playerDist.getNumberUnits()==0)
-                {
-                    //SETUP SHOP + PLAYERLOCAL -1 PV
-                    playerLocal.setBattlePhaseFromOutside(false);
-                }
-                else if (playerLocal.getNumberUnits()==0)
-                {
-                    //SETUP SHOP + PLAYERDIST -1 PV
-                    playerLocal.setBattlePhaseFromOutside(false);
-                }
+
             }
         }
         else
@@ -158,6 +164,8 @@ public class BattleController : MonoBehaviour
         {
             int damage1 = playerLocal.fightingUnite.damages;
             int damage2 = playerDist.fightingUnite.damages;
+            playerDist.fightingUnite.takeDamages(damage1);
+            playerLocal.fightingUnite.takeDamages(damage2);
             if (playerDist.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
             {
                 playerDist.fightingUnite.launchEffect();
@@ -166,9 +174,6 @@ public class BattleController : MonoBehaviour
             {
                 playerLocal.fightingUnite.launchEffect();
             }
-            playerDist.fightingUnite.takeDamages(damage1);
-            playerLocal.fightingUnite.takeDamages(damage2);
-            Debug.Log("on se tape");
             yield return new WaitForSeconds(1f);
         }
     }
@@ -216,5 +221,10 @@ public class BattleController : MonoBehaviour
         forwardTime = false;
         isHiting = false;
         yield break;
+    }
+
+    public void LaunchForward(float timeForward)
+    {
+        StartCoroutine(onForward(timeForward, Time.time));
     }
 }

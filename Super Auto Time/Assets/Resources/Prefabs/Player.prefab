@@ -68,15 +68,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  playerLevelXP: 060000000c00000012000000
+  playerXP: 0
+  playerMaxLevel: 3
+  XPPerRound: 3
+  playerCurrentLevel: 1
   moneyLeft: 0
   shop: {fileID: 0}
+  life: 10
   boardList: []
-  round: 1
-  isBattlePhase: 0
-  isShopPhase: 1
-  shopPhaseDuration: 30
+  round: 0
+  isBattlePhaseOnline: 0
+  isBattlePhaseLocal: 0
+  isShopPhaseOnline: 1
+  isShopPhaseLocal: 1
+  shopPhaseDuration: 60
   readyToBegin: 0
   selectedObject: {fileID: 0}
+  boardAnimator: {fileID: 0}
   boardSlotList: []
   boardSlotListTemp: []
   startTimeMovement: 0
@@ -90,6 +99,9 @@ MonoBehaviour:
   launchMoveunite: 0
   uniteList: []
   totalTime: 0
+  randomSelected: 0
+  isFirstShop: 1
+  otherPlayer: {fileID: 0}
 --- !u!136 &2605215421764271326
 CapsuleCollider:
   m_ObjectHideFlags: 0

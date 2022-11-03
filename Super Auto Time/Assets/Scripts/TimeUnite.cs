@@ -65,7 +65,8 @@ public class TimeUnite : MonoBehaviour
     public int damageSpell;
     public int damagesBonus = 0;
     public int healthBonus = 0;
-    public int forwardDuration =0;
+    public int forwardDuration = 0;
+    public int shopDurationBonus = 0;
 
     [Space(20)]
 
@@ -87,7 +88,8 @@ public class TimeUnite : MonoBehaviour
     public TMP_Text damagesText;
     public TMP_Text healthText;
     public BattleController battleController;
-     
+    public SpriteRenderer mainSprite;
+
     private void Start()
     {
         battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>();
@@ -99,23 +101,10 @@ public class TimeUnite : MonoBehaviour
         healthText.text = health.ToString();
         if (player != null)
         {
-            if (player.isShopPhase)
+            if (player.isShopPhaseLocal)
             {
-                if (triggerList == Triggers.startOfShop && !isShopphaseBegin && boardFather != null)
-                {
-                    //LAUNCH EFFECT
-                    isShopphaseBegin = true;
-                    isShopphaseEnd = false;
-                }
                 if (Input.GetMouseButtonDown(0))
                 {
-                    /*Collider2D clicked_collider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                    if (clicked_collider != null && clicked_collider.transform.gameObject == this.gameObject)
-                    {
-                        selectObject();
-                    }
-                    Debug.Log("Mouse is pressed down");*/
-
                     RaycastHit hitInfo = new RaycastHit();
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
                     {
@@ -124,27 +113,6 @@ public class TimeUnite : MonoBehaviour
                             selectObject();
                         }
                     }
-                }
-            }
-            else
-            {
-                if (!isInShop)
-                {
-                    /*if (boardFather.tag == "BoardSloatE")
-                    {
-                        player = otherPlayer;
-                    }*/
-                    if (triggerList == Triggers.EndOfShop && !isShopphaseEnd && boardFather != null)
-                    {
-                        //LAUNCH EFFECT
-                        isShopphaseEnd = true;
-                        isShopphaseBegin = false;
-                    }
-                    if (player.isTimerLaunch)
-                    {
-
-                    }
-
                 }
             }
         }
@@ -183,19 +151,6 @@ public class TimeUnite : MonoBehaviour
         }
     }
 
-
-    public void onEndPurchasePhase()
-    {
-
-    }
-    public void onBeginPurchasePhase()
-    {
-
-    }
-    public void onBeginBattlePhase()
-    {
-
-    }
 
     public void selectObject()
     {
@@ -320,10 +275,10 @@ public class TimeUnite : MonoBehaviour
                 }
                 break;
             case Effects.Forward:
-                StartCoroutine(battleController.onForward(forwardDuration,Time.time));
+                battleController.LaunchForward(forwardDuration);
                 break;
             case Effects.GainTimerShop:
-                //ADD TIMER SHOP, A CALL DANS LE PLAYERCONTROLLER
+                player.shopPhaseDuration += shopDurationBonus;
                 break;
             case Effects.debug:
                 Debug.Log("Effect launched at " + Time.time + " with Trigger=" + triggerList.ToString());
