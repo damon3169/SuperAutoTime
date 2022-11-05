@@ -128,9 +128,9 @@ public class PlayerController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1) && selectedObject)
                 {
-                    this.selectedObject.GetComponent<TimeUnite>().spriteSelected.enabled = true;
+                    this.selectedObject.GetComponent<TimeUnite>().spriteSelected.enabled = false;
                     this.selectedObject=null;
                 }
         //CHECK IF NEED TO LEVEL UP
