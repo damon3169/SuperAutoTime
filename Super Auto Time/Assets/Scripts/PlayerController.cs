@@ -44,7 +44,9 @@ public class PlayerController : NetworkBehaviour
     [SyncVar]
     public bool isShopPhaseOnline = true;
     public bool isShopPhaseLocal = true;
-    public float shopPhaseDuration = 30;
+    public float baseShopDuration = 60;
+    [HideInInspector]
+    public float shopPhaseDuration = 60;
 
     private TextMeshProUGUI timerDisplay;
     [SyncVar]
@@ -78,7 +80,7 @@ public class PlayerController : NetworkBehaviour
     // Start is called before the first frame update
     public override void OnStartClient()
     {
-
+        shopPhaseDuration = baseShopDuration;
         if (isLocalPlayer)
         {
             // arenaPostion = GameObject.FindGameObjectWithTag("ArenaLocalPos").transform;
@@ -546,6 +548,7 @@ public class PlayerController : NetworkBehaviour
     {
         //Set battlephase to false locally and online
         setBattlePhaseFromOutside(false);
+        shopPhaseDuration = baseShopDuration;
         // efface les unite
         foreach (GameObject slot in GameObject.FindGameObjectsWithTag("Unit"))
         {
