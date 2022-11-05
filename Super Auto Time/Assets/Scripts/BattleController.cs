@@ -33,14 +33,12 @@ public class BattleController : MonoBehaviour
                 if (playerDist.getNumberUnits() == 0 && playerLocal.getNumberUnits() == 0)
                 {
                     playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
-                    Debug.Log("test");
                 }
                 else if (playerDist.getNumberUnits() == 0)
                 {
                     playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
                     //SETUP SHOP + PLAYERLOCAL -1 PV
                     playerLocal.life -=1;
-                    Debug.Log("test1");
                 }
                 else if (playerLocal.getNumberUnits() == 0)
                 {

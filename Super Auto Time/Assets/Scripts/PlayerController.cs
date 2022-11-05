@@ -128,6 +128,11 @@ public class PlayerController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+                {
+                    this.selectedObject.GetComponent<TimeUnite>().spriteSelected.enabled = true;
+                    this.selectedObject=null;
+                }
         //CHECK IF NEED TO LEVEL UP
         if (playerCurrentLevel < playerMaxLevel)
         {
@@ -135,8 +140,6 @@ public class PlayerController : NetworkBehaviour
             {
                 playerCurrentLevel += 1;
                 playerXP = 0;
-                Debug.Log("test");
-
             }
         }
 
