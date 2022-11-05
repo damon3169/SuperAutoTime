@@ -517,7 +517,7 @@ MonoBehaviour:
   level: 1
   cost: 16
   triggerList: 5
-  timeEffect: 000000000000000000000000000000000000000000000000000000000000000000000000
+  timeEffect: 09000000
   targetList: 0
   AllyNumber: 
   EnnemiNumber: 
