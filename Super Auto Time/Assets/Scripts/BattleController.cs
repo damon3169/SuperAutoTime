@@ -18,7 +18,7 @@ public class BattleController : MonoBehaviour
     IEnumerator spell1SCorout;
     private float start10STimer = 0;
     public TMP_Text timerDisplay;
-    int totalTime = 0;
+    public int totalTime = 0;
     IEnumerator forwardCorout;
     bool forwardTime = false;
 
