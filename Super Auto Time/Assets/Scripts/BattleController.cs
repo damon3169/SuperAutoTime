@@ -210,7 +210,7 @@ public class BattleController : MonoBehaviour
         {
             forwardTime = true;
             StopCoroutine(fightCorout);
-            Time.timeScale = 10f;
+            Time.timeScale = 5f;
             yield return new WaitForSeconds(Timeforward);
         }
         Time.timeScale = 1f;

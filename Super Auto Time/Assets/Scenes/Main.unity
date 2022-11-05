@@ -4310,6 +4310,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5298600533589774150, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5298600533683656328, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.7000008
+      objectReference: {fileID: 0}
+    - target: {fileID: 5298600534141963734, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.7000008
+      objectReference: {fileID: 0}
     - target: {fileID: 5298600534165350378, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -4354,9 +4366,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5298600534329055695, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.7000012
+      objectReference: {fileID: 0}
     - target: {fileID: 5298600534427271623, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
       propertyPath: m_Name
       value: Shop
+      objectReference: {fileID: 0}
+    - target: {fileID: 5298600534837735407, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.7000008
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
