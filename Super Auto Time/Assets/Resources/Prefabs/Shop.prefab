@@ -1772,9 +1772,15 @@ MonoBehaviour:
   ListUniteShopLevel1: []
   ListUniteShopLevel2: []
   ListUniteShopLevel3: []
-  ListUnitePourcentageLevel1: []
-  ListUnitePourcentageLevel2: []
-  ListUnitePourcentageLevel3: []
+  ListUnitePourcentageLevel1:
+  - 100
+  ListUnitePourcentageLevel2:
+  - 60
+  - 40
+  ListUnitePourcentageLevel3:
+  - 40
+  - 30
+  - 30
 --- !u!1 &5298600534456350815
 GameObject:
   m_ObjectHideFlags: 0
