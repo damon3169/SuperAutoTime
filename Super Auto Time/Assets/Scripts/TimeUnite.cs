@@ -88,10 +88,14 @@ public class TimeUnite : MonoBehaviour
     public TMP_Text healthText;
     public BattleController battleController;
     public SpriteRenderer mainSprite;
+    
+    public TMP_Text nameDisplay;
+
 
     private void Start()
     {
         battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>();
+        nameDisplay.text = this.nameUnite;
     }
     // Update is called once per frame
     void Update()

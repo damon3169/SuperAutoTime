@@ -22,10 +22,6 @@ public class BattleController : MonoBehaviour
     IEnumerator forwardCorout;
     bool forwardTime = false;
 
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void FixedUpdate()
