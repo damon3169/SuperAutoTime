@@ -21,7 +21,6 @@ public class ShopController : MonoBehaviour
         foreach (var unit in units)
         {
             GameObject unitGameObject = (GameObject)unit;
-            Debug.Log(unitGameObject);
             if (unitGameObject.GetComponent<TimeUnite>().level == 1)
             {
                 ListUniteShopLevel1.Add(unitGameObject);
