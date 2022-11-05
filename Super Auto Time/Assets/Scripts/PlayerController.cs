@@ -80,6 +80,7 @@ public class PlayerController : NetworkBehaviour
     // Start is called before the first frame update
     public override void OnStartClient()
     {
+        Time.timeScale = 0.5f;
         shopPhaseDuration = baseShopDuration;
         if (isLocalPlayer)
         {
