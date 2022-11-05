@@ -99,11 +99,11 @@ public class BattleController : MonoBehaviour
                         uniteWith1sEffect.Add(unite);
                     }
                     unitWithEveryXsEffect.Clear();
-                    foreach (TimeUnite unite in playerDist.lookForSpellEffect("EveryXs"))
+                    foreach (TimeUnite unite in playerDist.lookForSpellEffect("OnXs"))
                     {
                         unitWithEveryXsEffect.Add(unite);
                     }
-                    foreach (TimeUnite unite in playerLocal.lookForSpellEffect("EveryXs"))
+                    foreach (TimeUnite unite in playerLocal.lookForSpellEffect("OnXs"))
                     {
                         unitWithEveryXsEffect.Add(unite);
                     }

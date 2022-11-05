@@ -15,11 +15,12 @@ public class TimeUnite : MonoBehaviour
     public int cost = 3;
     public enum Triggers // your custom enumeration
     {
+        nothing,
         startOfShop,
         EndOfShop,
         Every1s,
         beginOfFight,
-        EveryXs,
+        OnXs,
         OnDeath,
         onDamage,
         onAttack
