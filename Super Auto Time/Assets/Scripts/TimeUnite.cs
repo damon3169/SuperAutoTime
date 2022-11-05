@@ -9,7 +9,7 @@ public class TimeUnite : MonoBehaviour
 
     public int health;
     public int damages;
-    public string descrition;
+    public string description;
 
     public int level = 1;
     public int cost = 3;

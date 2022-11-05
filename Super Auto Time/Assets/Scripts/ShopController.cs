@@ -5,12 +5,13 @@ using TMPro;
 
 public class ShopController : MonoBehaviour
 {
-    private List<GameObject> ListUniteShopLevel1;
-    private List<GameObject> ListUniteShopLevel2;
-    private List<GameObject> ListUniteShopLevel3;
+    public List<GameObject> ListUniteShopLevel1;
+    public List<GameObject> ListUniteShopLevel2;
+    public List<GameObject> ListUniteShopLevel3;
     public List<float> ListUnitePourcentageLevel1;
     public List<float> ListUnitePourcentageLevel2;
     public List<float> ListUnitePourcentageLevel3;
+   // public List<List<float>> ListUnitePourcentagelevels;
 
     PlayerController player;
     // Start is called before the first frame update
@@ -20,6 +21,7 @@ public class ShopController : MonoBehaviour
         foreach(var unit in  units)
         {
             GameObject unitGameObject = (GameObject)unit;
+            Debug.Log(unitGameObject);
             if(unitGameObject.GetComponent<TimeUnite>().level==1)
             {
                 ListUniteShopLevel1.Add(unitGameObject);
@@ -94,7 +96,7 @@ public class ShopController : MonoBehaviour
                     unit = Instantiate(ListUniteShopLevel3[Random.Range(0, ListUniteShopLevel3.Count)], UniteSlot.transform.position, Quaternion.identity);
                 }
             }
-            UniteSlot.transform.GetChild(0).GetComponent<TMP_Text>().text= unit.GetComponent<TimeUnite>().descrition;
+            UniteSlot.transform.GetChild(0).GetComponent<TMP_Text>().text= unit.GetComponent<TimeUnite>().description;
             unit.transform.parent = UniteSlot.transform;
             
         }
