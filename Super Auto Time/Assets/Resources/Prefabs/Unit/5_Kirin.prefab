@@ -513,6 +513,7 @@ MonoBehaviour:
   nameUnite: 5_Kirin
   health: 2
   damages: 2
+  description: On 4, deal 2 dmg to the first enemy
   level: 1
   cost: 12
   triggerList: 5

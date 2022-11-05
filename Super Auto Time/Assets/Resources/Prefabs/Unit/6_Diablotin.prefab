@@ -513,6 +513,7 @@ MonoBehaviour:
   nameUnite: 6_Diablotin
   health: 2
   damages: 2
+  description: On death, deal 3 dmg to a random enemy
   level: 1
   cost: 18
   triggerList: 6

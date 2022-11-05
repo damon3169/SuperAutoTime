@@ -513,6 +513,7 @@ MonoBehaviour:
   nameUnite: 9_Tarasque
   health: 8
   damages: 8
+  description: 'When shopping start, loose 15s '
   level: 1
   cost: 14
   triggerList: 1

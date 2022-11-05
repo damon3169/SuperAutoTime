@@ -513,6 +513,7 @@ MonoBehaviour:
   nameUnite: 3_Minotaure
   health: 3
   damages: 1
+  description: On 9, gain 4 atk
   level: 1
   cost: 16
   triggerList: 5
