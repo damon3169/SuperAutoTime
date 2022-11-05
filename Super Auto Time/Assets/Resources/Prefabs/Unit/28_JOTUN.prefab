@@ -941,8 +941,7 @@ MonoBehaviour:
   nameUnite: 28_JOTUN
   health: 500
   damages: 100
-  descrition: test
-  level: 1
+  level: 2
   cost: 3
   triggerList: 7
   timeEffect: 05000000

@@ -908,8 +908,7 @@ MonoBehaviour:
   nameUnite: MonstreShop
   health: 700
   damages: 100
-  descrition: je suis une chevre
-  level: 1
+  level: 2
   cost: 3
   triggerList: 0
   timeEffect: 0300000006000000

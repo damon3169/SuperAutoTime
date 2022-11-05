@@ -68,10 +68,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  playerLevelXP: 060000000c00000012000000
+  playerLevelXP: 280000004600000078000000
   playerXP: 0
-  playerMaxLevel: 3
-  XPPerRound: 3
+  playerMaxLevel: 4
+  XPPerRound: 10
   playerCurrentLevel: 1
   moneyLeft: 0
   shop: {fileID: 0}

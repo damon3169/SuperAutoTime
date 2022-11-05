@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bc53241fe177e4e9da234e021c7ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xpUpValue: 3
+  xpUpValue: 10
   valueRefreshSop: 10
 --- !u!1 &62656680
 GameObject:
@@ -5401,11 +5401,27 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6144287668188778917, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
+      propertyPath: ListUnitePourcentageLevel3.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6144287668188778917, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
       propertyPath: ListUnitePourcentageLevel2.Array.data[0]
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6144287668188778917, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
       propertyPath: ListUnitePourcentageLevel2.Array.data[1]
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6144287668188778917, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
+      propertyPath: ListUnitePourcentageLevel3.Array.data[0]
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6144287668188778917, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
+      propertyPath: ListUnitePourcentageLevel3.Array.data[1]
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6144287668188778917, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
+      propertyPath: ListUnitePourcentageLevel3.Array.data[2]
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6144287668188778918, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
