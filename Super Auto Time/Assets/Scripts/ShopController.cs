@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ShopController : MonoBehaviour
 {
-    public List<GameObject> ListUniteShopLevel1;
-    public List<GameObject> ListUniteShopLevel2;
-    public List<GameObject> ListUniteShopLevel3;
+    private List<GameObject> ListUniteShopLevel1;
+    private List<GameObject> ListUniteShopLevel2;
+    private List<GameObject> ListUniteShopLevel3;
     public List<float> ListUnitePourcentageLevel1;
     public List<float> ListUnitePourcentageLevel2;
     public List<float> ListUnitePourcentageLevel3;
@@ -58,8 +59,8 @@ public class ShopController : MonoBehaviour
         GameObject unit = null;
         foreach (GameObject UniteSlot in GameObject.FindGameObjectsWithTag("UniteShopSlot"))
         {
-            if (UniteSlot.transform.childCount > 0)
-                GameObject.Destroy(UniteSlot.transform.GetChild(0).gameObject);
+            if (UniteSlot.transform.childCount > 1)
+                GameObject.Destroy(UniteSlot.transform.GetChild(1).gameObject);
             if (player.playerCurrentLevel == 1)
             {
                 unit = Instantiate(ListUniteShopLevel1[Random.Range(0, ListUniteShopLevel1.Count)], UniteSlot.transform.position, Quaternion.identity);
@@ -93,8 +94,9 @@ public class ShopController : MonoBehaviour
                     unit = Instantiate(ListUniteShopLevel3[Random.Range(0, ListUniteShopLevel3.Count)], UniteSlot.transform.position, Quaternion.identity);
                 }
             }
+            UniteSlot.transform.GetChild(0).GetComponent<TMP_Text>().text= unit.GetComponent<TimeUnite>().descrition;
             unit.transform.parent = UniteSlot.transform;
-
+            
         }
         /*foreach (GameObject UniteSlot in GameObject.FindGameObjectsWithTag("ItemShopSlot"))
         {
