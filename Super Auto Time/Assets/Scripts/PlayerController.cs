@@ -352,7 +352,7 @@ public class PlayerController : NetworkBehaviour
         while (totalTime <= shopPhaseDuration)
         {
             totalTime += Time.deltaTime;
-            timerDisplay.text = (shopPhaseDuration - totalTime).ToString();
+            timerDisplay.text = ((int)shopPhaseDuration - (int)totalTime).ToString();
             moneyLeft = (shopPhaseDuration - totalTime);
             var integer = (int)totalTime;
             yield return null;
@@ -431,7 +431,7 @@ public class PlayerController : NetworkBehaviour
         // The fraction of the animation that has happened so far is
         // equal to the elapsed time divided by the desired time for
         // the total journey.
-        float fracComplete = (Time.time - timeBeginMoving) / 1f;
+        float fracComplete = (Time.time - timeBeginMoving) / 3f;
 
         uniteToMove.transform.position = Vector3.Slerp(riseRelCenter, setRelCenter, fracComplete);
         uniteToMove.transform.position += center;

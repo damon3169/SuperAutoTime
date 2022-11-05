@@ -9,6 +9,7 @@ public class boardAnimationController : MonoBehaviour
     public bool isInPlaceForFight= false;
     public void boardInPlaceToFight()
     {
+        GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>().totalTime = 0;
         isInPlaceForFight=true;
         isInPlaceForShop=false;
     }
