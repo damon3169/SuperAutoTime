@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: Monstre 1
-  health: 700
+  health: 200
   damages: 100
   level: 1
   cost: 3

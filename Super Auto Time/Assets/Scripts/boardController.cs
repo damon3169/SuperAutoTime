@@ -54,15 +54,23 @@ public class boardController : MonoBehaviour
                                 }
                                 else
                                 {
-                                    //Si la cible a deja un monstre
+                                    //Si selected a deja un board
                                     if (player.selectedObject.GetComponent<TimeUnite>().boardFather != null)
                                     {
-                                        if (player.selectedObject.GetComponent<TimeUnite>().nameUnite == monsterInSlot.nameUnite)
+                                        //Si monstre est le meme, combine
+                                        if (player.selectedObject.GetComponent<TimeUnite>().nameUnite == monsterInSlot.nameUnite && player.selectedObject.GetComponent<TimeUnite>() != monsterInSlot)
                                         {
                                             monsterInSlot.health += player.selectedObject.GetComponent<TimeUnite>().health;
                                             monsterInSlot.damages += player.selectedObject.GetComponent<TimeUnite>().damages;
+                                            //Add unite in boardsyncList
+                                            player.addNewUniteInEmpty(player.selectedObject.GetComponent<TimeUnite>().boardFather.Order);
+                                            player.addNewUniteInBoard(Order, player.selectedObject.GetComponent<TimeUnite>());
+                                            player.selectedObject.GetComponent<TimeUnite>().boardFather.monsterInSlot = null;
                                             GameObject.Destroy(player.selectedObject);
+                                            player.selectedObject = null;
+
                                         }
+                                        //Sinon move swap
                                         else
                                         {
                                             Vector3 pos = monsterInSlot.transform.position;
@@ -96,7 +104,7 @@ public class boardController : MonoBehaviour
                                                 monsterInSlot.health += player.selectedObject.GetComponent<TimeUnite>().health;
                                                 monsterInSlot.damages += player.selectedObject.GetComponent<TimeUnite>().damages;
                                                 player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
-
+                                                player.addNewUniteInBoard(Order, monsterInSlot);
                                                 GameObject.Destroy(player.selectedObject);
                                             }
                                         }

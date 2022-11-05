@@ -766,7 +766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 28_JOTUN
-  health: 100
+  health: 500
   damages: 100
   level: 1
   cost: 3

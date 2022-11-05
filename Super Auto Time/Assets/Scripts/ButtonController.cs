@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class ButtonController : MonoBehaviour
 {
     private PlayerController player;
@@ -49,5 +48,12 @@ public class ButtonController : MonoBehaviour
             }
 
         }
+    }
+
+    public void onSelectedInBoard()
+    {
+        player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost/2;
+        player.selectedObject.GetComponent<TimeUnite>().boardFather.monsterInSlot = null;
+        Destroy(player.selectedObject);
     }
 }

@@ -10,18 +10,28 @@ public class ShopController : MonoBehaviour
     public List<float> ListUnitePourcentageLevel1;
     public List<float> ListUnitePourcentageLevel2;
     public List<float> ListUnitePourcentageLevel3;
-    /*
-        public List<GameObject> ListItemShopLevel1;
-        public List<GameObject> ListItemShopLevel2;
-        public List<GameObject> ListItemShopLevel3;
-        public List<float> ListItemPourcentageLevel1;
-        public List<float> ListItemPourcentageLevel2;
-        public List<float> ListItemPourcentageLevel3;*/
+
     PlayerController player;
     // Start is called before the first frame update
     void Start()
     {
-
+        Object[] units = Resources.LoadAll("Prefabs/Unit/");
+        foreach(var unit in  units)
+        {
+            GameObject unitGameObject = (GameObject)unit;
+            if(unitGameObject.GetComponent<TimeUnite>().level==1)
+            {
+                ListUniteShopLevel1.Add(unitGameObject);
+            }
+            if(unitGameObject.GetComponent<TimeUnite>().level==2)
+            {
+                ListUniteShopLevel2.Add(unitGameObject);
+            }
+            if(unitGameObject.GetComponent<TimeUnite>().level==3)
+            {
+                ListUniteShopLevel3.Add(unitGameObject);
+            }
+        }
     }
 
     // Update is called once per frame

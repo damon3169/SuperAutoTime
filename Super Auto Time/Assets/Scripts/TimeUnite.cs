@@ -70,8 +70,6 @@ public class TimeUnite : MonoBehaviour
 
     [Space(20)]
 
-    private bool isShopphaseBegin = false;
-    private bool isShopphaseEnd = false;
     public bool InPlaceForFight = false;
     public bool isFighting = false;
     public bool isInShop = true;
