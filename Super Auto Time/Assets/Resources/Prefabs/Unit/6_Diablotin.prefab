@@ -514,7 +514,7 @@ MonoBehaviour:
   health: 2
   damages: 2
   description: On death, deal 3 dmg to a random enemy
-  level: 2
+  level: 1
   cost: 18
   triggerList: 6
   timeEffect: 00000000000000000000000000000000

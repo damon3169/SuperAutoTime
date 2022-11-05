@@ -652,7 +652,8 @@ MonoBehaviour:
   nameUnite: Monstre 1
   health: 200
   damages: 100
-  level: 2
+  description: 
+  level: 4
   cost: 3
   triggerList: 4
   timeEffect: 0300000006000000
