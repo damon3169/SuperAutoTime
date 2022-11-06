@@ -16,7 +16,6 @@ public class ShowWhenSelectedInBoard : MonoBehaviour
                 if (players.GetComponent<PlayerController>().isLocalPlayer)
                 {
                     player = players.GetComponent<PlayerController>();
-                    Debug.Log("test");
                 }
             }
         }

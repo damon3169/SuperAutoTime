@@ -67,8 +67,7 @@ public class boardController : MonoBehaviour
                                             player.addNewUniteInBoard(Order, player.selectedObject.GetComponent<TimeUnite>());
                                             player.selectedObject.GetComponent<TimeUnite>().boardFather.monsterInSlot = null;
                                             GameObject.Destroy(player.selectedObject);
-                                            player.selectedObject = null;
-
+                                            player.removeSelectedObject();
                                         }
                                         //Sinon move swap
                                         else
@@ -86,10 +85,10 @@ public class boardController : MonoBehaviour
                                             monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
                                             player.selectedObject.GetComponent<TimeUnite>().boardFather.monsterInSlot = thisMonster;
                                             //Swap boardSlot
-                                            player.selectedObject.GetComponent<TimeUnite>().boardFather = previousBoard;
+                                            thisMonster.boardFather = previousBoard;
                                             monsterInSlot.boardFather = this;
                                             //Swap PARENT
-                                            player.selectedObject.transform.parent = player.selectedObject.GetComponent<TimeUnite>().boardFather.transform;
+                                            thisMonster.transform.parent = thisMonster.boardFather.transform;
                                             monsterInSlot.transform.parent = this.transform;
                                             //Unselect Unite
                                             player.removeSelectedObject();
@@ -106,6 +105,7 @@ public class boardController : MonoBehaviour
                                                 player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
                                                 player.addNewUniteInBoard(Order, monsterInSlot);
                                                 GameObject.Destroy(player.selectedObject);
+                                                player.removeSelectedObject();
                                             }
                                         }
                                     }

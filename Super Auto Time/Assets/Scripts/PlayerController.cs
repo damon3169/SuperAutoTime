@@ -130,10 +130,10 @@ public class PlayerController : NetworkBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(1) && selectedObject)
-                {
-                    this.selectedObject.GetComponent<TimeUnite>().spriteSelected.enabled = false;
-                    this.selectedObject=null;
-                }
+        {
+            this.selectedObject.GetComponent<TimeUnite>().spriteSelected.enabled = false;
+            this.selectedObject = null;
+        }
         //CHECK IF NEED TO LEVEL UP
         if (playerCurrentLevel < playerMaxLevel)
         {
@@ -456,30 +456,30 @@ public class PlayerController : NetworkBehaviour
 
         for (int i = 0; i < uniteList.Count; i++)
         {
-            if (!uniteList[i].InPlaceForFight)
-            {
-                asChange = false;
-                uniteList[i].positionInBoard = i;
-                unitMoving = true;
-                asChange = moveUniteTo(uniteList[i].gameObject, boardSlotList[i].transform.position);
-                if (asChange)
+            if (uniteList[i])
+                if (!uniteList[i].InPlaceForFight)
                 {
-                    ready = false;
-                    if (i == 0)
+                    asChange = false;
+                    unitMoving = true;
+                    asChange = moveUniteTo(uniteList[i].gameObject, boardSlotList[i].transform.position);
+                    if (asChange)
                     {
-                        fightingUnite = uniteList[i];
-                        uniteList[i].isFighting = true;
+                        ready = false;
+                        if (i == 0)
+                        {
+                            fightingUnite = uniteList[i];
+                            uniteList[i].isFighting = true;
+                        }
+                        boardSlotList[i].GetComponent<boardController>().monsterInSlot = uniteList[i];
+                        uniteList[i].boardFather = boardSlotList[i].GetComponent<boardController>();
+                        uniteList[i].positionInBoard = i;
+                        uniteList[i].InPlaceForFight = true;
                     }
-                    boardSlotList[i].GetComponent<boardController>().monsterInSlot = uniteList[i];
-                    uniteList[i].boardFather = boardSlotList[i].GetComponent<boardController>();
-                    uniteList[i].positionInBoard = i;
-                    uniteList[i].InPlaceForFight = true;
+                    else
+                    {
+                        ready = false;
+                    }
                 }
-                else
-                {
-                    ready = false;
-                }
-            }
         }
         int popo = 0;
 
