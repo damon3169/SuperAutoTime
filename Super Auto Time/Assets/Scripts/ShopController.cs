@@ -5,14 +5,15 @@ using TMPro;
 
 public class ShopController : MonoBehaviour
 {
-    public List<GameObject> ListUniteShopLevel1;
-    public List<GameObject> ListUniteShopLevel2;
-    public List<GameObject> ListUniteShopLevel3;
+    private List<GameObject> ListUniteShopLevel1 = new List<GameObject>();
+    private List<GameObject> ListUniteShopLevel2= new List<GameObject>();
+    private List<GameObject> ListUniteShopLevel3= new List<GameObject>();
+    private List<GameObject> ListUniteShopLevel4= new List<GameObject>();
+
     public List<float> ListUnitePourcentageLevel1;
     public List<float> ListUnitePourcentageLevel2;
     public List<float> ListUnitePourcentageLevel3;
-    // public List<List<float>> ListUnitePourcentagelevels;
-
+    public List<float> ListUnitePourcentageLevel4;
     PlayerController player;
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,10 @@ public class ShopController : MonoBehaviour
             if (unitGameObject.GetComponent<TimeUnite>().level == 3)
             {
                 ListUniteShopLevel3.Add(unitGameObject);
+            }
+            if (unitGameObject.GetComponent<TimeUnite>().level == 4)
+            {
+                ListUniteShopLevel4.Add(unitGameObject);
             }
         }
     }
@@ -86,13 +91,33 @@ public class ShopController : MonoBehaviour
                 {
                     unit = Instantiate(ListUniteShopLevel1[Random.Range(0, ListUniteShopLevel1.Count)], UniteSlot.transform.position, Quaternion.identity);
                 }
-                else if (random < ListUnitePourcentageLevel3[1])
+                else if (random < ListUnitePourcentageLevel3[1]+ListUnitePourcentageLevel3[0])
                 {
                     unit = Instantiate(ListUniteShopLevel2[Random.Range(0, ListUniteShopLevel2.Count)], UniteSlot.transform.position, Quaternion.identity);
                 }
                 else
                 {
                     unit = Instantiate(ListUniteShopLevel3[Random.Range(0, ListUniteShopLevel3.Count)], UniteSlot.transform.position, Quaternion.identity);
+                }
+            }
+              else if (player.playerCurrentLevel == 4)
+            {
+                int random = Random.Range(0, 100);
+                if (random < ListUnitePourcentageLevel3[0])
+                {
+                    unit = Instantiate(ListUniteShopLevel1[Random.Range(0, ListUniteShopLevel1.Count)], UniteSlot.transform.position, Quaternion.identity);
+                }
+                else if (random < ListUnitePourcentageLevel3[1]+ListUnitePourcentageLevel3[0])
+                {
+                    unit = Instantiate(ListUniteShopLevel2[Random.Range(0, ListUniteShopLevel2.Count)], UniteSlot.transform.position, Quaternion.identity);
+                }
+                else if (random < ListUnitePourcentageLevel3[2]+ListUnitePourcentageLevel3[1]+ListUnitePourcentageLevel3[0])
+                {
+                    unit = Instantiate(ListUniteShopLevel2[Random.Range(0, ListUniteShopLevel3.Count)], UniteSlot.transform.position, Quaternion.identity);
+                }
+                else
+                {
+                    unit = Instantiate(ListUniteShopLevel3[Random.Range(0, ListUniteShopLevel4.Count)], UniteSlot.transform.position, Quaternion.identity);
                 }
             }
             UniteSlot.transform.GetChild(0).GetComponent<TMP_Text>().text = unit.GetComponent<TimeUnite>().description;
