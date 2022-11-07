@@ -38,15 +38,15 @@ public class BattleController : MonoBehaviour
                 {
                     playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
                     //SETUP SHOP + PLAYERLOCAL -1 PV
-                    playerLocal.life -=1;
+                    playerLocal.life -= 1;
                 }
                 else if (playerLocal.getNumberUnits() == 0)
                 {
                     playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
 
                     //SETUP SHOP + PLAYERDIST -1 PV
-                    playerDist.life -=1;
-                    
+                    playerDist.life -= 1;
+
                 }
             }
             if (playerLocal.isBattlePhaseLocal && playerDist.isBattlePhaseOnline &&
@@ -156,17 +156,20 @@ public class BattleController : MonoBehaviour
     {
         while (isHiting)
         {
-            int damage1 = playerLocal.fightingUnite.damages;
-            int damage2 = playerDist.fightingUnite.damages;
-            playerDist.fightingUnite.takeDamages(damage1);
-            playerLocal.fightingUnite.takeDamages(damage2);
-            if (playerDist.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
+            //int damage1 = playerLocal.fightingUnite.damages;
+            //int damage2 = playerDist.fightingUnite.damages;
+            if (playerDist.fightingUnite && playerLocal.fightingUnite)
             {
-                playerDist.fightingUnite.launchEffect();
-            }
-            if (playerLocal.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
-            {
-                playerLocal.fightingUnite.launchEffect();
+                playerDist.fightingUnite.launchHitAnimation();
+                playerLocal.fightingUnite.launchHitAnimation();
+                if (playerDist.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
+                {
+                    playerDist.fightingUnite.launchEffect();
+                }
+                if (playerLocal.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
+                {
+                    playerLocal.fightingUnite.launchEffect();
+                }
             }
             yield return new WaitForSeconds(1f);
         }

@@ -129,6 +129,14 @@ public class PlayerController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!otherPlayer)
+            foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                if (this != player.GetComponent<PlayerController>())
+                {
+                    otherPlayer = player.GetComponent<PlayerController>();
+                }
+            }
         if (Input.GetMouseButtonDown(1) && selectedObject)
         {
             this.selectedObject.GetComponent<TimeUnite>().spriteSelected.enabled = false;
@@ -255,14 +263,7 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
-            if (!otherPlayer)
-                foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
-                {
-                    if (this != player.GetComponent<PlayerController>())
-                    {
-                        otherPlayer = player.GetComponent<PlayerController>();
-                    }
-                }
+
             if (otherPlayer.isBattlePhaseLocal)
             {
                 //place unit for fight if someone dies
@@ -297,6 +298,8 @@ public class PlayerController : NetworkBehaviour
                         unit.GetComponent<TimeUnite>().damages = unite.damages;
                         unit.GetComponent<TimeUnite>().boardFather = boardSlotList[boardNumber].GetComponent<boardController>();
                         unit.GetComponent<TimeUnite>().boardFather.monsterInSlot = unit.GetComponent<TimeUnite>();
+                        unit.transform.rotation = Quaternion.Euler(0, 180, 0);
+                        unit.transform.parent = this.boardSlotList[boardNumber].transform;
                         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
                         {
                             if (this != player.GetComponent<PlayerController>())

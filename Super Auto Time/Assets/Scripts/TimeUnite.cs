@@ -88,7 +88,7 @@ public class TimeUnite : MonoBehaviour
     public TMP_Text healthText;
     public BattleController battleController;
     public SpriteRenderer mainSprite;
-    
+    private Animator unitAnimator;
     public TMP_Text nameDisplay;
 
 
@@ -96,6 +96,7 @@ public class TimeUnite : MonoBehaviour
     {
         battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>();
         nameDisplay.text = this.nameUnite;
+        unitAnimator = transform.GetChild(5).GetComponent<Animator>();
     }
     // Update is called once per frame
     void Update()
@@ -137,20 +138,9 @@ public class TimeUnite : MonoBehaviour
                     }
                 }
         }
-
         if (this.health <= 0)
         {
-            player.boardSlotList[this.positionInBoard].GetComponent<boardController>().monsterInSlot = null;
-            if (this.triggerList == Triggers.OnDeath)
-            {
-                launchEffect();
-            }
-            if (this == player.fightingUnite)
-            {
-                player.fightingUnite = null;
-            }
-            player.launchMoveunite = true;
-            GameObject.DestroyImmediate(this.gameObject, true);
+            unitAnimator.SetTrigger("Kill");
         }
     }
 
@@ -289,4 +279,30 @@ public class TimeUnite : MonoBehaviour
         }
     }
 
+    public void dealDamageToFirstInBoard()
+    {
+        if (player.otherPlayer.fightingUnite)
+            player.otherPlayer.fightingUnite.takeDamages(damages);
+    }
+
+    public void launchHitAnimation()
+    {
+        unitAnimator.SetTrigger("Hit");
+    }
+
+    public void killUnit()
+    {
+        player.boardSlotList[this.positionInBoard].GetComponent<boardController>().monsterInSlot = null;
+        if (this.triggerList == Triggers.OnDeath)
+        {
+            launchEffect();
+        }
+        if (this == player.fightingUnite)
+        {
+            player.fightingUnite = null;
+        }
+        player.launchMoveunite = true;
+        GameObject.Destroy(this.gameObject);
+
+    }
 }
