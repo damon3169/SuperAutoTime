@@ -103,21 +103,21 @@ public class ShopController : MonoBehaviour
               else if (player.playerCurrentLevel == 4)
             {
                 int random = Random.Range(0, 100);
-                if (random < ListUnitePourcentageLevel3[0])
+                if (random < ListUnitePourcentageLevel4[0])
                 {
                     unit = Instantiate(ListUniteShopLevel1[Random.Range(0, ListUniteShopLevel1.Count)], UniteSlot.transform.position, Quaternion.identity);
                 }
-                else if (random < ListUnitePourcentageLevel3[1]+ListUnitePourcentageLevel3[0])
+                else if (random < ListUnitePourcentageLevel4[1]+ListUnitePourcentageLevel4[0])
                 {
                     unit = Instantiate(ListUniteShopLevel2[Random.Range(0, ListUniteShopLevel2.Count)], UniteSlot.transform.position, Quaternion.identity);
                 }
-                else if (random < ListUnitePourcentageLevel3[2]+ListUnitePourcentageLevel3[1]+ListUnitePourcentageLevel3[0])
+                else if (random < ListUnitePourcentageLevel4[2]+ListUnitePourcentageLevel4[1]+ListUnitePourcentageLevel4[0])
                 {
-                    unit = Instantiate(ListUniteShopLevel2[Random.Range(0, ListUniteShopLevel3.Count)], UniteSlot.transform.position, Quaternion.identity);
+                    unit = Instantiate(ListUniteShopLevel3[Random.Range(0, ListUniteShopLevel3.Count)], UniteSlot.transform.position, Quaternion.identity);
                 }
                 else
                 {
-                    unit = Instantiate(ListUniteShopLevel3[Random.Range(0, ListUniteShopLevel4.Count)], UniteSlot.transform.position, Quaternion.identity);
+                    unit = Instantiate(ListUniteShopLevel4[Random.Range(0, ListUniteShopLevel4.Count)], UniteSlot.transform.position, Quaternion.identity);
                 }
             }
             UniteSlot.transform.GetChild(0).GetComponent<TMP_Text>().text = unit.GetComponent<TimeUnite>().description;

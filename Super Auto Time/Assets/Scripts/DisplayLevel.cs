@@ -17,7 +17,14 @@ public class DisplayLevel : MonoBehaviour
     {
         if (player != null)
         {
-            displayText.text = "Level " + player.playerCurrentLevel + " " + player.playerXP + "/" + player.playerLevelXP[player.playerCurrentLevel-1];
+            if (player.playerCurrentLevel < player.playerMaxLevel)
+            {
+                displayText.text = "Level " + player.playerCurrentLevel + " " + player.playerXP + "/" + player.playerLevelXP[player.playerCurrentLevel - 1];
+            }
+            else
+            {
+                displayText.text = "Level " + player.playerCurrentLevel;
+            }
         }
         else if (GameObject.FindGameObjectWithTag("Player"))
         {
