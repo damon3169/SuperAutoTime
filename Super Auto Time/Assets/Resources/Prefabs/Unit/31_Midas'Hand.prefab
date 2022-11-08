@@ -519,7 +519,7 @@ MonoBehaviour:
   triggerList: 1
   timeEffect: 
   targetList: 3
-  AllyNumber: 00000000
+  AllyNumber: 
   EnnemiNumber: 
   effectList: 2
   damageSpell: 0
