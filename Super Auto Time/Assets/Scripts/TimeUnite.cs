@@ -264,7 +264,11 @@ public class TimeUnite : MonoBehaviour
             case Effects.DealDamage:
                 foreach (TimeUnite unite in cible)
                 {
-                    unite.takeDamages(damageSpell);
+                    GameObject projectile;
+                    projectile = Instantiate(Resources.Load<GameObject>("Prefabs/ProjectileAttack"), this.transform.position, Quaternion.identity);
+                    projectile.GetComponent<Projectiles>().target = unite;
+                    projectile.GetComponent<Projectiles>().damages = damages;
+                    projectile.GetComponent<Projectiles>().timeBeginMoving = Time.time;
                 }
                 break;
             case Effects.Forward:

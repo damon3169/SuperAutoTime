@@ -72,7 +72,7 @@ MonoBehaviour:
   playerXP: 0
   playerMaxLevel: 4
   XPPerRound: 10
-  playerCurrentLevel: 1
+  playerCurrentLevel: 3
   moneyLeft: 0
   shop: {fileID: 0}
   life: 10
@@ -82,6 +82,7 @@ MonoBehaviour:
   isBattlePhaseLocal: 0
   isShopPhaseOnline: 1
   isShopPhaseLocal: 1
+  baseShopDuration: 60
   shopPhaseDuration: 60
   readyToBegin: 0
   selectedObject: {fileID: 0}
