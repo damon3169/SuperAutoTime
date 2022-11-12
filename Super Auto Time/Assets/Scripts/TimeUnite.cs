@@ -96,7 +96,7 @@ public class TimeUnite : MonoBehaviour
     {
         battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>();
         nameDisplay.text = this.nameUnite;
-        unitAnimator = transform.GetChild(5).GetComponent<Animator>();
+        unitAnimator = transform.GetChild(1).GetComponent<Animator>();
     }
     // Update is called once per frame
     void Update()
@@ -268,7 +268,7 @@ public class TimeUnite : MonoBehaviour
                     GameObject projectile;
                     projectile = Instantiate(Resources.Load<GameObject>("Prefabs/ProjectileAttack"), this.transform.position, Quaternion.identity);
                     projectile.GetComponent<Projectiles>().target = unite;
-                    projectile.GetComponent<Projectiles>().damages = damages;
+                    projectile.GetComponent<Projectiles>().damages = damageSpell;
                     projectile.GetComponent<Projectiles>().timeBeginMoving = Time.time;
                 }
                 break;
