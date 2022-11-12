@@ -72,7 +72,7 @@ MonoBehaviour:
   playerXP: 0
   playerMaxLevel: 4
   XPPerRound: 10
-  playerCurrentLevel: 3
+  playerCurrentLevel: 1
   moneyLeft: 0
   shop: {fileID: 0}
   life: 10

@@ -9,7 +9,7 @@ public class ShowWhenSelectedInBoard : MonoBehaviour
 
     void Update()
     {
-        if (player==null)
+        if (player == null)
         {
             foreach (GameObject players in GameObject.FindGameObjectsWithTag("Player"))
             {
@@ -30,6 +30,10 @@ public class ShowWhenSelectedInBoard : MonoBehaviour
                 {
                     gameObject.GetComponent<Image>().enabled = false;
                 }
+            else
+            {
+                gameObject.GetComponent<Image>().enabled = false;
+            }
 
         }
     }

@@ -30,23 +30,9 @@ public class BattleController : MonoBehaviour
         {
             if (!playerLocal.boardAnimator.GetComponent<boardAnimationController>().isInPlaceForShop)
             {
-                if (playerDist.getNumberUnits() == 0 && playerLocal.getNumberUnits() == 0)
+                if (playerDist.getNumberUnits() == 0 || playerLocal.getNumberUnits() == 0)
                 {
                     playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
-                }
-                else if (playerDist.getNumberUnits() == 0)
-                {
-                    playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
-                    //SETUP SHOP + PLAYERLOCAL -1 PV
-                    playerLocal.life -= 1;
-                }
-                else if (playerLocal.getNumberUnits() == 0)
-                {
-                    playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
-
-                    //SETUP SHOP + PLAYERDIST -1 PV
-                    playerDist.life -= 1;
-
                 }
             }
             if (playerLocal.isBattlePhaseLocal && playerDist.isBattlePhaseOnline &&
@@ -156,8 +142,6 @@ public class BattleController : MonoBehaviour
     {
         while (isHiting)
         {
-            //int damage1 = playerLocal.fightingUnite.damages;
-            //int damage2 = playerDist.fightingUnite.damages;
             if (playerDist.fightingUnite && playerLocal.fightingUnite)
             {
                 playerDist.fightingUnite.launchHitAnimation();
