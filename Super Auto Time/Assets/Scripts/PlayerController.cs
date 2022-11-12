@@ -32,6 +32,7 @@ public class PlayerController : NetworkBehaviour
     public ShopController shop;
     private float journeyLength;
     private Vector3 startPosition;
+    [SyncVar]
     public int life = 10;
     public readonly SyncList<Unite> board = new SyncList<Unite>();
     public readonly SyncList<int> listRandom = new SyncList<int>();
@@ -76,6 +77,7 @@ public class PlayerController : NetworkBehaviour
     public int randomSelected = 0;
     public bool isFirstShop = true;
     public PlayerController otherPlayer;
+    private TMP_Text PVCounter;
 
     // Start is called before the first frame update
     public override void OnStartClient()
@@ -84,6 +86,7 @@ public class PlayerController : NetworkBehaviour
         shopPhaseDuration = baseShopDuration;
         if (isLocalPlayer)
         {
+            PVCounter = GameObject.FindGameObjectWithTag("PV").GetComponent<TMP_Text>();
             // arenaPostion = GameObject.FindGameObjectWithTag("ArenaLocalPos").transform;
             boardAnimator = GameObject.FindGameObjectWithTag("Board");
             boardSlotList = new GameObject[6];
@@ -130,6 +133,7 @@ public class PlayerController : NetworkBehaviour
     void Update()
     {
         if (!otherPlayer)
+        {
             foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
             {
                 if (this != player.GetComponent<PlayerController>())
@@ -137,6 +141,14 @@ public class PlayerController : NetworkBehaviour
                     otherPlayer = player.GetComponent<PlayerController>();
                 }
             }
+        }
+        else
+        {
+            if (life == 0 || otherPlayer.life == 0)
+            {
+                Debug.Log("GAME IS DONE");
+            }
+        }
         if (Input.GetMouseButtonDown(1) && selectedObject)
         {
             this.selectedObject.GetComponent<TimeUnite>().spriteSelected.enabled = false;
@@ -154,6 +166,7 @@ public class PlayerController : NetworkBehaviour
 
         if (isLocalPlayer)
         {
+            PVCounter.text = this.life.ToString() + " PV";
             //IF TWO PLAYERS BEGIN
             if (!readyToBegin && GameObject.FindGameObjectsWithTag("Player").Length > 1)
             {
@@ -289,6 +302,7 @@ public class PlayerController : NetworkBehaviour
             if (readyToBegin && otherPlayer.boardAnimator.GetComponent<Animator>().GetBool("CombatStart") && !setupEnemyBoard)
             {
                 int boardNumber = 0;
+                //Create ennemies before fight
                 foreach (Unite unite in board)
                 {
                     if (unite.name != "Empty")
@@ -298,7 +312,6 @@ public class PlayerController : NetworkBehaviour
                         unit.GetComponent<TimeUnite>().damages = unite.damages;
                         unit.GetComponent<TimeUnite>().boardFather = boardSlotList[boardNumber].GetComponent<boardController>();
                         unit.GetComponent<TimeUnite>().boardFather.monsterInSlot = unit.GetComponent<TimeUnite>();
-                        unit.transform.rotation = Quaternion.Euler(0, 180, 0);
                         unit.transform.parent = this.boardSlotList[boardNumber].transform;
                         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
                         {
@@ -429,7 +442,7 @@ public class PlayerController : NetworkBehaviour
         Vector3 center = (uniteToMove.transform.position + destination) * 0.5F;
 
         // move the center a bit downwards to make the arc vertical
-        center -= new Vector3(0, 0.5f, 0);
+        center -= new Vector3(0, 1, 0);
 
         // Interpolate over the arc relative to center
         Vector3 riseRelCenter = uniteToMove.transform.position - center;
@@ -550,12 +563,21 @@ public class PlayerController : NetworkBehaviour
         }
         return i;
     }
+    [Command]
+    public void removeLife(int lifeRemoved)
+    {
+        life-=lifeRemoved;
+    }
 
     public void resetShop()
     {
         //Set battlephase to false locally and online
         setBattlePhaseFromOutside(false);
         shopPhaseDuration = baseShopDuration;
+        if (getNumberUnits() == 0)
+        {
+            removeLife(1);
+        }
         // efface les unite
         foreach (GameObject slot in GameObject.FindGameObjectsWithTag("Unit"))
         {

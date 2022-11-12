@@ -29,7 +29,7 @@ public class ButtonController : MonoBehaviour
     {
         if (player)
         {
-            if (player.moneyLeft > xpUpValue)
+            if (player.moneyLeft >= xpUpValue)
             {
                 player.addXPToPlayer(xpUpValue);
                 player.totalTime += xpUpValue;
@@ -52,8 +52,11 @@ public class ButtonController : MonoBehaviour
 
     public void onSelectedInBoard()
     {
-        player.totalTime -= player.selectedObject.GetComponent<TimeUnite>().cost/2;
+        player.totalTime -= player.selectedObject.GetComponent<TimeUnite>().cost / 2;
         player.selectedObject.GetComponent<TimeUnite>().boardFather.monsterInSlot = null;
+        player.addNewUniteInEmpty(player.selectedObject.GetComponent<TimeUnite>().boardFather.Order);
         Destroy(player.selectedObject);
+        player.selectedObject = null;
+
     }
 }

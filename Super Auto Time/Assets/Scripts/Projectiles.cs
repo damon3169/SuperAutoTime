@@ -17,7 +17,7 @@ public class Projectiles : MonoBehaviour
             Vector3 center = (this.transform.position + target.transform.position) * 0.5F;
 
             // move the center a bit downwards to make the arc vertical
-            center -= new Vector3(0, 0.5f, 0);
+            center -= new Vector3(0, 1, 0);
 
             // Interpolate over the arc relative to center
             Vector3 riseRelCenter = this.transform.position - center;

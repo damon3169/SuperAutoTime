@@ -16,6 +16,7 @@ TagManager:
   - ArenaLocalPosE
   - BattleController
   - Unit
+  - PV
   layers:
   - Default
   - TransparentFX
