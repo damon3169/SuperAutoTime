@@ -33,7 +33,7 @@ public class boardController : MonoBehaviour
                                 //Y A PAS DE MOSNTRE DANS CE SLOT
                                 if (monsterInSlot == null)
                                 {
-                                    if (player.moneyLeft > player.selectedObject.GetComponent<TimeUnite>().cost)
+                                    if (player.moneyLeft >= player.selectedObject.GetComponent<TimeUnite>().cost)
                                     {
                                         player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
                                         player.selectedObject.transform.position = this.transform.position;
@@ -98,7 +98,7 @@ public class boardController : MonoBehaviour
                                     {
                                         if (player.selectedObject.GetComponent<TimeUnite>().isInShop)
                                         {
-                                            if (player.moneyLeft > player.selectedObject.GetComponent<TimeUnite>().cost)
+                                            if (player.moneyLeft >= player.selectedObject.GetComponent<TimeUnite>().cost)
                                             {
                                                 monsterInSlot.health += player.selectedObject.GetComponent<TimeUnite>().health;
                                                 monsterInSlot.damages += player.selectedObject.GetComponent<TimeUnite>().damages;
