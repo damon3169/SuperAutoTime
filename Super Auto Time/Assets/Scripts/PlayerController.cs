@@ -504,6 +504,7 @@ public class PlayerController : NetworkBehaviour
                 timeBeginMoving = Time.time;
                 beginMoving = false;
                 uniteList.Clear();
+                i=0;
                 foreach (GameObject slot in boardSlotList)
                 {
                     if (slot.GetComponent<boardController>().monsterInSlot)
