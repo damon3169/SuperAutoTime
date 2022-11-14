@@ -186,6 +186,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unit Model
       objectReference: {fileID: 0}
+    - target: {fileID: 4025965937775515697, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
+      propertyPath: m_text
+      value: King of Rats
+      objectReference: {fileID: 0}
+    - target: {fileID: 4590878575043205009, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
+      propertyPath: m_Size.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4590878575043205009, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
+      propertyPath: m_Size.y
+      value: 12.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4590878575043205009, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1649c7c57ef8682439f62c9248c45734, type: 3}
+    - target: {fileID: 4590878575043205009, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5352589745734237493, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
       propertyPath: m_RootOrder
       value: 1
