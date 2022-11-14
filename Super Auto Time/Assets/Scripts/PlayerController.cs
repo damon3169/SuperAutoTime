@@ -490,6 +490,7 @@ public class PlayerController : NetworkBehaviour
                         boardSlotList[i].GetComponent<boardController>().monsterInSlot = uniteList[i];
                         uniteList[i].boardFather = boardSlotList[i].GetComponent<boardController>();
                         uniteList[i].positionInBoard = i;
+                        uniteList[i].transform.parent = uniteList[i].boardFather.transform;
                         uniteList[i].InPlaceForFight = true;
                     }
                     else
@@ -500,6 +501,8 @@ public class PlayerController : NetworkBehaviour
             }
             else
             {
+                timeBeginMoving = Time.time;
+                beginMoving = false;
                 uniteList.Clear();
                 foreach (GameObject slot in boardSlotList)
                 {
@@ -509,7 +512,6 @@ public class PlayerController : NetworkBehaviour
                         uniteList.Add(slot.GetComponent<boardController>().monsterInSlot);
                     }
                 }
-                i = 0;
             }
         }
         int popo = 0;
