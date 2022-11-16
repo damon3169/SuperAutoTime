@@ -473,6 +473,7 @@ public class PlayerController : NetworkBehaviour
         for (int i = 0; i < uniteList.Count; i++)
         {
             if (uniteList[i])
+            {
                 if (!uniteList[i].InPlaceForFight)
                 {
                     asChange = false;
@@ -489,6 +490,7 @@ public class PlayerController : NetworkBehaviour
                         boardSlotList[i].GetComponent<boardController>().monsterInSlot = uniteList[i];
                         uniteList[i].boardFather = boardSlotList[i].GetComponent<boardController>();
                         uniteList[i].positionInBoard = i;
+                        uniteList[i].transform.parent = uniteList[i].boardFather.transform;
                         uniteList[i].InPlaceForFight = true;
                     }
                     else
@@ -496,6 +498,22 @@ public class PlayerController : NetworkBehaviour
                         ready = false;
                     }
                 }
+            }
+            else
+            {
+                timeBeginMoving = Time.time;
+                beginMoving = false;
+                uniteList.Clear();
+                i=0;
+                foreach (GameObject slot in boardSlotList)
+                {
+                    if (slot.GetComponent<boardController>().monsterInSlot)
+                    {
+                        slot.GetComponent<boardController>().monsterInSlot.InPlaceForFight = false;
+                        uniteList.Add(slot.GetComponent<boardController>().monsterInSlot);
+                    }
+                }
+            }
         }
         int popo = 0;
 
@@ -566,7 +584,7 @@ public class PlayerController : NetworkBehaviour
     [Command]
     public void removeLife(int lifeRemoved)
     {
-        life-=lifeRemoved;
+        life -= lifeRemoved;
     }
 
     public void resetShop()
