@@ -140,8 +140,8 @@ MonoBehaviour:
   triggerList: 5
   timeEffect: 09000000
   targetList: 3
-  AllyNumber: 00000000
-  EnnemiNumber: 
+  AllyNumber: 
+  EnnemiNumber: 00000000
   effectList: 3
   damageSpell: 99
   damagesBonus: 0

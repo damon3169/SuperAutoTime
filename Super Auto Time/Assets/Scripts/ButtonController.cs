@@ -59,4 +59,32 @@ public class ButtonController : MonoBehaviour
         player.selectedObject = null;
 
     }
+
+    public void onFreezeButton()
+    {
+        if (!player.isFreeze)
+        {
+            foreach (GameObject UniteSlot in GameObject.FindGameObjectsWithTag("UniteShopSlot"))
+            {
+                if (UniteSlot.transform.childCount > 2)
+                    UniteSlot.transform.GetChild(2).GetComponent<TimeUnite>().isFreeze = true;
+            }
+            player.isFreeze = true;
+            player.totalTime += 1;
+        }
+        else
+        {
+            foreach (GameObject UniteSlot in GameObject.FindGameObjectsWithTag("UniteShopSlot"))
+            {
+                if (UniteSlot.transform.childCount > 2)
+                    UniteSlot.transform.GetChild(2).GetComponent<TimeUnite>().isFreeze = false;
+            }
+            player.isFreeze = false;
+        }
+    }
+
+    public void clickOnEndButton()
+    {
+        player.totalTime = player.shopPhaseDuration;
+    }
 }
