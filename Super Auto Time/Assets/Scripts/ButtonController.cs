@@ -41,7 +41,7 @@ public class ButtonController : MonoBehaviour
     {
         if (shop)
         {
-            if (player.moneyLeft > valueRefreshSop)
+            if (player.moneyLeft >= valueRefreshSop)
             {
                 shop.refreshShop();
                 player.totalTime += valueRefreshSop;
