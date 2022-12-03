@@ -68,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  playerLevelXP: 280000004600000078000000
+  playerLevelXP: 500000008c000000f0000000
   playerXP: 0
   playerMaxLevel: 4
   XPPerRound: 10
@@ -103,6 +103,7 @@ MonoBehaviour:
   randomSelected: 0
   isFirstShop: 1
   otherPlayer: {fileID: 0}
+  isFreeze: 0
 --- !u!136 &2605215421764271326
 CapsuleCollider:
   m_ObjectHideFlags: 0
