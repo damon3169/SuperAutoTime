@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7433907624268612068}
   - component: {fileID: 7433907624268612069}
-  - component: {fileID: 3883479168496623976}
+  - component: {fileID: 1689621330}
   m_Layer: 0
   m_Name: 19_Amaltea
   m_TagString: Unit
@@ -162,8 +162,9 @@ MonoBehaviour:
   battleController: {fileID: 0}
   mainSprite: {fileID: 0}
   nameDisplay: {fileID: 2437743372658713411}
---- !u!135 &3883479168496623976
-SphereCollider:
+  isFreeze: 0
+--- !u!65 &1689621330
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -173,8 +174,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.6, z: 0.5}
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1001 &1588504160352615282
 PrefabInstance:
   m_ObjectHideFlags: 0
