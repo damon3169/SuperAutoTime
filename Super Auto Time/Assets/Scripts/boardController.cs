@@ -30,11 +30,12 @@ public class boardController : MonoBehaviour
                             if (player.selectedObject != null)
                             {
                                 // LA J'AJOUTE LES UNITE
-                                //Y A PAS DE MOSNTRE DANS CE SLOT
+                                //Y A PAS DE MOSNTRE DANS CE SLOT -- BUY UNIT
                                 if (monsterInSlot == null)
                                 {
                                     if (player.moneyLeft >= player.selectedObject.GetComponent<TimeUnite>().cost)
                                     {
+                                        player.selectedObject.GetComponent<TimeUnite>().isFreeze = false;
                                         player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
                                         player.selectedObject.transform.position = this.transform.position;
                                         monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();

@@ -247,7 +247,6 @@ public class TimeUnite : MonoBehaviour
                     {
                         cible.Add(otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot);
                         otherPlayer.randomSelected = y + 1;
-                        Debug.Log(otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot);
                         break;
                     }
                 }
@@ -313,6 +312,7 @@ public class TimeUnite : MonoBehaviour
             player.fightingUnite = null;
         }
         player.launchMoveunite = true;
+        player.beginMoving = true;
         GameObject.Destroy(this.gameObject);
 
     }
