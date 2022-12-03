@@ -79,6 +79,8 @@ public class PlayerController : NetworkBehaviour
     public PlayerController otherPlayer;
     private TMP_Text PVCounter;
 
+    public bool isFreeze = false;
+
     // Start is called before the first frame update
     public override void OnStartClient()
     {
@@ -269,6 +271,7 @@ public class PlayerController : NetworkBehaviour
                     {
                         StartCoroutine(shopPhase());
                         shop.refreshShop();
+                        this.isFreeze = false;
                         isSetupDone = true;
                     }
                 }
@@ -504,7 +507,7 @@ public class PlayerController : NetworkBehaviour
                 timeBeginMoving = Time.time;
                 beginMoving = false;
                 uniteList.Clear();
-                i=0;
+                i = 0;
                 foreach (GameObject slot in boardSlotList)
                 {
                     if (slot.GetComponent<boardController>().monsterInSlot)
@@ -592,14 +595,15 @@ public class PlayerController : NetworkBehaviour
         //Set battlephase to false locally and online
         setBattlePhaseFromOutside(false);
         shopPhaseDuration = baseShopDuration;
-        if (getNumberUnits() == 0)
+        if (getNumberUnits() == 0 && otherPlayer.getNumberUnits() != 0)
         {
             removeLife(1);
         }
         // efface les unite
         foreach (GameObject slot in GameObject.FindGameObjectsWithTag("Unit"))
         {
-            GameObject.Destroy(slot);
+            if (!slot.GetComponent<TimeUnite>().isFreeze)
+                GameObject.Destroy(slot);
         }
         //Recree les unite au bonne endroit
         int boardNumber = 0;

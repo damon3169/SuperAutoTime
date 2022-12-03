@@ -10,7 +10,6 @@ public class TimeUnite : MonoBehaviour
     public int health;
     public int damages;
     public string description;
-
     public int level = 1;
     public int cost = 3;
     public enum Triggers // your custom enumeration
@@ -91,7 +90,7 @@ public class TimeUnite : MonoBehaviour
     private Animator unitAnimator;
     public TMP_Text nameDisplay;
 
-
+    public bool isFreeze = false;
     private void Start()
     {
         battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>();

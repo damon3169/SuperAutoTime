@@ -40,7 +40,7 @@ public class BattleController : MonoBehaviour
             playerLocal.fightingUnite && playerDist.fightingUnite &&
                     !playerDist.launchMoveunite && !playerLocal.launchMoveunite)
             {
-                if (!BeginOfFightEffectLaunched)
+                if (playerLocal.boardAnimator.GetComponent<boardAnimationController>().isInPlaceForFight && !BeginOfFightEffectLaunched)
                 {
                     //LOOK FOR BEGIN OF FIGHT UNITE
                     uniteWithBeginEffect.Clear();
