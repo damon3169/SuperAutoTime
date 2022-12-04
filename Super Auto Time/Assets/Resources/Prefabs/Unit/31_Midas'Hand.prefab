@@ -132,11 +132,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 31_Midas'Hand
-  health: 5
-  damages: 5
-  description: When shopping start, gain 45s
+  health: 2
+  damages: 2
+  description: When shopping start, gain 40s
   level: 4
-  cost: 36
+  cost: 40
   triggerList: 1
   timeEffect: 
   targetList: 3
@@ -147,7 +147,7 @@ MonoBehaviour:
   damagesBonus: 0
   healthBonus: 0
   forwardDuration: 0
-  shopDurationBonus: 45
+  shopDurationBonus: 40
   InPlaceForFight: 0
   isFighting: 0
   isInShop: 1

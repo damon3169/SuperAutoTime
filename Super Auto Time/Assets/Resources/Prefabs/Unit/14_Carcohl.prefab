@@ -133,17 +133,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameUnite: 14_Carcohl
   health: 4
-  damages: 6
-  description: On 1, deal 5 dmg to the last enemy
+  damages: 5
+  description: On 1, deal 7 dmg to the last enemy
   level: 2
-  cost: 16
+  cost: 15
   triggerList: 5
   timeEffect: 01000000
   targetList: 3
   AllyNumber: 
   EnnemiNumber: 04000000
   effectList: 3
-  damageSpell: 5
+  damageSpell: 7
   damagesBonus: 0
   healthBonus: 0
   forwardDuration: 0

@@ -132,18 +132,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 6_Diablotin
-  health: 2
-  damages: 2
-  description: On death, deal 3 dmg to a random enemy
+  health: 1
+  damages: 1
+  description: On death, deal 5 dmg to a random enemy
   level: 1
-  cost: 18
+  cost: 15
   triggerList: 6
   timeEffect: 00000000000000000000000000000000
   targetList: 5
   AllyNumber: 
   EnnemiNumber: 
   effectList: 3
-  damageSpell: 3
+  damageSpell: 5
   damagesBonus: 0
   healthBonus: 0
   forwardDuration: 0

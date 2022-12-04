@@ -136,7 +136,7 @@ MonoBehaviour:
   damages: 2
   description: On 3, 6 and 9, deal 3 dmg to a random enemy
   level: 3
-  cost: 26
+  cost: 25
   triggerList: 5
   timeEffect: 030000000600000009000000
   targetList: 5
