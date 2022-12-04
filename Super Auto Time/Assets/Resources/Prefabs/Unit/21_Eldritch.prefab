@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameUnite: 21_Eldritch
   health: 14
-  damages: 2
+  damages: 1
   description: 
   level: 3
   cost: 15

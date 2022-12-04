@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 26_Jackalope
-  health: 14
-  damages: 4
+  health: 8
+  damages: 2
   description: On attack, forward time by 6s
   level: 3
   cost: 15

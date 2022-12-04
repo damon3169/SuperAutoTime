@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 27_Pingu
-  health: 12
-  damages: 6
+  health: 8
+  damages: 1
   description: When taking dmg, forward time by 2s
   level: 3
   cost: 20

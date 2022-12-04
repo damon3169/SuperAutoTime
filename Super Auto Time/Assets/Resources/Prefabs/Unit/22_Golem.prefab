@@ -142,7 +142,7 @@ MonoBehaviour:
   targetList: 0
   AllyNumber: 
   EnnemiNumber: 
-  effectList: 2
+  effectList: 0
   damageSpell: 0
   damagesBonus: 7
   healthBonus: 7

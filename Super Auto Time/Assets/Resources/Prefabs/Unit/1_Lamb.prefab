@@ -134,7 +134,7 @@ MonoBehaviour:
   nameUnite: 1_Lamb
   health: 6
   damages: 2
-  description: Each seconds, loose 1 hp
+  description: Each seconds, loose 2 hp
   level: 1
   cost: 15
   triggerList: 3
@@ -145,7 +145,7 @@ MonoBehaviour:
   effectList: 0
   damageSpell: 0
   damagesBonus: 0
-  healthBonus: -1
+  healthBonus: -2
   forwardDuration: 0
   shopDurationBonus: 0
   InPlaceForFight: 0
