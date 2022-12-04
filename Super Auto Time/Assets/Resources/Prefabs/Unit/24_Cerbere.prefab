@@ -134,7 +134,7 @@ MonoBehaviour:
   nameUnite: 24_Cerbere
   health: 4
   damages: 2
-  description: On 3, 6 and 9, deal 4 dmg to a random enemy
+  description: On 3, 6 and 9, deal 3 dmg to a random enemy
   level: 3
   cost: 25
   triggerList: 5

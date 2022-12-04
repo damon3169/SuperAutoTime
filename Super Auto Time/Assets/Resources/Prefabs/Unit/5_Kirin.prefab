@@ -134,11 +134,11 @@ MonoBehaviour:
   nameUnite: 5_Kirin
   health: 2
   damages: 2
-  description: On 4, deal 2 dmg to the first enemy
+  description: On 3 and 6, deal 2 dmg to the first enemy
   level: 1
   cost: 20
   triggerList: 5
-  timeEffect: 04000000
+  timeEffect: 0300000006000000
   targetList: 3
   AllyNumber: 
   EnnemiNumber: 00000000
