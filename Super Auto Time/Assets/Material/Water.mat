@@ -117,7 +117,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color_A: {r: 0, g: 0, b: 0, a: 1}
-    - _Color_B: {r: 0, g: 1037.1583, b: 1318.8689, a: 1}
+    - _Color_B: {r: 376.57413, g: 788.0167, b: 897.0081, a: 1}
     - _EmissionColor: {r: 0.01886791, g: 0.01886791, b: 0.01886791, a: 1}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
     - _WavesDirection: {r: 0.5, g: 1, b: 0, a: 0}
