@@ -33,7 +33,23 @@ public class boardController : MonoBehaviour
                                 //Y A PAS DE MOSNTRE DANS CE SLOT -- BUY UNIT
                                 if (monsterInSlot == null)
                                 {
-                                    if (player.moneyLeft >= player.selectedObject.GetComponent<TimeUnite>().cost)
+                                    if (!player.selectedObject.GetComponent<TimeUnite>().isInShop)
+                                    {
+                                        player.selectedObject.transform.position = this.transform.position;
+                                        monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
+                                        if (monsterInSlot.boardFather != null)
+                                        {
+                                            monsterInSlot.boardFather.monsterInSlot = null;
+                                            player.addNewUniteInEmpty(monsterInSlot.boardFather.Order);
+                                        }
+                                        monsterInSlot.boardFather = this;
+                                        monsterInSlot.transform.parent = this.transform;
+                                        monsterInSlot.isInShop = false;
+                                        monsterInSlot.player = player;
+                                        player.removeSelectedObject();
+                                        player.addNewUniteInBoard(Order, monsterInSlot);
+                                    }
+                                    else if (player.moneyLeft >= player.selectedObject.GetComponent<TimeUnite>().cost)
                                     {
                                         player.selectedObject.GetComponent<TimeUnite>().isFreeze = false;
                                         player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
@@ -59,8 +75,9 @@ public class boardController : MonoBehaviour
                                     if (player.selectedObject.GetComponent<TimeUnite>().boardFather != null)
                                     {
                                         //Si monstre est le meme, combine
-                                        if (player.selectedObject.GetComponent<TimeUnite>().nameUnite == monsterInSlot.nameUnite && player.selectedObject.GetComponent<TimeUnite>() != monsterInSlot)
+                                        if (player.selectedObject.GetComponent<TimeUnite>().nameUnite == monsterInSlot.nameUnite && player.selectedObject != monsterInSlot.gameObject)
                                         {
+                                            Debug.Log("combine");
                                             monsterInSlot.health += player.selectedObject.GetComponent<TimeUnite>().health;
                                             monsterInSlot.damages += player.selectedObject.GetComponent<TimeUnite>().damages;
                                             //Add unite in boardsyncList
@@ -73,6 +90,7 @@ public class boardController : MonoBehaviour
                                         //Sinon move swap
                                         else
                                         {
+                                            Debug.Log("swap");
                                             Vector3 pos = monsterInSlot.transform.position;
                                             TimeUnite thisMonster = monsterInSlot;
                                             boardController previousBoard = player.selectedObject.GetComponent<TimeUnite>().boardFather;

@@ -113,6 +113,8 @@ public class TimeUnite : MonoBehaviour
                     {
                         if (hitInfo.transform.gameObject == this.gameObject)
                         {
+                            Debug.Log(hitInfo.transform.gameObject);
+
                             selectObject();
                         }
                     }

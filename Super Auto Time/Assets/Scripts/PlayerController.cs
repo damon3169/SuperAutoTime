@@ -616,6 +616,7 @@ public class PlayerController : NetworkBehaviour
                 unit.GetComponent<TimeUnite>().damages = unite.damages;
                 unit.GetComponent<TimeUnite>().boardFather = boardSlotList[boardNumber].GetComponent<boardController>();
                 unit.GetComponent<TimeUnite>().boardFather.monsterInSlot = unit.GetComponent<TimeUnite>();
+                unit.GetComponent<Collider>().enabled = false;
                 foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
                 {
                     if (this != player.GetComponent<PlayerController>())
