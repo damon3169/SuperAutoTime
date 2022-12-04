@@ -113,6 +113,8 @@ public class TimeUnite : MonoBehaviour
                     {
                         if (hitInfo.transform.gameObject == this.gameObject)
                         {
+                            Debug.Log(hitInfo.transform.gameObject);
+
                             selectObject();
                         }
                     }
@@ -141,6 +143,15 @@ public class TimeUnite : MonoBehaviour
         {
             unitAnimator.SetTrigger("Kill");
         }
+        if (isInShop)
+            if (isFreeze)
+            {
+                this.transform.parent.GetComponent<SpriteRenderer>().color = Color.cyan;
+            }
+            else
+            {
+                this.transform.parent.GetComponent<SpriteRenderer>().color = Color.white;
+            }
     }
 
 

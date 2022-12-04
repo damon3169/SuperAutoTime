@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 10_KingRat
-  health: 1
+  health: 4
   damages: 0
   description: Each seconds, gain 2atk
   level: 2

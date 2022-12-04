@@ -132,9 +132,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 30_Jotun
-  health: 5
+  health: 8
   damages: 1
-  description: On 9, deal 999 dmg to the first enemy
+  description: On 9, deal 99 dmg to the first enemy
   level: 4
   cost: 70
   triggerList: 5

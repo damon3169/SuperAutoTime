@@ -137,8 +137,8 @@ MonoBehaviour:
   description: On dmg taken give +1/+1 to all allies
   level: 1
   cost: 20
-  triggerList: 0
-  timeEffect: 00000000
+  triggerList: 7
+  timeEffect: 
   targetList: 2
   AllyNumber: 0000000001000000020000000300000004000000
   EnnemiNumber: 
