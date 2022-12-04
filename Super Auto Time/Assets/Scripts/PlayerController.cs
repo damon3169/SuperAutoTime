@@ -638,6 +638,7 @@ public class PlayerController : NetworkBehaviour
         isSetupDone = false;
         totalTime = 0;
         isTimerLaunch = false;
+        randomSelected=0;
         round += 1;
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
@@ -649,6 +650,7 @@ public class PlayerController : NetworkBehaviour
                 player.GetComponent<PlayerController>().isSetupDone = false;
                 player.GetComponent<PlayerController>().totalTime = 0;
                 player.GetComponent<PlayerController>().isTimerLaunch = false;
+                player.GetComponent<PlayerController>().randomSelected=0;
             }
         }
         setShopPhaseLocal(true);

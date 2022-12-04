@@ -143,6 +143,14 @@ public class TimeUnite : MonoBehaviour
         {
             unitAnimator.SetTrigger("Kill");
         }
+        if (isFreeze)
+        {
+            this.transform.parent.GetComponent<SpriteRenderer>().color = Color.cyan;
+        }
+        else
+        {
+            this.transform.parent.GetComponent<SpriteRenderer>().color = Color.white;
+        }
     }
 
 
