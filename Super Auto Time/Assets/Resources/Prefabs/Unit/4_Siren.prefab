@@ -133,19 +133,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameUnite: 4_Siren
   health: 3
-  damages: 3
-  description: 
+  damages: 1
+  description: On dmg taken give +1/+1 to all allies
   level: 1
-  cost: 14
+  cost: 20
   triggerList: 0
-  timeEffect: 000000000000000000000000000000000000000000000000000000000000000000000000
-  targetList: 0
-  AllyNumber: 
+  timeEffect: 00000000
+  targetList: 2
+  AllyNumber: 0000000001000000020000000300000004000000
   EnnemiNumber: 
   effectList: 0
   damageSpell: 0
-  damagesBonus: 4
-  healthBonus: 0
+  damagesBonus: 1
+  healthBonus: 1
   forwardDuration: 0
   shopDurationBonus: 0
   InPlaceForFight: 0

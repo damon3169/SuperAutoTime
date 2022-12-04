@@ -132,11 +132,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 26_Jackalope
-  health: 9
-  damages: 9
-  description: On attack, forward time by 5s
+  health: 14
+  damages: 4
+  description: On attack, forward time by 6s
   level: 3
-  cost: 16
+  cost: 15
   triggerList: 8
   timeEffect: 
   targetList: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   damageSpell: 0
   damagesBonus: 0
   healthBonus: 0
-  forwardDuration: 5
+  forwardDuration: 6
   shopDurationBonus: 0
   InPlaceForFight: 0
   isFighting: 0

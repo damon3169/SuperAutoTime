@@ -132,11 +132,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 19_Amaltea
-  health: 6
-  damages: 6
-  description: When shopping start, win 13s
+  health: 4
+  damages: 4
+  description: When shopping start, win 15s
   level: 2
-  cost: 14
+  cost: 15
   triggerList: 1
   timeEffect: 
   targetList: 2
@@ -147,7 +147,7 @@ MonoBehaviour:
   damagesBonus: 0
   healthBonus: 0
   forwardDuration: 0
-  shopDurationBonus: 13
+  shopDurationBonus: 15
   InPlaceForFight: 0
   isFighting: 0
   isInShop: 1

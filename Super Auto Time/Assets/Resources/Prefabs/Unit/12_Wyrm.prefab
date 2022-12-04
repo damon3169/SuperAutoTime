@@ -132,11 +132,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 12_Wyrm
-  health: 11
-  damages: 1
-  description: Each seconds, gain 1atk and loose 1hp
+  health: 14
+  damages: 0
+  description: Each seconds, gain 2atk and loose 2hp
   level: 2
-  cost: 16
+  cost: 15
   triggerList: 3
   timeEffect: 
   targetList: 0
@@ -144,8 +144,8 @@ MonoBehaviour:
   EnnemiNumber: 
   effectList: 0
   damageSpell: 0
-  damagesBonus: 1
-  healthBonus: -1
+  damagesBonus: 2
+  healthBonus: -2
   forwardDuration: 0
   shopDurationBonus: 0
   InPlaceForFight: 0

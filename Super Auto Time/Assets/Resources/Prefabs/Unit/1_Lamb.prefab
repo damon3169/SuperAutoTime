@@ -132,11 +132,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 1_Lamb
-  health: 8
-  damages: 1
+  health: 6
+  damages: 2
   description: Each seconds, loose 1 hp
   level: 1
-  cost: 16
+  cost: 15
   triggerList: 3
   timeEffect: 
   targetList: 0

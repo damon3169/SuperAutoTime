@@ -136,7 +136,7 @@ MonoBehaviour:
   damages: 2
   description: On 2 and 5, deal 2 dmg to all characters
   level: 3
-  cost: 24
+  cost: 25
   triggerList: 5
   timeEffect: 0200000005000000
   targetList: 1

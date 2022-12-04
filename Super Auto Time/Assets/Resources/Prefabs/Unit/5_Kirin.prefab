@@ -136,9 +136,9 @@ MonoBehaviour:
   damages: 2
   description: On 4, deal 2 dmg to the first enemy
   level: 1
-  cost: 12
+  cost: 20
   triggerList: 5
-  timeEffect: 00000000000000000000000000000000
+  timeEffect: 04000000
   targetList: 3
   AllyNumber: 
   EnnemiNumber: 00000000

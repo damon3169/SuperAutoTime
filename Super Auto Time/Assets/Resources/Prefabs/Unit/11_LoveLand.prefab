@@ -132,21 +132,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 11_LoveLand
-  health: 1
-  damages: 11
-  description: 
+  health: 8
+  damages: 3
+  description: On 5 forward by 5s
   level: 2
-  cost: 16
-  triggerList: 0
-  timeEffect: 
+  cost: 30
+  triggerList: 5
+  timeEffect: 05000000
   targetList: 0
   AllyNumber: 
   EnnemiNumber: 
-  effectList: 0
+  effectList: 1
   damageSpell: 0
   damagesBonus: 1
   healthBonus: 0
-  forwardDuration: 0
+  forwardDuration: 5
   shopDurationBonus: 0
   InPlaceForFight: 0
   isFighting: 0

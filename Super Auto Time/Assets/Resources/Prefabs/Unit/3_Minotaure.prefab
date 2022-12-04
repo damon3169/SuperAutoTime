@@ -133,18 +133,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameUnite: 3_Minotaure
   health: 3
-  damages: 1
-  description: On 9, gain 4 atk
+  damages: 0
+  description: On 5, gain 6 atk
   level: 1
-  cost: 16
+  cost: 15
   triggerList: 5
-  timeEffect: 09000000
+  timeEffect: 05000000
   targetList: 0
   AllyNumber: 
   EnnemiNumber: 
   effectList: 0
   damageSpell: 0
-  damagesBonus: 4
+  damagesBonus: 6
   healthBonus: 0
   forwardDuration: 0
   shopDurationBonus: 0

@@ -132,11 +132,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 9_Tarasque
-  health: 8
-  damages: 8
-  description: 'When shopping start, loose 15s '
+  health: 5
+  damages: 5
+  description: 'When shopping start, loose 20s '
   level: 1
-  cost: 14
+  cost: 20
   triggerList: 1
   timeEffect: 00000000000000000000000000000000
   targetList: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   damagesBonus: 0
   healthBonus: 0
   forwardDuration: 0
-  shopDurationBonus: -15
+  shopDurationBonus: -20
   InPlaceForFight: 0
   isFighting: 0
   isInShop: 1

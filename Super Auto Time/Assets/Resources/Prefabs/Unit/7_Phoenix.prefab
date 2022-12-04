@@ -133,10 +133,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameUnite: 7_Phoenix
   health: 2
-  damages: 2
-  description: On death, forward time by 3s
+  damages: 3
+  description: On death, forward time by 4s
   level: 1
-  cost: 18
+  cost: 20
   triggerList: 6
   timeEffect: 00000000000000000000000000000000
   targetList: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   damageSpell: 0
   damagesBonus: 0
   healthBonus: 0
-  forwardDuration: 3
+  forwardDuration: 4
   shopDurationBonus: 0
   InPlaceForFight: 0
   isFighting: 0
