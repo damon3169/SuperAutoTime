@@ -80,6 +80,9 @@ public class boardController : MonoBehaviour
                                             Debug.Log("combine");
                                             monsterInSlot.health += player.selectedObject.GetComponent<TimeUnite>().health;
                                             monsterInSlot.damages += player.selectedObject.GetComponent<TimeUnite>().damages;
+                                            monsterInSlot.damageSpell += player.selectedObject.GetComponent<TimeUnite>().damageSpell;
+                                            monsterInSlot.damagesBonus += player.selectedObject.GetComponent<TimeUnite>().damagesBonus;
+                                            monsterInSlot.healthBonus += player.selectedObject.GetComponent<TimeUnite>().healthBonus;
                                             //Add unite in boardsyncList
                                             player.addNewUniteInEmpty(player.selectedObject.GetComponent<TimeUnite>().boardFather.Order);
                                             player.addNewUniteInBoard(Order, player.selectedObject.GetComponent<TimeUnite>());
@@ -117,10 +120,14 @@ public class boardController : MonoBehaviour
                                     {
                                         if (player.selectedObject.GetComponent<TimeUnite>().isInShop)
                                         {
+                                            //Combine when in shop
                                             if (player.moneyLeft >= player.selectedObject.GetComponent<TimeUnite>().cost)
                                             {
                                                 monsterInSlot.health += player.selectedObject.GetComponent<TimeUnite>().health;
                                                 monsterInSlot.damages += player.selectedObject.GetComponent<TimeUnite>().damages;
+                                                monsterInSlot.damageSpell += player.selectedObject.GetComponent<TimeUnite>().damageSpell;
+                                                monsterInSlot.damagesBonus += player.selectedObject.GetComponent<TimeUnite>().damagesBonus;
+                                                monsterInSlot.healthBonus += player.selectedObject.GetComponent<TimeUnite>().healthBonus;
                                                 player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
                                                 player.addNewUniteInBoard(Order, monsterInSlot);
                                                 GameObject.Destroy(player.selectedObject);
