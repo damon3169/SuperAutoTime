@@ -10,13 +10,18 @@ public struct Unite
     public int health;
     public int damages;
     //public string item;
+    public int damageSpell;
+    public int damageBonus;
+    public int healthBonus;
 
-    public Unite(string name, int health, int damages)
+    public Unite(string name, int health, int damages, int damageSpell, int damageBonus, int healthBonus)
     {
         this.name = name;
         this.health = health;
         this.damages = damages;
-        //this.item = item;
+        this.damageSpell = damageSpell;
+        this.damageBonus = damageBonus;
+        this.healthBonus = healthBonus;
     }
 }
 
@@ -106,7 +111,7 @@ public class PlayerController : NetworkBehaviour
             timerDisplay = GameObject.FindGameObjectWithTag("timerUI").GetComponent<TextMeshProUGUI>();
             for (int index = 0; index < 6; index++)
             {
-                addNewUnite("Empty", 0, 0);
+                addNewUnite("Empty", 0, 0, 0, 0, 0);
             }
             shop = GameObject.FindGameObjectWithTag("Shop").GetComponent<ShopController>();
         }
@@ -313,6 +318,9 @@ public class PlayerController : NetworkBehaviour
                         GameObject unit = Instantiate(Resources.Load<GameObject>("Prefabs/Unit/" + unite.name), boardSlotList[boardNumber].transform.position, Quaternion.identity);
                         unit.GetComponent<TimeUnite>().health = unite.health;
                         unit.GetComponent<TimeUnite>().damages = unite.damages;
+                        unit.GetComponent<TimeUnite>().damageSpell = unite.damageSpell;
+                        unit.GetComponent<TimeUnite>().damagesBonus = unite.damageBonus;
+                        unit.GetComponent<TimeUnite>().healthBonus = unite.healthBonus;
                         unit.GetComponent<TimeUnite>().boardFather = boardSlotList[boardNumber].GetComponent<boardController>();
                         unit.GetComponent<TimeUnite>().boardFather.monsterInSlot = unit.GetComponent<TimeUnite>();
                         unit.transform.parent = this.boardSlotList[boardNumber].transform;
@@ -399,26 +407,26 @@ public class PlayerController : NetworkBehaviour
 
     //Add stuff in board unite list
     [Command]
-    public void addNewUnite(string newName, int newHealth, int newDamages)
+    public void addNewUnite(string newName, int newHealth, int newDamages, int newDamageSpell, int newDamageBonus, int newHealthBonus)
     {
-        board.Add(new Unite(newName, newHealth, newDamages));
+        board.Add(new Unite(newName, newHealth, newDamages, newDamageSpell, newDamageBonus, newHealthBonus));
     }
 
     [Command]
-    public void addNewUniteAtBoardSlot(int slotNumber, string newName, int newHealth, int newDamages)
+    public void addNewUniteAtBoardSlot(int slotNumber, string newName, int newHealth, int newDamages, int newDamageSpell, int newDamageBonus, int newHealthBonus)
     {
-        board[slotNumber] = (new Unite(newName, newHealth, newDamages));
+        board[slotNumber] = (new Unite(newName, newHealth, newDamages, newDamageSpell, newDamageBonus, newHealthBonus));
     }
 
     //Add stuff in board unite list from outside
     public void addNewUniteInBoard(int slot, TimeUnite unite)
     {
-        addNewUniteAtBoardSlot(slot, unite.nameUnite, unite.health, unite.damages);
+        addNewUniteAtBoardSlot(slot, unite.nameUnite, unite.health, unite.damages, unite.damageSpell, unite.damagesBonus, unite.healthBonus);
     }
 
     public void addNewUniteInEmpty(int slot)
     {
-        addNewUniteAtBoardSlot(slot, "Empty", 0, 0);
+        addNewUniteAtBoardSlot(slot, "Empty", 0, 0, 0, 0, 0);
     }
 
     [Command]
@@ -614,6 +622,9 @@ public class PlayerController : NetworkBehaviour
                 GameObject unit = Instantiate(Resources.Load<GameObject>("Prefabs/Unit/" + unite.name), boardSlotList[boardNumber].transform.position, Quaternion.identity);
                 unit.GetComponent<TimeUnite>().health = unite.health;
                 unit.GetComponent<TimeUnite>().damages = unite.damages;
+                unit.GetComponent<TimeUnite>().damageSpell = unite.damageSpell;
+                unit.GetComponent<TimeUnite>().damagesBonus = unite.damageBonus;
+                unit.GetComponent<TimeUnite>().healthBonus = unite.healthBonus;
                 unit.GetComponent<TimeUnite>().boardFather = boardSlotList[boardNumber].GetComponent<boardController>();
                 unit.GetComponent<TimeUnite>().boardFather.monsterInSlot = unit.GetComponent<TimeUnite>();
                 unit.GetComponent<Collider>().enabled = false;
@@ -638,7 +649,7 @@ public class PlayerController : NetworkBehaviour
         isSetupDone = false;
         totalTime = 0;
         isTimerLaunch = false;
-        randomSelected=0;
+        randomSelected = 0;
         round += 1;
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
@@ -650,7 +661,7 @@ public class PlayerController : NetworkBehaviour
                 player.GetComponent<PlayerController>().isSetupDone = false;
                 player.GetComponent<PlayerController>().totalTime = 0;
                 player.GetComponent<PlayerController>().isTimerLaunch = false;
-                player.GetComponent<PlayerController>().randomSelected=0;
+                player.GetComponent<PlayerController>().randomSelected = 0;
             }
         }
         setShopPhaseLocal(true);

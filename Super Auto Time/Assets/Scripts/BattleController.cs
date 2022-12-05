@@ -95,7 +95,7 @@ public class BattleController : MonoBehaviour
                         StartCoroutine(spell1SCorout);
                     }
                     if (!forwardTime)
-                    {
+                    {//Launch Timer fight
                         if (isHiting == false)
                         {
                             isHiting = true;
