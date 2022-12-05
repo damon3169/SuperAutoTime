@@ -169,13 +169,20 @@ public class TimeUnite : MonoBehaviour
         GameObject damageText;
         damageText = Instantiate(Resources.Load<GameObject>("Prefabs/DamageText"));
         damageText.GetComponent<DamagesDisplay>().setDamageText(damages);
-        damageText.transform.SetParent(gameObject.transform,false);
-        damageText.transform.localPosition= new Vector3(0,1.85f,0);
+        damageText.transform.SetParent(gameObject.transform, false);
+        damageText.transform.localPosition = new Vector3(0, 1.85f, 0);
         if (triggerList == Triggers.onDamage && health > 0)
         {
-            launchEffect();
+            StartCoroutine(wait1FrameThenLaunchEffect());
         }
     }
+
+    IEnumerator wait1FrameThenLaunchEffect()
+    {
+        yield return 0;
+        launchEffect();
+    }
+
 
     public bool launchBeginOfFightEffect()
     {
@@ -201,6 +208,7 @@ public class TimeUnite : MonoBehaviour
 
     public void launchEffect()
     {
+
         List<TimeUnite> cible = new List<TimeUnite>();
         switch (targetList)
         {
@@ -210,14 +218,14 @@ public class TimeUnite : MonoBehaviour
             case Targets.All:
                 foreach (GameObject slot in player.boardSlotList)
                 {
-                    if (slot.GetComponent<boardController>().monsterInSlot && slot.GetComponent<boardController>().monsterInSlot.health>0)
+                    if (slot.GetComponent<boardController>().monsterInSlot && slot.GetComponent<boardController>().monsterInSlot.health > 0)
                     {
                         cible.Add(slot.GetComponent<boardController>().monsterInSlot);
                     }
                 }
                 foreach (GameObject slot in otherPlayer.boardSlotList)
                 {
-                    if (slot.GetComponent<boardController>().monsterInSlot && slot.GetComponent<boardController>().monsterInSlot.health>0)
+                    if (slot.GetComponent<boardController>().monsterInSlot && slot.GetComponent<boardController>().monsterInSlot.health > 0)
                     {
                         cible.Add(slot.GetComponent<boardController>().monsterInSlot);
                     }
@@ -229,7 +237,7 @@ public class TimeUnite : MonoBehaviour
                     if (slot.GetComponent<boardController>().monsterInSlot)
                     {
                         foreach (int allyPos in AllyNumber)
-                            if (allyPos == slot.GetComponent<boardController>().monsterInSlot.positionInBoard && slot.GetComponent<boardController>().monsterInSlot.health>0)
+                            if (allyPos == slot.GetComponent<boardController>().monsterInSlot.positionInBoard && slot.GetComponent<boardController>().monsterInSlot.health > 0)
                                 cible.Add(slot.GetComponent<boardController>().monsterInSlot);
                     }
                 }
@@ -240,7 +248,7 @@ public class TimeUnite : MonoBehaviour
                     if (slot.GetComponent<boardController>().monsterInSlot)
                     {
                         foreach (int enemyPos in AllyNumber)
-                            if (enemyPos == slot.GetComponent<boardController>().monsterInSlot.positionInBoard && slot.GetComponent<boardController>().monsterInSlot.health>0)
+                            if (enemyPos == slot.GetComponent<boardController>().monsterInSlot.positionInBoard && slot.GetComponent<boardController>().monsterInSlot.health > 0)
                                 cible.Add(slot.GetComponent<boardController>().monsterInSlot);
                     }
                 }
@@ -248,7 +256,7 @@ public class TimeUnite : MonoBehaviour
             case Targets.randomAlly:
                 for (int y = player.randomSelected; y < player.listRandom.Count; y++)
                 {
-                    if (player.boardSlotList[player.listRandom[y]].GetComponent<boardController>().monsterInSlot && player.boardSlotList[player.listRandom[y]].GetComponent<boardController>().monsterInSlot.health>0)
+                    if (player.boardSlotList[player.listRandom[y]].GetComponent<boardController>().monsterInSlot && player.boardSlotList[player.listRandom[y]].GetComponent<boardController>().monsterInSlot.health > 0)
                     {
                         cible.Add(player.boardSlotList[player.listRandom[y]].GetComponent<boardController>().monsterInSlot);
                         player.randomSelected = y + 1;
@@ -259,15 +267,17 @@ public class TimeUnite : MonoBehaviour
             case Targets.randomEnnemi:
                 for (int y = otherPlayer.randomSelected; y < otherPlayer.listRandom.Count; y++)
                 {
-                    if (otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot && otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot.health>0)
+                    if (otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot && otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot.health > 0)
                     {
                         cible.Add(otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot);
                         otherPlayer.randomSelected = y + 1;
+                        Debug.Log(otherPlayer.boardSlotList[otherPlayer.listRandom[y]]);
                         break;
                     }
                 }
                 break;
         }
+
         switch (effectList)
         {
             case Effects.GainDamageAndHealth:
@@ -319,6 +329,7 @@ public class TimeUnite : MonoBehaviour
     public void killUnit()
     {
         player.boardSlotList[this.positionInBoard].GetComponent<boardController>().monsterInSlot = null;
+
         if (this.triggerList == Triggers.OnDeath)
         {
             launchEffect();
@@ -327,8 +338,24 @@ public class TimeUnite : MonoBehaviour
         {
             player.fightingUnite = null;
         }
-        player.launchMoveunite = true;
-        player.beginMoving = true;
+        int countUnit = 0;
+        foreach (GameObject slot in player.boardSlotList)
+        {
+            if (slot.GetComponent<boardController>().monsterInSlot)
+            {
+                countUnit++;
+            }
+        }
+        foreach (GameObject slot in player.boardSlotList)
+        {
+            if (slot.GetComponent<boardController>().monsterInSlot && slot.GetComponent<boardController>().Order > countUnit-1)
+            {
+                Debug.Log("number of unit = " +countUnit +"et board ="+ slot.GetComponent<boardController>().Order);
+                player.launchMoveunite = true;
+                player.beginMoving = true;
+            }
+        }
+
         GameObject.Destroy(this.gameObject);
 
     }

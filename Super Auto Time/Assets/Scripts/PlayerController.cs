@@ -569,6 +569,7 @@ public class PlayerController : NetworkBehaviour
     [Command]
     public void sendRandomList()
     {
+        listRandom.Clear();
         for (int i = 0; i < 120; i++)
         {
             listRandom.Add(Random.Range(0, 5));

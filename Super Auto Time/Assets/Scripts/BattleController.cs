@@ -142,19 +142,7 @@ public class BattleController : MonoBehaviour
     {
         while (isHiting)
         {
-            if (playerDist.fightingUnite && playerLocal.fightingUnite)
-            {
-                playerDist.fightingUnite.launchHitAnimation();
-                playerLocal.fightingUnite.launchHitAnimation();
-                if (playerDist.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
-                {
-                    playerDist.fightingUnite.launchEffect();
-                }
-                if (playerLocal.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
-                {
-                    playerLocal.fightingUnite.launchEffect();
-                }
-            }
+
             yield return new WaitForSeconds(1f);
         }
     }
@@ -168,6 +156,29 @@ public class BattleController : MonoBehaviour
                 {
                     unite.launchEffect();
                 }
+            foreach (TimeUnite unite in unitWithEveryXsEffect)
+            {
+                foreach (int timeForEffect in unite.timeEffect)
+                    if (((int)(Time.time - start10STimer)) == timeForEffect)
+                    {
+                        unite.launchEffect();
+                    }
+            }
+            if (playerDist.fightingUnite && playerDist.fightingUnite.health > 0 && playerLocal.fightingUnite && playerLocal.fightingUnite.health > 0 && !forwardTime)
+            {
+                if (playerDist.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
+                {
+                    playerDist.fightingUnite.launchEffect();
+
+                }
+                if (playerLocal.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
+                {
+                    playerLocal.fightingUnite.launchEffect();
+
+                }
+                playerDist.fightingUnite.launchHitAnimation();
+                playerLocal.fightingUnite.launchHitAnimation();
+            }
 
             if (Time.time - start10STimer < 10)
                 timerDisplay.text = (Time.time - start10STimer).ToString().Substring(0, 1);
@@ -177,14 +188,7 @@ public class BattleController : MonoBehaviour
                 start10STimer += 10;
                 totalTime = 0;
             }
-            foreach (TimeUnite unite in unitWithEveryXsEffect)
-            {
-                foreach (int timeForEffect in unite.timeEffect)
-                    if (((int)(Time.time - start10STimer)) == timeForEffect)
-                    {
-                        unite.launchEffect();
-                    }
-            }
+
             yield return new WaitForSeconds(1f);
         }
     }
