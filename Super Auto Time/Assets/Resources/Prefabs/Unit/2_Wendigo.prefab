@@ -132,20 +132,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 2_Wendigo
-  health: 1
-  damages: 2
-  description: 
+  health: 0
+  damages: 0
+  description: Beginning of shop gain +1/+1
   level: 1
-  cost: 0
-  triggerList: 0
+  cost: 10
+  triggerList: 1
   timeEffect: 
   targetList: 0
   AllyNumber: 
   EnnemiNumber: 
   effectList: 0
   damageSpell: 0
-  damagesBonus: 0
-  healthBonus: 0
+  damagesBonus: 1
+  healthBonus: 1
   forwardDuration: 0
   shopDurationBonus: 0
   InPlaceForFight: 0

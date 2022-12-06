@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 23_Salamander
-  health: 2
-  damages: 4
+  health: 1
+  damages: 1
   description: Each seconds, deal 1 dmg to a random enemy
   level: 3
   cost: 30

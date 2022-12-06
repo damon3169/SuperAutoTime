@@ -132,11 +132,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 25_Hydre
-  health: 9
-  damages: 2
+  health: 15
+  damages: 15
   description: On 2 and 5, deal 1 dmg to all characters
   level: 3
-  cost: 25
+  cost: 15
   triggerList: 5
   timeEffect: 0200000005000000
   targetList: 1

@@ -134,7 +134,7 @@ MonoBehaviour:
   nameUnite: 28_Ratatosk
   health: 12
   damages: 2
-  description: Each seconds, all allies gain 3atk 3hp
+  description: Each seconds, all allies gain 2atk 2hp
   level: 4
   cost: 40
   triggerList: 3
@@ -144,8 +144,8 @@ MonoBehaviour:
   EnnemiNumber: 
   effectList: 0
   damageSpell: 0
-  damagesBonus: 3
-  healthBonus: 3
+  damagesBonus: 2
+  healthBonus: 2
   forwardDuration: 0
   shopDurationBonus: 0
   InPlaceForFight: 0

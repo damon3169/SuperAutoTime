@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 12_Wyrm
-  health: 12
+  health: 20
   damages: 0
   description: Each seconds, gain 2atk and loose 2hp
   level: 2

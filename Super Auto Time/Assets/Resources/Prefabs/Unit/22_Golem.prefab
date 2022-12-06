@@ -132,20 +132,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 22_Golem
-  health: 7
-  damages: 7
-  description: On 7, Gain +7hp/+7atk
+  health: 6
+  damages: 6
+  description: On 6, Gain +6hp/+6atk
   level: 3
   cost: 15
   triggerList: 5
-  timeEffect: 07000000
+  timeEffect: 06000000
   targetList: 0
   AllyNumber: 
   EnnemiNumber: 
   effectList: 0
   damageSpell: 0
-  damagesBonus: 7
-  healthBonus: 7
+  damagesBonus: 6
+  healthBonus: 6
   forwardDuration: 0
   shopDurationBonus: 0
   InPlaceForFight: 0
