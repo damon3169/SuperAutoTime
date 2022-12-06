@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 9_Tarasque
-  health: 6
-  damages: 6
+  health: 8
+  damages: 8
   description: 'When shopping start, loose 15s '
   level: 1
   cost: 20
