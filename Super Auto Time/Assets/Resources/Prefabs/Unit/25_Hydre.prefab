@@ -134,7 +134,7 @@ MonoBehaviour:
   nameUnite: 25_Hydre
   health: 15
   damages: 15
-  description: On 2 and 5, deal 1 dmg to all characters
+  description: On 2 and 5, deal 2 dmg to all characters
   level: 3
   cost: 15
   triggerList: 5
@@ -143,7 +143,7 @@ MonoBehaviour:
   AllyNumber: 
   EnnemiNumber: 
   effectList: 3
-  damageSpell: 1
+  damageSpell: 2
   damagesBonus: 0
   healthBonus: 0
   forwardDuration: 0
