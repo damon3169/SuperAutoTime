@@ -4459,7 +4459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xpUpValue: 3
-  valueRefreshSop: 10
+  valueRefreshSop: 5
 --- !u!1 &1513793425
 GameObject:
   m_ObjectHideFlags: 0
@@ -5087,7 +5087,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Refresh (10$)
+  m_text: Refresh (5$)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7157,8 +7157,16 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5298600534165350377, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
+      propertyPath: ListUnitePourcentageLevel3.Array.data[0]
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5298600534165350377, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
+      propertyPath: ListUnitePourcentageLevel3.Array.data[1]
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5298600534165350377, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
       propertyPath: ListUnitePourcentageLevel4.Array.data[0]
-      value: 25
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5298600534165350377, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
       propertyPath: ListUnitePourcentageLevel4.Array.data[1]
@@ -7166,11 +7174,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5298600534165350377, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
       propertyPath: ListUnitePourcentageLevel4.Array.data[2]
-      value: 25
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5298600534165350377, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
       propertyPath: ListUnitePourcentageLevel4.Array.data[3]
-      value: 25
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5298600534165350377, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
+      propertyPath: ListUnitePourcentageLevel4.Array.data[4]
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5298600534165350378, guid: d69e2d272abdd6f4b97103ec2464efc1, type: 3}
       propertyPath: m_RootOrder
