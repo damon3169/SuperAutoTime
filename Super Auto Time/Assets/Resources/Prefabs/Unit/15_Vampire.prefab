@@ -94,9 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7433907624268612068}
   - component: {fileID: 7433907624268612069}
-  - component: {fileID: 972598589}
+  - component: {fileID: 1689621330}
   m_Layer: 0
-  m_Name: 25_Hydre
+  m_Name: 15_Vampire
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 117657994961803336}
-  - {fileID: 8727546937854162508}
+  - {fileID: 6648359912523892295}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -131,19 +131,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593022617365727449515c39c19029e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameUnite: 25_Hydre
-  health: 14
-  damages: 14
-  description: On 2 and 5, deal 2 dmg to all characters
-  level: 3
-  cost: 15
-  triggerList: 5
-  timeEffect: 0200000005000000
-  targetList: 1
-  AllyNumber: 
+  nameUnite: 15_Vampire
+  health: 10
+  damages: 10
+  description: On attack deal 10 dmg to the ally behind
+  level: 2
+  cost: 10
+  triggerList: 8
+  timeEffect: 
+  targetList: 2
+  AllyNumber: 01000000
   EnnemiNumber: 
   effectList: 3
-  damageSpell: 2
+  damageSpell: 10
   damagesBonus: 0
   healthBonus: 0
   forwardDuration: 0
@@ -156,14 +156,14 @@ MonoBehaviour:
   player: {fileID: 0}
   spriteSelected: {fileID: 3040825515064315282}
   boardFather: {fileID: 0}
-  damageParticle: {fileID: 3436889107084396430}
-  damagesText: {fileID: 8441171114851288797}
-  healthText: {fileID: 2759324513340344581}
+  damageParticle: {fileID: 787999919076784005}
+  damagesText: {fileID: 5798615183593617110}
+  healthText: {fileID: 222601252370561294}
   battleController: {fileID: 0}
   mainSprite: {fileID: 0}
-  nameDisplay: {fileID: 326892504179135304}
+  nameDisplay: {fileID: 2437743372658713411}
   isFreeze: 0
---- !u!65 &972598589
+--- !u!65 &1689621330
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,7 +176,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.6, z: 0.5}
   m_Center: {x: 0, y: 0.8, z: 0}
---- !u!1001 &3699216371217550201
+--- !u!1001 &1588504160352615282
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -232,16 +232,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
       propertyPath: m_SortingOrder
@@ -249,21 +245,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
---- !u!114 &326892504179135304 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4025965937775515697, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-  m_PrefabInstance: {fileID: 3699216371217550201}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2759324513340344581 stripped
+--- !u!114 &222601252370561294 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1521467592094941820, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-  m_PrefabInstance: {fileID: 3699216371217550201}
+  m_PrefabInstance: {fileID: 1588504160352615282}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -271,15 +256,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!198 &3436889107084396430 stripped
+--- !u!198 &787999919076784005 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2081799777939852535, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-  m_PrefabInstance: {fileID: 3699216371217550201}
+  m_PrefabInstance: {fileID: 1588504160352615282}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8441171114851288797 stripped
+--- !u!114 &2437743372658713411 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5076491190535490980, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-  m_PrefabInstance: {fileID: 3699216371217550201}
+  m_CorrespondingSourceObject: {fileID: 4025965937775515697, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
+  m_PrefabInstance: {fileID: 1588504160352615282}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -287,8 +272,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &8727546937854162508 stripped
+--- !u!114 &5798615183593617110 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5076491190535490980, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
+  m_PrefabInstance: {fileID: 1588504160352615282}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &6648359912523892295 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5352589745734237493, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-  m_PrefabInstance: {fileID: 3699216371217550201}
+  m_PrefabInstance: {fileID: 1588504160352615282}
   m_PrefabAsset: {fileID: 0}
