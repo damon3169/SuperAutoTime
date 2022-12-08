@@ -136,7 +136,7 @@ MonoBehaviour:
   damages: 0
   description: Each seconds, gain 2atk
   level: 2
-  cost: 25
+  cost: 20
   triggerList: 3
   timeEffect: 
   targetList: 0

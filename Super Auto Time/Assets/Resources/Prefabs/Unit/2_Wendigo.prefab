@@ -132,12 +132,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 2_Wendigo
-  health: 1
-  damages: 1
-  description: Beginning of shop gain +1/+1
+  health: 2
+  damages: 2
+  description: 
   level: 1
-  cost: 10
-  triggerList: 1
+  cost: 0
+  triggerList: 0
   timeEffect: 
   targetList: 0
   AllyNumber: 

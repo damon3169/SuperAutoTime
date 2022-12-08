@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 29_Baba Yaga
-  health: 50
-  damages: 50
+  health: 33
+  damages: 33
   description: 
   level: 4
   cost: 50

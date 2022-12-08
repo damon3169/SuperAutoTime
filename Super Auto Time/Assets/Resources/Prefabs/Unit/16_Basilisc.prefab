@@ -94,9 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7433907624268612068}
   - component: {fileID: 7433907624268612069}
-  - component: {fileID: 1655768211}
+  - component: {fileID: 1689621330}
   m_Layer: 0
-  m_Name: 27_Pingu
+  m_Name: 16_Basilisc
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 117657994961803336}
-  - {fileID: 8390089527426209906}
+  - {fileID: 6648359912523892295}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -131,22 +131,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593022617365727449515c39c19029e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameUnite: 27_Pingu
-  health: 10
-  damages: 2
-  description: When taking dmg, forward time by 2s
-  level: 3
+  nameUnite: 16_Basilisc
+  health: 5
+  damages: 5
+  description: On death give +5/+5 to the ally behind
+  level: 2
   cost: 15
-  triggerList: 7
+  triggerList: 6
   timeEffect: 
-  targetList: 0
-  AllyNumber: 
+  targetList: 2
+  AllyNumber: 01000000
   EnnemiNumber: 
-  effectList: 1
+  effectList: 0
   damageSpell: 0
-  damagesBonus: 0
-  healthBonus: 0
-  forwardDuration: 2
+  damagesBonus: 5
+  healthBonus: 5
+  forwardDuration: 0
   shopDurationBonus: 0
   InPlaceForFight: 0
   isFighting: 0
@@ -156,14 +156,14 @@ MonoBehaviour:
   player: {fileID: 0}
   spriteSelected: {fileID: 3040825515064315282}
   boardFather: {fileID: 0}
-  damageParticle: {fileID: 2505026296778746288}
-  damagesText: {fileID: 8670832449180231907}
-  healthText: {fileID: 3115078402709874491}
+  damageParticle: {fileID: 787999919076784005}
+  damagesText: {fileID: 5798615183593617110}
+  healthText: {fileID: 222601252370561294}
   battleController: {fileID: 0}
   mainSprite: {fileID: 0}
-  nameDisplay: {fileID: 718525676872498550}
+  nameDisplay: {fileID: 2437743372658713411}
   isFreeze: 0
---- !u!65 &1655768211
+--- !u!65 &1689621330
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,7 +176,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.6, z: 0.5}
   m_Center: {x: 0, y: 0.8, z: 0}
---- !u!1001 &4478739649284924743
+--- !u!1001 &1588504160352615282
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -232,16 +232,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
       propertyPath: m_SortingOrder
@@ -249,26 +245,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
---- !u!114 &718525676872498550 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4025965937775515697, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-  m_PrefabInstance: {fileID: 4478739649284924743}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!198 &2505026296778746288 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2081799777939852535, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-  m_PrefabInstance: {fileID: 4478739649284924743}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3115078402709874491 stripped
+--- !u!114 &222601252370561294 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1521467592094941820, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-  m_PrefabInstance: {fileID: 4478739649284924743}
+  m_PrefabInstance: {fileID: 1588504160352615282}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -276,15 +256,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &8390089527426209906 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5352589745734237493, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-  m_PrefabInstance: {fileID: 4478739649284924743}
+--- !u!198 &787999919076784005 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2081799777939852535, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
+  m_PrefabInstance: {fileID: 1588504160352615282}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8670832449180231907 stripped
+--- !u!114 &2437743372658713411 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4025965937775515697, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
+  m_PrefabInstance: {fileID: 1588504160352615282}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5798615183593617110 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5076491190535490980, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-  m_PrefabInstance: {fileID: 4478739649284924743}
+  m_PrefabInstance: {fileID: 1588504160352615282}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -292,3 +283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6648359912523892295 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5352589745734237493, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
+  m_PrefabInstance: {fileID: 1588504160352615282}
+  m_PrefabAsset: {fileID: 0}
