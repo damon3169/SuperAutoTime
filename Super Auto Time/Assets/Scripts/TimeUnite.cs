@@ -89,14 +89,65 @@ public class TimeUnite : MonoBehaviour
     public SpriteRenderer mainSprite;
     private Animator unitAnimator;
     public TMP_Text nameDisplay;
-
+    private bool isDragging;
+    private float startXPos;
+    private float startYPos;
+    private Vector3 screenPoint;
+    private Vector3 offset;
     public bool isFreeze = false;
+    private Camera mainCamera;
     private void Start()
     {
         battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>();
         nameDisplay.text = this.nameUnite;
         unitAnimator = transform.GetChild(1).GetComponent<Animator>();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
+
+    public void endDrag()
+    {
+        isDragging = false;
+        player.removeSelectedObject();
+        if (isInShop)
+        {
+            this.transform.position = this.transform.parent.position;
+        }
+        else
+        {
+            this.transform.position = this.boardFather.transform.position;
+        }
+
+    }
+
+    public void DragObject()
+    {
+        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+
+        Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+        transform.position = curPosition;
+    }
+
+    public void onDrag()
+    {
+
+        Vector3 mousePos = Input.mousePosition;
+
+        if (!mainCamera.orthographic)
+        {
+            mousePos.z = 10;
+        }
+
+        mousePos = mainCamera.ScreenToWorldPoint(mousePos);
+
+        startXPos = mousePos.x - transform.localPosition.x;
+        startYPos = mousePos.y - transform.localPosition.y;
+        screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+
+        offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+        isDragging = true;
+        selectObject();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -113,10 +164,16 @@ public class TimeUnite : MonoBehaviour
                     {
                         if (hitInfo.transform.gameObject == this.gameObject)
                         {
-                            Debug.Log(hitInfo.transform.gameObject);
-
-                            selectObject();
+                            onDrag();
                         }
+                    }
+                }
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    if (gameObject == player.selectedObject)
+                    {
+                        endDrag();
                     }
                 }
             }
@@ -142,6 +199,11 @@ public class TimeUnite : MonoBehaviour
         if (this.health <= 0)
         {
             unitAnimator.SetTrigger("Kill");
+        }
+
+        if (player && isDragging)
+        {
+            DragObject();
         }
         if (isInShop)
             if (isFreeze)
@@ -294,6 +356,7 @@ public class TimeUnite : MonoBehaviour
                     projectile.GetComponent<Projectiles>().target = unite;
                     projectile.GetComponent<Projectiles>().damages = damageSpell;
                     projectile.GetComponent<Projectiles>().timeBeginMoving = Time.time;
+                    projectile.GetComponent<Projectiles>().beginPos = this.transform.position;
                 }
                 break;
             case Effects.Forward:
@@ -348,9 +411,9 @@ public class TimeUnite : MonoBehaviour
         }
         foreach (GameObject slot in player.boardSlotList)
         {
-            if (slot.GetComponent<boardController>().monsterInSlot && slot.GetComponent<boardController>().Order > countUnit-1)
+            if (slot.GetComponent<boardController>().monsterInSlot && slot.GetComponent<boardController>().Order > countUnit - 1)
             {
-                Debug.Log("number of unit = " +countUnit +"et board ="+ slot.GetComponent<boardController>().Order);
+                Debug.Log("number of unit = " + countUnit + "et board =" + slot.GetComponent<boardController>().Order);
                 player.launchMoveunite = true;
                 player.beginMoving = true;
             }

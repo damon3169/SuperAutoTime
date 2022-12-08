@@ -20,7 +20,7 @@ public class boardController : MonoBehaviour
         {
             if (player.isShopPhaseLocal)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonUp(0))
                 {
                     RaycastHit hitInfo = new RaycastHit();
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
@@ -46,6 +46,7 @@ public class boardController : MonoBehaviour
                                         monsterInSlot.transform.parent = this.transform;
                                         monsterInSlot.isInShop = false;
                                         monsterInSlot.player = player;
+                                        monsterInSlot.endDrag();
                                         player.removeSelectedObject();
                                         player.addNewUniteInBoard(Order, monsterInSlot);
                                     }
@@ -65,6 +66,7 @@ public class boardController : MonoBehaviour
                                         monsterInSlot.transform.parent = this.transform;
                                         monsterInSlot.isInShop = false;
                                         monsterInSlot.player = player;
+                                        monsterInSlot.endDrag();
                                         player.removeSelectedObject();
                                         player.addNewUniteInBoard(Order, monsterInSlot);
                                     }
@@ -94,11 +96,11 @@ public class boardController : MonoBehaviour
                                         else
                                         {
                                             Debug.Log("swap");
-                                            Vector3 pos = monsterInSlot.transform.position;
+                                            Vector3 pos = monsterInSlot.boardFather.transform.position;
                                             TimeUnite thisMonster = monsterInSlot;
                                             boardController previousBoard = player.selectedObject.GetComponent<TimeUnite>().boardFather;
                                             //Swap position
-                                            monsterInSlot.transform.position = player.selectedObject.transform.position;
+                                            monsterInSlot.transform.position = player.selectedObject.GetComponent<TimeUnite>().boardFather.transform.position;
                                             player.selectedObject.transform.position = pos;
                                             //Add unite in boardsyncList
                                             player.addNewUniteInBoard(previousBoard.Order, monsterInSlot);
@@ -112,6 +114,7 @@ public class boardController : MonoBehaviour
                                             //Swap PARENT
                                             thisMonster.transform.parent = thisMonster.boardFather.transform;
                                             monsterInSlot.transform.parent = this.transform;
+                                            monsterInSlot.endDrag();
                                             //Unselect Unite
                                             player.removeSelectedObject();
                                         }
@@ -138,16 +141,25 @@ public class boardController : MonoBehaviour
                                 }
 
                             }
-                            else if (monsterInSlot != null)
-                            {
-                                monsterInSlot.selectObject();
-                            }
                         }
                     }
                 }
+                if (Input.GetMouseButtonDown(0))
+                {
+                    RaycastHit hitInfo = new RaycastHit();
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
+                    {
+                        if (hitInfo.transform.gameObject == this.gameObject)
+                        {
+                            if (monsterInSlot != null)
+                            {
+                                monsterInSlot.onDrag();
+                            }
+                        }
+                    }
+
+                }
             }
-
-
         }
         else if (GameObject.FindGameObjectWithTag("Player") && player == null)
         {

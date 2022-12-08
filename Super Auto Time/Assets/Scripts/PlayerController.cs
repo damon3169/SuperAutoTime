@@ -447,22 +447,22 @@ public class PlayerController : NetworkBehaviour
         selectedObject = null;
     }
 
-    public bool moveUniteTo(GameObject uniteToMove, Vector3 destination)
+    public bool moveUniteTo(Vector3 beginPos,GameObject uniteToMove, Vector3 destination)
     {
         // The center of the arc
-        Vector3 center = (uniteToMove.transform.position + destination) * 0.5F;
+        Vector3 center = (beginPos + destination) * 0.5F;
 
         // move the center a bit downwards to make the arc vertical
         center -= new Vector3(0, 1, 0);
 
         // Interpolate over the arc relative to center
-        Vector3 riseRelCenter = uniteToMove.transform.position - center;
+        Vector3 riseRelCenter = beginPos - center;
         Vector3 setRelCenter = destination - center;
 
         // The fraction of the animation that has happened so far is
         // equal to the elapsed time divided by the desired time for
         // the total journey.
-        float fracComplete = (Time.time - timeBeginMoving) / 3f;
+        float fracComplete = (Time.time - timeBeginMoving) / 0.5f;
 
         uniteToMove.transform.position = Vector3.Slerp(riseRelCenter, setRelCenter, fracComplete);
         uniteToMove.transform.position += center;
@@ -489,7 +489,7 @@ public class PlayerController : NetworkBehaviour
                 {
                     asChange = false;
                     unitMoving = true;
-                    asChange = moveUniteTo(uniteList[i].gameObject, boardSlotList[i].transform.position);
+                    asChange = moveUniteTo(uniteList[i].boardFather.transform.position,uniteList[i].gameObject, boardSlotList[i].transform.position);
                     if (asChange)
                     {
                         ready = false;
