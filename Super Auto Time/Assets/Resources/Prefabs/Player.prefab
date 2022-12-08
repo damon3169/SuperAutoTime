@@ -68,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  playerLevelXP: 500000008c000000f0000000
+  playerLevelXP: 64000000a000000004010000
   playerXP: 0
   playerMaxLevel: 4
   XPPerRound: 10

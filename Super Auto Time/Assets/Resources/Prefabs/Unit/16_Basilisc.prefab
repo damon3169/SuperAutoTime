@@ -132,9 +132,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 16_Basilisc
-  health: 5
-  damages: 5
-  description: On death give +5/+5 to the ally behind
+  health: 4
+  damages: 4
+  description: On death give +4/+4 to the ally behind
   level: 2
   cost: 15
   triggerList: 6
@@ -144,8 +144,8 @@ MonoBehaviour:
   EnnemiNumber: 
   effectList: 0
   damageSpell: 0
-  damagesBonus: 5
-  healthBonus: 5
+  damagesBonus: 4
+  healthBonus: 4
   forwardDuration: 0
   shopDurationBonus: 0
   InPlaceForFight: 0
