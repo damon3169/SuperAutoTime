@@ -284,6 +284,7 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
+            GameObject.FindGameObjectWithTag("PVOtherPlayer").GetComponent<TMP_Text>().text = life.ToString();
 
             if (otherPlayer.isBattlePhaseLocal)
             {
