@@ -333,7 +333,6 @@ public class TimeUnite : MonoBehaviour
                     {
                         cible.Add(otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot);
                         otherPlayer.randomSelected = y + 1;
-                        Debug.Log(otherPlayer.boardSlotList[otherPlayer.listRandom[y]]);
                         break;
                     }
                 }
@@ -413,7 +412,6 @@ public class TimeUnite : MonoBehaviour
         {
             if (slot.GetComponent<boardController>().monsterInSlot && slot.GetComponent<boardController>().Order > countUnit - 1)
             {
-                Debug.Log("number of unit = " + countUnit + "et board =" + slot.GetComponent<boardController>().Order);
                 player.launchMoveunite = true;
                 player.beginMoving = true;
             }

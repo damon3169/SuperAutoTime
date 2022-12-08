@@ -32,7 +32,6 @@ public class Projectiles : MonoBehaviour
             this.transform.position = Vector3.Slerp(riseRelCenter, setRelCenter, fracComplete);
             this.transform.position += center;
             // Do something when we reach the target
-            Debug.Log(fracComplete);
             if (this.transform.position == target.transform.position)
             {
                 target.takeDamages(damages);

@@ -202,7 +202,7 @@ public class BattleController : MonoBehaviour
             Time.timeScale = 5f;
             yield return new WaitForSeconds(Timeforward);
         }
-        Time.timeScale = 0.9f;
+        Time.timeScale =1f;
         forwardTime = false;
         isHiting = false;
         yield break;

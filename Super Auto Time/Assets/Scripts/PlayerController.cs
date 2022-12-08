@@ -89,7 +89,7 @@ public class PlayerController : NetworkBehaviour
     // Start is called before the first frame update
     public override void OnStartClient()
     {
-        Time.timeScale = 0.9f;
+        Time.timeScale = 1f;
         shopPhaseDuration = baseShopDuration;
         if (isLocalPlayer)
         {
@@ -166,8 +166,8 @@ public class PlayerController : NetworkBehaviour
         {
             if (playerXP >= playerLevelXP[playerCurrentLevel - 1])
             {
+                playerXP = playerXP - playerLevelXP[playerCurrentLevel - 1];
                 playerCurrentLevel += 1;
-                playerXP = 0;
             }
         }
 
@@ -448,7 +448,7 @@ public class PlayerController : NetworkBehaviour
         selectedObject = null;
     }
 
-    public bool moveUniteTo(Vector3 beginPos,GameObject uniteToMove, Vector3 destination)
+    public bool moveUniteTo(Vector3 beginPos, GameObject uniteToMove, Vector3 destination)
     {
         // The center of the arc
         Vector3 center = (beginPos + destination) * 0.5F;
@@ -490,7 +490,7 @@ public class PlayerController : NetworkBehaviour
                 {
                     asChange = false;
                     unitMoving = true;
-                    asChange = moveUniteTo(uniteList[i].boardFather.transform.position,uniteList[i].gameObject, boardSlotList[i].transform.position);
+                    asChange = moveUniteTo(uniteList[i].boardFather.transform.position, uniteList[i].gameObject, boardSlotList[i].transform.position);
                     if (asChange)
                     {
                         ready = false;
