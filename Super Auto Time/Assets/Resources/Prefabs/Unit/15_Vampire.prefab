@@ -132,18 +132,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 15_Vampire
-  health: 10
-  damages: 10
-  description: On attack deal 10 dmg to the ally behind
+  health: 9
+  damages: 9
+  description: On attack deal 9 dmg to the ally behind
   level: 2
-  cost: 10
+  cost: 15
   triggerList: 8
   timeEffect: 
   targetList: 2
   AllyNumber: 01000000
   EnnemiNumber: 
   effectList: 3
-  damageSpell: 10
+  damageSpell: 9
   damagesBonus: 0
   healthBonus: 0
   forwardDuration: 0
