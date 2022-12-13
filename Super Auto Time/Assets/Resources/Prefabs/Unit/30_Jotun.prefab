@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 30_Jotun
-  health: 8
+  health: 17
   damages: 1
   description: On 9, deal 99 dmg on a random ennemy
   level: 4
