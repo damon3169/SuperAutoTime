@@ -8,7 +8,6 @@ public class BattleController : MonoBehaviour
     public PlayerController playerLocal;
     public PlayerController playerDist;
     IEnumerator fightCorout;
-    public bool isHiting = false;
     public bool BeginOfFightEffectLaunched = false;
     public List<TimeUnite> uniteWithBeginEffect;
     public List<TimeUnite> uniteWith1sEffect;
@@ -24,7 +23,7 @@ public class BattleController : MonoBehaviour
 
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (playerLocal != null && playerDist != null)
         {
@@ -35,7 +34,7 @@ public class BattleController : MonoBehaviour
                     playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
                 }
             }
-            if (playerLocal.isBattlePhaseLocal && playerDist.isBattlePhaseOnline &&
+            if (
             playerDist.canLaunchTimerFight && playerLocal.canLaunchTimerFight &&
             playerLocal.fightingUnite && playerDist.fightingUnite &&
                     !playerDist.launchMoveunite && !playerLocal.launchMoveunite)
@@ -89,30 +88,18 @@ public class BattleController : MonoBehaviour
                     }
                     if (is1sTimer == false)
                     {
-                        start10STimer = Time.time - totalTime;
+                        //start10STimer = Time.time - totalTime;
                         is1sTimer = true;
                         spell1SCorout = on1sSpellTimer();
                         StartCoroutine(spell1SCorout);
                     }
-                    if (!forwardTime)
-                    {//Launch Timer fight
-                        if (isHiting == false)
-                        {
-                            isHiting = true;
-                            fightCorout = onCoroutine();
-                            StartCoroutine(fightCorout);
-                        }
-                    }
+
                 }
             }
 
             else
             {
-                if (isHiting)
-                {
-                    StopCoroutine(fightCorout);
-                }
-                isHiting = false;
+
                 if (is1sTimer)
                 {
                     StopCoroutine(spell1SCorout);
@@ -138,14 +125,14 @@ public class BattleController : MonoBehaviour
 
         }
     }
-    IEnumerator onCoroutine()
+    /*IEnumerator onCoroutine()
     {
         while (isHiting)
         {
 
             yield return new WaitForSeconds(1f);
         }
-    }
+    }*/
 
     IEnumerator on1sSpellTimer()
     {
@@ -159,7 +146,7 @@ public class BattleController : MonoBehaviour
             foreach (TimeUnite unite in unitWithEveryXsEffect)
             {
                 foreach (int timeForEffect in unite.timeEffect)
-                    if (((int)(Time.time - start10STimer)) == timeForEffect)
+                    if (totalTime == timeForEffect)
                     {
                         unite.launchEffect();
                     }
@@ -180,12 +167,11 @@ public class BattleController : MonoBehaviour
                 playerLocal.fightingUnite.launchHitAnimation();
             }
 
-            if (Time.time - start10STimer < 10)
-                timerDisplay.text = (Time.time - start10STimer).ToString().Substring(0, 1);
+            timerDisplay.text = totalTime.ToString();
             totalTime += 1;
             if (totalTime > 9)
             {
-                start10STimer += 10;
+                //start10STimer += 10;
                 totalTime = 0;
             }
 
@@ -198,13 +184,12 @@ public class BattleController : MonoBehaviour
         while (Time.time - startTime < Timeforward)
         {
             forwardTime = true;
-            StopCoroutine(fightCorout);
+            //StopCoroutine(fightCorout);
             Time.timeScale = 5f;
             yield return new WaitForSeconds(Timeforward);
         }
-        Time.timeScale =1f;
+        Time.timeScale = 1f;
         forwardTime = false;
-        isHiting = false;
         yield break;
     }
 

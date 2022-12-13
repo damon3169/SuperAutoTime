@@ -215,9 +215,11 @@ public class PlayerController : NetworkBehaviour
                         }
                     }
                     else
-                    if (player.GetComponent<PlayerController>().isShopPhaseOnline)
                     {
-                        isReadyToBattle = false;
+                        if (player.GetComponent<PlayerController>().isBattlePhaseOnline || player.GetComponent<PlayerController>().isShopPhaseOnline)
+                        {
+                            isReadyToBattle = false;
+                        }
                     }
                 }
                 if (isReadyToBattle)
@@ -571,7 +573,7 @@ public class PlayerController : NetworkBehaviour
     public void sendRandomList()
     {
         listRandom.Clear();
-        for (int i = 0; i < 120; i++)
+        for (int i = 0; i < 1000; i++)
         {
             listRandom.Add(Random.Range(0, 5));
         }
@@ -603,7 +605,6 @@ public class PlayerController : NetworkBehaviour
     public void resetShop()
     {
         //Set battlephase to false locally and online
-        setBattlePhaseFromOutside(false);
         shopPhaseDuration = baseShopDuration;
         if (getNumberUnits() == 0 && otherPlayer.getNumberUnits() != 0)
         {
@@ -669,6 +670,7 @@ public class PlayerController : NetworkBehaviour
         setShopPhaseLocal(true);
         playerXP += XPPerRound;
         this.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", false);
+        setBattlePhaseFromOutside(false);
     }
 
     public void addXPToPlayer(int XP)

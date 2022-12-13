@@ -237,6 +237,10 @@ public class TimeUnite : MonoBehaviour
         {
             StartCoroutine(wait1FrameThenLaunchEffect());
         }
+        if (this.health <= 0)
+        {
+            unitAnimator.SetTrigger("Kill");
+        }
     }
 
     IEnumerator wait1FrameThenLaunchEffect()
