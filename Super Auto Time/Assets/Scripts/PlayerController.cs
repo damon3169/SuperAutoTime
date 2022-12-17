@@ -226,7 +226,6 @@ public class PlayerController : NetworkBehaviour
                 {
                     Debug.Log("GOD C'ETAIT TROP CHIANT MAIS CA MARCHE ENFIN PUTAIN");
                     removeSelectedObject();
-                    setBattlePhaseFromOutside(true);
                     //SWITCH SCENE HERE
                     boardAnimator.GetComponent<Animator>().SetBool("CombatStart", true);
                     boardAnimator.GetComponent<Animator>().SetBool("ShopStart", false);

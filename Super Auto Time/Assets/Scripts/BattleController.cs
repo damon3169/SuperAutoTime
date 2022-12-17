@@ -20,8 +20,12 @@ public class BattleController : MonoBehaviour
     public int totalTime = 0;
     IEnumerator forwardCorout;
     bool forwardTime = false;
+    public GameObject arrow;
 
-
+    private void Start()
+    {
+        arrow = GameObject.FindGameObjectWithTag("Arrow");
+    }
     // Update is called once per frame
     void Update()
     {
@@ -168,11 +172,13 @@ public class BattleController : MonoBehaviour
             }
 
             timerDisplay.text = totalTime.ToString();
+            arrow.transform.eulerAngles = new Vector3(0, 0, arrow.transform.eulerAngles.z - 20);
             totalTime += 1;
             if (totalTime > 9)
             {
                 //start10STimer += 10;
                 totalTime = 0;
+                arrow.transform.eulerAngles = new Vector3(0, 0, 80);
             }
 
             yield return new WaitForSeconds(1f);

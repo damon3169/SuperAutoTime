@@ -18,6 +18,7 @@ TagManager:
   - Unit
   - PV
   - PVOtherPlayer
+  - Arrow
   layers:
   - Default
   - TransparentFX
