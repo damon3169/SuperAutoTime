@@ -8,7 +8,6 @@ public class BattleController : MonoBehaviour
     public PlayerController playerLocal;
     public PlayerController playerDist;
     IEnumerator fightCorout;
-    public bool isHiting = false;
     public bool BeginOfFightEffectLaunched = false;
     public List<TimeUnite> uniteWithBeginEffect;
     public List<TimeUnite> uniteWith1sEffect;
@@ -21,10 +20,14 @@ public class BattleController : MonoBehaviour
     public int totalTime = 0;
     IEnumerator forwardCorout;
     bool forwardTime = false;
+    public GameObject arrow;
 
-
+    private void Start()
+    {
+        arrow = GameObject.FindGameObjectWithTag("Arrow");
+    }
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (playerLocal != null && playerDist != null)
         {
@@ -35,7 +38,7 @@ public class BattleController : MonoBehaviour
                     playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
                 }
             }
-            if (playerLocal.isBattlePhaseLocal && playerDist.isBattlePhaseOnline &&
+            if (
             playerDist.canLaunchTimerFight && playerLocal.canLaunchTimerFight &&
             playerLocal.fightingUnite && playerDist.fightingUnite &&
                     !playerDist.launchMoveunite && !playerLocal.launchMoveunite)
@@ -89,30 +92,18 @@ public class BattleController : MonoBehaviour
                     }
                     if (is1sTimer == false)
                     {
-                        start10STimer = Time.time - totalTime;
+                        //start10STimer = Time.time - totalTime;
                         is1sTimer = true;
                         spell1SCorout = on1sSpellTimer();
                         StartCoroutine(spell1SCorout);
                     }
-                    if (!forwardTime)
-                    {
-                        if (isHiting == false)
-                        {
-                            isHiting = true;
-                            fightCorout = onCoroutine();
-                            StartCoroutine(fightCorout);
-                        }
-                    }
+
                 }
             }
 
             else
             {
-                if (isHiting)
-                {
-                    StopCoroutine(fightCorout);
-                }
-                isHiting = false;
+
                 if (is1sTimer)
                 {
                     StopCoroutine(spell1SCorout);
@@ -138,26 +129,14 @@ public class BattleController : MonoBehaviour
 
         }
     }
-    IEnumerator onCoroutine()
+    /*IEnumerator onCoroutine()
     {
         while (isHiting)
         {
-            if (playerDist.fightingUnite && playerLocal.fightingUnite)
-            {
-                playerDist.fightingUnite.launchHitAnimation();
-                playerLocal.fightingUnite.launchHitAnimation();
-                if (playerDist.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
-                {
-                    playerDist.fightingUnite.launchEffect();
-                }
-                if (playerLocal.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
-                {
-                    playerLocal.fightingUnite.launchEffect();
-                }
-            }
+
             yield return new WaitForSeconds(1f);
         }
-    }
+    }*/
 
     IEnumerator on1sSpellTimer()
     {
@@ -168,23 +147,40 @@ public class BattleController : MonoBehaviour
                 {
                     unite.launchEffect();
                 }
-
-            if (Time.time - start10STimer < 10)
-                timerDisplay.text = (Time.time - start10STimer).ToString().Substring(0, 1);
-            totalTime += 1;
-            if (totalTime > 9)
-            {
-                start10STimer += 10;
-                totalTime = 0;
-            }
             foreach (TimeUnite unite in unitWithEveryXsEffect)
             {
                 foreach (int timeForEffect in unite.timeEffect)
-                    if (((int)(Time.time - start10STimer)) == timeForEffect)
+                    if (totalTime == timeForEffect)
                     {
                         unite.launchEffect();
                     }
             }
+            if (playerDist.fightingUnite && playerDist.fightingUnite.health > 0 && playerLocal.fightingUnite && playerLocal.fightingUnite.health > 0 && !forwardTime)
+            {
+                if (playerDist.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
+                {
+                    playerDist.fightingUnite.launchEffect();
+
+                }
+                if (playerLocal.fightingUnite.triggerList == TimeUnite.Triggers.onAttack)
+                {
+                    playerLocal.fightingUnite.launchEffect();
+
+                }
+                playerDist.fightingUnite.launchHitAnimation();
+                playerLocal.fightingUnite.launchHitAnimation();
+            }
+
+            timerDisplay.text = totalTime.ToString();
+            arrow.transform.eulerAngles = new Vector3(0, 0, arrow.transform.eulerAngles.z - 20);
+            totalTime += 1;
+            if (totalTime > 9)
+            {
+                //start10STimer += 10;
+                totalTime = 0;
+                arrow.transform.eulerAngles = new Vector3(0, 0, 80);
+            }
+
             yield return new WaitForSeconds(1f);
         }
     }
@@ -194,13 +190,12 @@ public class BattleController : MonoBehaviour
         while (Time.time - startTime < Timeforward)
         {
             forwardTime = true;
-            StopCoroutine(fightCorout);
+            //StopCoroutine(fightCorout);
             Time.timeScale = 5f;
             yield return new WaitForSeconds(Timeforward);
         }
-        Time.timeScale = 0.9f;
+        Time.timeScale = 1f;
         forwardTime = false;
-        isHiting = false;
         yield break;
     }
 

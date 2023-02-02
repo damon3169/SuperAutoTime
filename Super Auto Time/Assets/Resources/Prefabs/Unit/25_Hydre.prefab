@@ -132,18 +132,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameUnite: 25_Hydre
-  health: 9
-  damages: 2
-  description: On 2 and 5, deal 1 dmg to all characters
+  health: 14
+  damages: 14
+  description: On 2 and 5, deal 2 dmg to all characters
   level: 3
-  cost: 25
+  cost: 15
   triggerList: 5
   timeEffect: 0200000005000000
   targetList: 1
   AllyNumber: 
   EnnemiNumber: 
   effectList: 3
-  damageSpell: 1
+  damageSpell: 2
   damagesBonus: 0
   healthBonus: 0
   forwardDuration: 0
@@ -233,15 +233,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
       propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-      propertyPath: m_Color.g
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-      propertyPath: m_Color.r
+      propertyPath: m_Color.g
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
       propertyPath: m_SortingOrder

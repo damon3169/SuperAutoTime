@@ -89,14 +89,65 @@ public class TimeUnite : MonoBehaviour
     public SpriteRenderer mainSprite;
     private Animator unitAnimator;
     public TMP_Text nameDisplay;
-
+    private bool isDragging;
+    private float startXPos;
+    private float startYPos;
+    private Vector3 screenPoint;
+    private Vector3 offset;
     public bool isFreeze = false;
+    private Camera mainCamera;
     private void Start()
     {
         battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>();
         nameDisplay.text = this.nameUnite;
         unitAnimator = transform.GetChild(1).GetComponent<Animator>();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
+
+    public void endDrag()
+    {
+        isDragging = false;
+        player.removeSelectedObject();
+        if (isInShop)
+        {
+            this.transform.position = this.transform.parent.position;
+        }
+        else
+        {
+            this.transform.position = this.boardFather.transform.position;
+        }
+
+    }
+
+    public void DragObject()
+    {
+        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+
+        Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+        transform.position = curPosition;
+    }
+
+    public void onDrag()
+    {
+
+        Vector3 mousePos = Input.mousePosition;
+
+        if (!mainCamera.orthographic)
+        {
+            mousePos.z = 10;
+        }
+
+        mousePos = mainCamera.ScreenToWorldPoint(mousePos);
+
+        startXPos = mousePos.x - transform.localPosition.x;
+        startYPos = mousePos.y - transform.localPosition.y;
+        screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+
+        offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+        isDragging = true;
+        selectObject();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -113,10 +164,16 @@ public class TimeUnite : MonoBehaviour
                     {
                         if (hitInfo.transform.gameObject == this.gameObject)
                         {
-                            Debug.Log(hitInfo.transform.gameObject);
-
-                            selectObject();
+                            onDrag();
                         }
+                    }
+                }
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    if (gameObject == player.selectedObject)
+                    {
+                        endDrag();
                     }
                 }
             }
@@ -143,6 +200,11 @@ public class TimeUnite : MonoBehaviour
         {
             unitAnimator.SetTrigger("Kill");
         }
+
+        if (player && isDragging)
+        {
+            DragObject();
+        }
         if (isInShop)
             if (isFreeze)
             {
@@ -166,11 +228,27 @@ public class TimeUnite : MonoBehaviour
     {
         damageParticle.Play();
         health -= damages;
+        GameObject damageText;
+        damageText = Instantiate(Resources.Load<GameObject>("Prefabs/DamageText"));
+        damageText.GetComponent<DamagesDisplay>().setDamageText(damages);
+        damageText.transform.SetParent(gameObject.transform, false);
+        damageText.transform.localPosition = new Vector3(0, 1.85f, 0);
         if (triggerList == Triggers.onDamage && health > 0)
         {
-            launchEffect();
+            StartCoroutine(wait1FrameThenLaunchEffect());
+        }
+        if (this.health <= 0)
+        {
+            unitAnimator.SetTrigger("Kill");
         }
     }
+
+    IEnumerator wait1FrameThenLaunchEffect()
+    {
+        yield return 0;
+        launchEffect();
+    }
+
 
     public bool launchBeginOfFightEffect()
     {
@@ -196,6 +274,7 @@ public class TimeUnite : MonoBehaviour
 
     public void launchEffect()
     {
+
         List<TimeUnite> cible = new List<TimeUnite>();
         switch (targetList)
         {
@@ -205,14 +284,14 @@ public class TimeUnite : MonoBehaviour
             case Targets.All:
                 foreach (GameObject slot in player.boardSlotList)
                 {
-                    if (slot.GetComponent<boardController>().monsterInSlot)
+                    if (slot.GetComponent<boardController>().monsterInSlot && slot.GetComponent<boardController>().monsterInSlot.health > 0)
                     {
                         cible.Add(slot.GetComponent<boardController>().monsterInSlot);
                     }
                 }
                 foreach (GameObject slot in otherPlayer.boardSlotList)
                 {
-                    if (slot.GetComponent<boardController>().monsterInSlot)
+                    if (slot.GetComponent<boardController>().monsterInSlot && slot.GetComponent<boardController>().monsterInSlot.health > 0)
                     {
                         cible.Add(slot.GetComponent<boardController>().monsterInSlot);
                     }
@@ -224,7 +303,7 @@ public class TimeUnite : MonoBehaviour
                     if (slot.GetComponent<boardController>().monsterInSlot)
                     {
                         foreach (int allyPos in AllyNumber)
-                            if (allyPos == slot.GetComponent<boardController>().monsterInSlot.positionInBoard)
+                            if (allyPos == slot.GetComponent<boardController>().monsterInSlot.positionInBoard && slot.GetComponent<boardController>().monsterInSlot.health > 0)
                                 cible.Add(slot.GetComponent<boardController>().monsterInSlot);
                     }
                 }
@@ -235,7 +314,7 @@ public class TimeUnite : MonoBehaviour
                     if (slot.GetComponent<boardController>().monsterInSlot)
                     {
                         foreach (int enemyPos in AllyNumber)
-                            if (enemyPos == slot.GetComponent<boardController>().monsterInSlot.positionInBoard)
+                            if (enemyPos == slot.GetComponent<boardController>().monsterInSlot.positionInBoard && slot.GetComponent<boardController>().monsterInSlot.health > 0)
                                 cible.Add(slot.GetComponent<boardController>().monsterInSlot);
                     }
                 }
@@ -243,7 +322,7 @@ public class TimeUnite : MonoBehaviour
             case Targets.randomAlly:
                 for (int y = player.randomSelected; y < player.listRandom.Count; y++)
                 {
-                    if (player.boardSlotList[player.listRandom[y]].GetComponent<boardController>().monsterInSlot)
+                    if (player.boardSlotList[player.listRandom[y]].GetComponent<boardController>().monsterInSlot && player.boardSlotList[player.listRandom[y]].GetComponent<boardController>().monsterInSlot.health > 0)
                     {
                         cible.Add(player.boardSlotList[player.listRandom[y]].GetComponent<boardController>().monsterInSlot);
                         player.randomSelected = y + 1;
@@ -254,7 +333,7 @@ public class TimeUnite : MonoBehaviour
             case Targets.randomEnnemi:
                 for (int y = otherPlayer.randomSelected; y < otherPlayer.listRandom.Count; y++)
                 {
-                    if (otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot)
+                    if (otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot && otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot.health > 0)
                     {
                         cible.Add(otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot);
                         otherPlayer.randomSelected = y + 1;
@@ -263,6 +342,7 @@ public class TimeUnite : MonoBehaviour
                 }
                 break;
         }
+
         switch (effectList)
         {
             case Effects.GainDamageAndHealth:
@@ -279,6 +359,7 @@ public class TimeUnite : MonoBehaviour
                     projectile.GetComponent<Projectiles>().target = unite;
                     projectile.GetComponent<Projectiles>().damages = damageSpell;
                     projectile.GetComponent<Projectiles>().timeBeginMoving = Time.time;
+                    projectile.GetComponent<Projectiles>().beginPos = this.transform.position;
                 }
                 break;
             case Effects.Forward:
@@ -314,6 +395,7 @@ public class TimeUnite : MonoBehaviour
     public void killUnit()
     {
         player.boardSlotList[this.positionInBoard].GetComponent<boardController>().monsterInSlot = null;
+
         if (this.triggerList == Triggers.OnDeath)
         {
             launchEffect();
@@ -322,8 +404,23 @@ public class TimeUnite : MonoBehaviour
         {
             player.fightingUnite = null;
         }
-        player.launchMoveunite = true;
-        player.beginMoving = true;
+        int countUnit = 0;
+        foreach (GameObject slot in player.boardSlotList)
+        {
+            if (slot.GetComponent<boardController>().monsterInSlot)
+            {
+                countUnit++;
+            }
+        }
+        foreach (GameObject slot in player.boardSlotList)
+        {
+            if (slot.GetComponent<boardController>().monsterInSlot && slot.GetComponent<boardController>().Order > countUnit - 1)
+            {
+                player.launchMoveunite = true;
+                player.beginMoving = true;
+            }
+        }
+
         GameObject.Destroy(this.gameObject);
 
     }

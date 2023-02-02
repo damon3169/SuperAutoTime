@@ -17,6 +17,8 @@ TagManager:
   - BattleController
   - Unit
   - PV
+  - PVOtherPlayer
+  - Arrow
   layers:
   - Default
   - TransparentFX

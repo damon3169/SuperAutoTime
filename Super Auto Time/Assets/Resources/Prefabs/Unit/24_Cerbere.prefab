@@ -143,7 +143,7 @@ MonoBehaviour:
   AllyNumber: 
   EnnemiNumber: 
   effectList: 3
-  damageSpell: 4
+  damageSpell: 3
   damagesBonus: 0
   healthBonus: 0
   forwardDuration: 0
@@ -253,15 +253,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
       propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-      propertyPath: m_Color.g
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
-      propertyPath: m_Color.r
+      propertyPath: m_Color.g
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6941833005260304913, guid: 3eaf0f1f09f53124f90b5dfa11a61cf6, type: 3}
       propertyPath: m_SortingOrder
