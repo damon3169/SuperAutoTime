@@ -2101,7 +2101,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.02, y: 5.53, z: 0.2}
+  m_Size: {x: 3.02, y: 5.53, z: 10}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!136 &749724565
 CapsuleCollider:
@@ -2785,7 +2785,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.02, y: 5.53, z: 0.2}
+  m_Size: {x: 3.02, y: 5.53, z: 10}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1036255170
 GameObject:
@@ -3758,7 +3758,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.02, y: 5.53, z: 0.2}
+  m_Size: {x: 3.02, y: 5.53, z: 10}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1237300851
 GameObject:
@@ -4765,7 +4765,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.02, y: 5.53, z: 0.2}
+  m_Size: {x: 3.02, y: 5.53, z: 10}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!850595691 &1402408472
 LightingSettings:
@@ -5404,7 +5404,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.02, y: 5.53, z: 0.2}
+  m_Size: {x: 3.02, y: 5.53, z: 10}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1587283964
 GameObject:

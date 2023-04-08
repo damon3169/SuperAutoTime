@@ -50,25 +50,26 @@ public class boardController : MonoBehaviour
                                         player.removeSelectedObject();
                                         player.addNewUniteInBoard(Order, monsterInSlot);
                                     }
-
-                                    player.selectedObject.GetComponent<TimeUnite>().isFreeze = false;
-                                    player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
-                                    player.selectedObject.transform.position = this.transform.position;
-                                    monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
-                                    monsterInSlot.GetComponent<Collider>().enabled = false;
-                                    if (monsterInSlot.boardFather != null)
+                                    else
                                     {
-                                        monsterInSlot.boardFather.monsterInSlot = null;
-                                        player.addNewUniteInEmpty(monsterInSlot.boardFather.Order);
+                                        player.selectedObject.GetComponent<TimeUnite>().isFreeze = false;
+                                        player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
+                                        player.selectedObject.transform.position = this.transform.position;
+                                        monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
+                                        monsterInSlot.GetComponent<Collider>().enabled = false;
+                                        if (monsterInSlot.boardFather != null)
+                                        {
+                                            monsterInSlot.boardFather.monsterInSlot = null;
+                                            player.addNewUniteInEmpty(monsterInSlot.boardFather.Order);
+                                        }
+                                        monsterInSlot.boardFather = this;
+                                        monsterInSlot.transform.parent = this.transform;
+                                        monsterInSlot.isInShop = false;
+                                        monsterInSlot.player = player;
+                                        monsterInSlot.endDrag();
+                                        player.removeSelectedObject();
+                                        player.addNewUniteInBoard(Order, monsterInSlot);
                                     }
-                                    monsterInSlot.boardFather = this;
-                                    monsterInSlot.transform.parent = this.transform;
-                                    monsterInSlot.isInShop = false;
-                                    monsterInSlot.player = player;
-                                    monsterInSlot.endDrag();
-                                    player.removeSelectedObject();
-                                    player.addNewUniteInBoard(Order, monsterInSlot);
-
                                 }
                                 else
                                 {
@@ -120,10 +121,11 @@ public class boardController : MonoBehaviour
                                     }
                                     else if (player.selectedObject.GetComponent<TimeUnite>().nameUnite == monsterInSlot.nameUnite)
                                     {
+                                        Debug.Log("On a le meme nom");
                                         if (player.selectedObject.GetComponent<TimeUnite>().isInShop)
                                         {
+                                            Debug.Log("On passe pas ici par contre");
                                             //Combine when in shop
-
                                             monsterInSlot.health += player.selectedObject.GetComponent<TimeUnite>().health;
                                             monsterInSlot.damages += player.selectedObject.GetComponent<TimeUnite>().damages;
                                             monsterInSlot.damageSpell += player.selectedObject.GetComponent<TimeUnite>().damageSpell;
