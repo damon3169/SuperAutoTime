@@ -19,6 +19,7 @@ TagManager:
   - PV
   - PVOtherPlayer
   - Arrow
+  - PopUpTimeUnit
   layers:
   - Default
   - TransparentFX

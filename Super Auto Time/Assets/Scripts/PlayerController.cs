@@ -222,7 +222,7 @@ public class PlayerController : NetworkBehaviour
                         }
                     }
                 }
-                if (isReadyToBattle)
+                if (isReadyToBattle && !boardAnimator.GetComponent<Animator>().GetBool("CombatStart"))
                 {
                     Debug.Log("GOD C'ETAIT TROP CHIANT MAIS CA MARCHE ENFIN PUTAIN");
                     removeSelectedObject();
@@ -390,7 +390,7 @@ public class PlayerController : NetworkBehaviour
             var integer = (int)totalTime;
             yield return null;
         }
-
+        timerDisplay.text = "0";
         setShopPhaseLocal(false);
         StopCoroutine(shopPhase());
     }

@@ -96,12 +96,15 @@ public class TimeUnite : MonoBehaviour
     private Vector3 offset;
     public bool isFreeze = false;
     private Camera mainCamera;
+    private GameObject PopUp;
+    private GameObject OverUnit;
     private void Start()
     {
         battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>();
         nameDisplay.text = this.nameUnite;
         unitAnimator = transform.GetChild(1).GetComponent<Animator>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        PopUp = GameObject.FindGameObjectWithTag("PopUpTimeUnit");
     }
 
     public void endDrag()
@@ -151,7 +154,7 @@ public class TimeUnite : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        damagesText.text = damages.ToString(); ;
+        damagesText.text = damages.ToString();
         healthText.text = health.ToString();
         if (player != null)
         {
@@ -162,7 +165,7 @@ public class TimeUnite : MonoBehaviour
                     RaycastHit hitInfo = new RaycastHit();
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
                     {
-                        if (hitInfo.transform.gameObject == this.gameObject)
+                        if (hitInfo.transform.gameObject == this.gameObject && player.moneyLeft >= this.cost)
                         {
                             onDrag();
                         }
@@ -423,5 +426,55 @@ public class TimeUnite : MonoBehaviour
 
         GameObject.Destroy(this.gameObject);
 
+    }
+    private void OnMouseOver()
+    {
+        OpenPopUp();
+    }
+    private void OnMouseExit()
+    {
+        ClosePopUp();
+    }
+
+    public void OpenPopUp()
+    {
+        var mousePos = Input.mousePosition;
+        if (OverUnit == null)
+        {
+            PopUp.transform.GetChild(0).gameObject.SetActive(true);
+            OverUnit = (GameObject)Instantiate(Resources.Load("Prefabs/Unit/" + nameUnite), PopUp.transform.GetChild(0), false);
+            OverUnit.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            OverUnit.GetComponent<TimeUnite>().damagesText.text = damages.ToString();
+            OverUnit.GetComponent<TimeUnite>().healthText.text = health.ToString();
+            GameObject.Destroy(OverUnit.GetComponent<TimeUnite>());
+            GameObject.Destroy(OverUnit.GetComponent<Collider>());
+            PopUp.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = this.description;
+
+
+            // Set the position of the transform to a position defined by the mouse
+            // which is zDistance units away from the screenCamera
+            PopUp.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 20));
+            PopUp.transform.position -= new Vector3(0, 10, 0);
+        }
+        else
+        {
+            PopUp.transform.position = mainCamera.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 20));
+            PopUp.transform.position -= new Vector3(0, 10, 0);
+        }
+        if (Input.GetButton("Fire1"))
+        {
+            ClosePopUp();
+        }
+    }
+
+
+
+    public void ClosePopUp()
+    {
+        if (OverUnit != null)
+        {
+            PopUp.transform.GetChild(0).gameObject.SetActive(false);
+            GameObject.Destroy(OverUnit.gameObject);
+        }
     }
 }

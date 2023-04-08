@@ -50,26 +50,25 @@ public class boardController : MonoBehaviour
                                         player.removeSelectedObject();
                                         player.addNewUniteInBoard(Order, monsterInSlot);
                                     }
-                                    else if (player.moneyLeft >= player.selectedObject.GetComponent<TimeUnite>().cost)
+
+                                    player.selectedObject.GetComponent<TimeUnite>().isFreeze = false;
+                                    player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
+                                    player.selectedObject.transform.position = this.transform.position;
+                                    monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
+                                    monsterInSlot.GetComponent<Collider>().enabled = false;
+                                    if (monsterInSlot.boardFather != null)
                                     {
-                                        player.selectedObject.GetComponent<TimeUnite>().isFreeze = false;
-                                        player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
-                                        player.selectedObject.transform.position = this.transform.position;
-                                        monsterInSlot = player.selectedObject.GetComponent<TimeUnite>();
-                                        monsterInSlot.GetComponent<Collider>().enabled = false;
-                                        if (monsterInSlot.boardFather != null)
-                                        {
-                                            monsterInSlot.boardFather.monsterInSlot = null;
-                                            player.addNewUniteInEmpty(monsterInSlot.boardFather.Order);
-                                        }
-                                        monsterInSlot.boardFather = this;
-                                        monsterInSlot.transform.parent = this.transform;
-                                        monsterInSlot.isInShop = false;
-                                        monsterInSlot.player = player;
-                                        monsterInSlot.endDrag();
-                                        player.removeSelectedObject();
-                                        player.addNewUniteInBoard(Order, monsterInSlot);
+                                        monsterInSlot.boardFather.monsterInSlot = null;
+                                        player.addNewUniteInEmpty(monsterInSlot.boardFather.Order);
                                     }
+                                    monsterInSlot.boardFather = this;
+                                    monsterInSlot.transform.parent = this.transform;
+                                    monsterInSlot.isInShop = false;
+                                    monsterInSlot.player = player;
+                                    monsterInSlot.endDrag();
+                                    player.removeSelectedObject();
+                                    player.addNewUniteInBoard(Order, monsterInSlot);
+
                                 }
                                 else
                                 {
@@ -87,7 +86,7 @@ public class boardController : MonoBehaviour
                                             monsterInSlot.healthBonus += player.selectedObject.GetComponent<TimeUnite>().healthBonus;
                                             //Add unite in boardsyncList
                                             player.addNewUniteInEmpty(player.selectedObject.GetComponent<TimeUnite>().boardFather.Order);
-                                            player.addNewUniteInBoard(Order, player.selectedObject.GetComponent<TimeUnite>());
+                                            player.addNewUniteInBoard(Order, monsterInSlot);
                                             player.selectedObject.GetComponent<TimeUnite>().boardFather.monsterInSlot = null;
                                             GameObject.Destroy(player.selectedObject);
                                             player.removeSelectedObject();
@@ -124,18 +123,17 @@ public class boardController : MonoBehaviour
                                         if (player.selectedObject.GetComponent<TimeUnite>().isInShop)
                                         {
                                             //Combine when in shop
-                                            if (player.moneyLeft >= player.selectedObject.GetComponent<TimeUnite>().cost)
-                                            {
-                                                monsterInSlot.health += player.selectedObject.GetComponent<TimeUnite>().health;
-                                                monsterInSlot.damages += player.selectedObject.GetComponent<TimeUnite>().damages;
-                                                monsterInSlot.damageSpell += player.selectedObject.GetComponent<TimeUnite>().damageSpell;
-                                                monsterInSlot.damagesBonus += player.selectedObject.GetComponent<TimeUnite>().damagesBonus;
-                                                monsterInSlot.healthBonus += player.selectedObject.GetComponent<TimeUnite>().healthBonus;
-                                                player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
-                                                player.addNewUniteInBoard(Order, monsterInSlot);
-                                                GameObject.Destroy(player.selectedObject);
-                                                player.removeSelectedObject();
-                                            }
+
+                                            monsterInSlot.health += player.selectedObject.GetComponent<TimeUnite>().health;
+                                            monsterInSlot.damages += player.selectedObject.GetComponent<TimeUnite>().damages;
+                                            monsterInSlot.damageSpell += player.selectedObject.GetComponent<TimeUnite>().damageSpell;
+                                            monsterInSlot.damagesBonus += player.selectedObject.GetComponent<TimeUnite>().damagesBonus;
+                                            monsterInSlot.healthBonus += player.selectedObject.GetComponent<TimeUnite>().healthBonus;
+                                            player.totalTime += player.selectedObject.GetComponent<TimeUnite>().cost;
+                                            player.addNewUniteInBoard(Order, monsterInSlot);
+                                            GameObject.Destroy(player.selectedObject);
+                                            player.removeSelectedObject();
+
                                         }
                                     }
                                 }
@@ -171,5 +169,17 @@ public class boardController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnMouseOver()
+    {
+        if (monsterInSlot)
+            monsterInSlot.OpenPopUp();
+    }
+
+    private void OnMouseExit()
+    {
+        if (monsterInSlot)
+            monsterInSlot.ClosePopUp();
     }
 }

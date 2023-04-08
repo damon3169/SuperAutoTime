@@ -36,6 +36,7 @@ public class BattleController : MonoBehaviour
                 if (playerDist.getNumberUnits() == 0 || playerLocal.getNumberUnits() == 0)
                 {
                     playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
+                    Time.timeScale = 1f;
                 }
             }
             if (

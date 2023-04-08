@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 public class ButtonController : MonoBehaviour
 {
     private PlayerController player;
@@ -23,6 +24,13 @@ public class ButtonController : MonoBehaviour
                 }
             }
         }
+        else{
+             if (this.name == "End Turn Button")
+        {
+            this.transform.GetChild(0).GetComponent<TMP_Text>().text = "end turn and add "+(int)player.moneyLeft+" XP";
+        }
+        }
+       
     }
 
 
