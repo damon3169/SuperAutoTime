@@ -43,8 +43,8 @@ public class TimeUnite : MonoBehaviour
         Ally,
         Ennemie,
         randomAlly,
-        behind,
-        randomEnnemi
+        randomEnnemi,
+        behind
     };
 
     [Header("Select the trigger")]
@@ -196,6 +196,7 @@ public class TimeUnite : MonoBehaviour
                         else
                         {
                             otherPlayer = player.GetComponent<PlayerController>();
+                            Debug.Log(otherPlayer.name);
                         }
                     }
                 }

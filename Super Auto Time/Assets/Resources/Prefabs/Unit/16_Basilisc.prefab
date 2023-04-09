@@ -139,7 +139,7 @@ MonoBehaviour:
   cost: 15
   triggerList: 6
   timeEffect: 
-  targetList: 5
+  targetList: 6
   AllyNumber: 01000000
   EnnemiNumber: 
   effectList: 0
