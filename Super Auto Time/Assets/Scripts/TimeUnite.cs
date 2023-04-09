@@ -43,6 +43,7 @@ public class TimeUnite : MonoBehaviour
         Ally,
         Ennemie,
         randomAlly,
+        behind,
         randomEnnemi
     };
 
@@ -341,6 +342,19 @@ public class TimeUnite : MonoBehaviour
                         cible.Add(otherPlayer.boardSlotList[otherPlayer.listRandom[y]].GetComponent<boardController>().monsterInSlot);
                         otherPlayer.randomSelected = y + 1;
                         break;
+                    }
+                }
+                break;
+            case Targets.behind:
+                foreach (GameObject slot in player.boardSlotList)
+                {
+                    if (slot.GetComponent<boardController>().monsterInSlot)
+                    {
+                        if (this.positionInBoard + 1 == slot.GetComponent<boardController>().monsterInSlot.positionInBoard && slot.GetComponent<boardController>().monsterInSlot.health > 0)
+                        {
+                            cible.Add(slot.GetComponent<boardController>().monsterInSlot);
+                            Debug.Log(cible[0]);
+                        }
                     }
                 }
                 break;
