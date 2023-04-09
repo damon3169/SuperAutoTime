@@ -550,7 +550,7 @@ public class PlayerController : NetworkBehaviour
             if (canLaunchTimerFight == false) canLaunchTimerFight = true;
             BattleController battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>();
             battleController.spell1SCorout =battleController.on1sSpellTimer();
-            GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>().StartCoroutine(GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleController>().spell1SCorout);
+            battleController.StartCoroutine(battleController.GetComponent<BattleController>().spell1SCorout);
             beginMoving = true;
         }
     }

@@ -441,7 +441,7 @@ public class TimeUnite : MonoBehaviour
                 player.beginMoving = true;
             }
         }
-        battleController.StopCoroutine(battleController.spell1SCorout);
+        //battleController.StopCoroutine(battleController.spell1SCorout);
         GameObject.Destroy(this.gameObject);
 
     }
