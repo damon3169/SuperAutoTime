@@ -612,8 +612,9 @@ public class PlayerController : NetworkBehaviour
         // efface les unite
         foreach (GameObject slot in GameObject.FindGameObjectsWithTag("Unit"))
         {
-            if (!slot.GetComponent<TimeUnite>().isFreeze)
-                GameObject.Destroy(slot);
+            if (slot.GetComponent<TimeUnite>())
+                if (!slot.GetComponent<TimeUnite>().isFreeze)
+                    GameObject.Destroy(slot);
         }
         //Recree les unite au bonne endroit
         int boardNumber = 0;
