@@ -318,11 +318,14 @@ public class TimeUnite : MonoBehaviour
                 {
                     if (slot.GetComponent<boardController>().monsterInSlot)
                     {
-                        foreach (int enemyPos in AllyNumber)
+                        foreach (int enemyPos in EnnemiNumber)
+                        {
                             if (enemyPos == slot.GetComponent<boardController>().monsterInSlot.positionInBoard && slot.GetComponent<boardController>().monsterInSlot.health > 0)
                                 cible.Add(slot.GetComponent<boardController>().monsterInSlot);
+                        }
                     }
                 }
+                Debug.Log(cible.Count);
                 break;
             case Targets.randomAlly:
                 for (int y = player.randomSelected; y < player.listRandom.Count; y++)
@@ -438,7 +441,7 @@ public class TimeUnite : MonoBehaviour
                 player.beginMoving = true;
             }
         }
-
+        battleController.StopCoroutine(battleController.spell1SCorout);
         GameObject.Destroy(this.gameObject);
 
     }

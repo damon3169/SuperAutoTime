@@ -14,7 +14,7 @@ public class BattleController : MonoBehaviour
     public List<TimeUnite> unitWithEveryXsEffect;
     int beginEffectUniteCounter = 0;
     bool is1sTimer = false;
-    IEnumerator spell1SCorout;
+    public IEnumerator spell1SCorout;
     private float start10STimer = 0;
     public TMP_Text timerDisplay;
     public int totalTime = 0;
@@ -141,7 +141,7 @@ public class BattleController : MonoBehaviour
         }
     }*/
 
-    IEnumerator on1sSpellTimer()
+    public IEnumerator on1sSpellTimer()
     {
         while (is1sTimer)
         {
@@ -194,7 +194,7 @@ public class BattleController : MonoBehaviour
         {
             forwardTime = true;
             //StopCoroutine(fightCorout);
-            Time.timeScale = 5f;
+            Time.timeScale = 2f;
             yield return new WaitForSeconds(Timeforward);
         }
         Time.timeScale = 1f;
