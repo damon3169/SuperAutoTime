@@ -25,6 +25,7 @@ public class BattleController : MonoBehaviour
     private void Start()
     {
         arrow = GameObject.FindGameObjectWithTag("Arrow");
+        arrow.transform.eulerAngles = new Vector3(0, 0, 80);
     }
     // Update is called once per frame
     void Update()
@@ -37,6 +38,7 @@ public class BattleController : MonoBehaviour
                 {
                     playerLocal.boardAnimator.GetComponent<Animator>().SetBool("ShopStart", true);
                     Time.timeScale = 1f;
+                    arrow.transform.eulerAngles = new Vector3(0, 0, 80);
                 }
             }
             if (
